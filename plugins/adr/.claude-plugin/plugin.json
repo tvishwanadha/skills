@@ -1,0 +1,11 @@
+{
+  "name": "adr",
+  "version": "1.0.0",
+  "description": "Architecture Decision Records - consult and manage ADRs for project design decisions",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "skills": "./skills/"
+}
