@@ -1,0 +1,12 @@
+{
+  "name": "skill-reviewer",
+  "version": "1.0.0",
+  "description": "Review SKILL.md files for quality, completeness, and best practices",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "agents": ["./agents/skill-reviewer.md"]
+}

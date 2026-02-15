@@ -12,6 +12,11 @@
       "name": "adr",
       "source": "./plugins/adr",
       "description": "Architecture Decision Records - consult and manage ADRs for project design decisions"
+    },
+    {
+      "name": "skill-reviewer",
+      "source": "./plugins/skill-reviewer",
+      "description": "Review SKILL.md files for quality, completeness, and best practices"
     }
   ]
 }
