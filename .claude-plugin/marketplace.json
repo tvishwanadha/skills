@@ -1,0 +1,11 @@
+{
+  "name": "skills",
+  "owner": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Personal collection of Claude Code skills and plugins"
+  },
+  "plugins": []
+}
