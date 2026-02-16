@@ -1,6 +1,6 @@
 # Architecture Decision Records Guide
 
-This guide provides detailed context on what ADRs are, when to create them, and best practices. Content synthesized from [adr.github.io](https://adr.github.io/).
+Background on what ADRs are, when to create them, and how to manage them over time. Content synthesized from [adr.github.io](https://adr.github.io/).
 
 ## What Are ADRs?
 
@@ -10,7 +10,7 @@ ADRs document *why* choices were made, not just what was chosen. This preserves 
 
 ## When to Create an ADR
 
-Create an ADR for **architecturally significant** decisions—those that:
+Create an ADR for **architecturally significant** decisions — those that:
 
 - Affect the structure, non-functional characteristics, dependencies, interfaces, or construction techniques of the system
 - Are hard to reverse or change later
@@ -28,18 +28,21 @@ Ask yourself:
 1. Does this decision affect the system's structure or key quality attributes?
 2. Would reversing this decision be costly or difficult?
 3. Would a new team member benefit from understanding why this choice was made?
+4. Does it involve external dependencies with unpredictable behavior?
+5. Does it have cross-cutting impact across multiple parts of the system?
+6. Is this something the team has never built before?
 
-If yes to any of these, consider an ADR.
+If yes to any of these, consider an ADR. For a full 7-criterion test, see [Ozimmer's ASR Test](https://www.ozimmer.ch/practices/2020/09/24/ASRTestECSADecisions.html).
 
 ## Template Formats
 
-### Nygard Format (Used by adrjs)
+### Nygard Format (Default)
 
 The original ADR format proposed by Michael Nygard in 2011. Simple and effective:
 
 - **Title**: Short noun phrase (e.g., "Use PostgreSQL for persistence")
-- **Status**: Proposed, Accepted, Deprecated, or Superseded
-- **Context**: The forces at play—technical, political, social, project-specific
+- **Status**: Proposed, Accepted, Deprecated, Superseded by ADR-N, or Amended by ADR-N
+- **Context**: The forces at play — technical, political, social, project-specific
 - **Decision**: The response to the forces, stated in full sentences
 - **Consequences**: The resulting context after applying the decision
 
@@ -47,7 +50,7 @@ The original ADR format proposed by Michael Nygard in 2011. Simple and effective
 
 A concise single-sentence format:
 
-> "In the context of [use case], facing [concern], we decided for [option] to achieve [quality], accepting [downside]."
+> "In the context of [use case], facing [concern], we decided for [option] and neglected [alternatives] to achieve [quality], accepting [downside]."
 
 Useful for quick capture; can be expanded into full Nygard format later.
 
@@ -60,50 +63,11 @@ An extended format that adds:
 
 More comprehensive but heavier. Nygard format is sufficient for most projects.
 
-## Best Practices
-
-### Writing Good ADRs
-
-1. **Title**: Use a noun phrase that summarizes the decision (not a question)
-   - Good: "Use gVisor for sandbox isolation"
-   - Bad: "What should we use for isolation?"
-
-2. **Context**: Describe the forces at play without bias toward any option
-   - What problem are you solving?
-   - What constraints exist?
-   - What quality attributes matter?
-
-3. **Decision**: State what you decided, not what you considered
-   - Be declarative: "We will use X"
-   - Include enough detail to be actionable
-
-4. **Consequences**: Document both positive and negative outcomes
-   - What becomes easier?
-   - What becomes harder?
-   - What new problems might arise?
-
-### Definition of Ready (START Criteria)
-
-Before finalizing an ADR, ensure it has:
-- **S**cope: Clear boundaries of what the decision covers
-- **T**radeoffs: Documented pros/cons of the chosen approach
-- **A**lternatives: Other options that were considered
-- **R**ationale: Why this option was selected
-- **T**iming: When the decision applies (now, future, conditional)
-
-### Anti-Patterns to Avoid
-
-- **Decision-free ADRs**: Describing a problem without stating a decision
-- **Option-free ADRs**: Stating a decision without showing alternatives were considered
-- **Consequence-free ADRs**: Not documenting the tradeoffs
-- **Stale ADRs**: Never updating status or creating superseding records
-- **Over-documentation**: Creating ADRs for trivial decisions
-
 ## Managing ADRs Over Time
 
 ### Immutability Principle
 
-Once an ADR is Accepted, don't modify its content—treat it as a historical record. If the decision needs to change:
+Once an ADR is Accepted, don't modify its content — treat it as a historical record. If the decision needs to change:
 - Create a new ADR that **supersedes** the old one
 - Update the old ADR's status to "Superseded by ADR-N"
 
@@ -121,6 +85,9 @@ Once an ADR is Accepted, don't modify its content—treat it as a historical rec
 
 ## Further Reading
 
+- [Writing good ADRs](writing-adrs.md) — section-by-section guidance, anti-patterns, START/ecADR checklists
 - [Michael Nygard's original blog post](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) (2011)
-- [ADR GitHub organization](https://adr.github.io/) - templates, tooling, practices
-- [adrjs documentation](https://github.com/phodal/adr) - the CLI tool used in this project
+- [adr-tools](https://github.com/npryce/adr-tools) — canonical CLI reference for status transitions and linking conventions
+- [ADR GitHub organization](https://adr.github.io/) — templates, tooling, practices
+- [ADR templates collection](https://adr.github.io/adr-templates/) — community-maintained template formats
+- [ADR practices posts](https://adr.github.io/ad-practices/) — best practices from adr.github.io maintainers
