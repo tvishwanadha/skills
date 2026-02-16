@@ -17,6 +17,11 @@
       "name": "skill-reviewer",
       "source": "./plugins/skill-reviewer",
       "description": "Review SKILL.md files for quality, completeness, and best practices"
+    },
+    {
+      "name": "codex",
+      "source": "./plugins/codex",
+      "description": "Codex-powered code review, plan review, and completion verification"
     }
   ]
 }

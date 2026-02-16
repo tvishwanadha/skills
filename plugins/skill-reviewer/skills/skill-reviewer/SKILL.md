@@ -54,6 +54,7 @@ Review a single SKILL.md file for quality, completeness, and adherence to best p
 - Only list tools the skill actually needs - no over-permissive access
 - Use comma-space delimiter: `Read, Grep, Glob` (Claude Code convention)
 - Flag if powerful tools (Bash, Write, Edit) are listed but not clearly needed
+- Guide skills (`user-invocable: false`) and skills that use only MCP tools do not need `allowed-tools`
 
 #### `context`
 - `fork` only makes sense with explicit task instructions, not guideline-only content

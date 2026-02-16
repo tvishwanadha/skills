@@ -43,7 +43,7 @@ The manifest file at `.claude-plugin/plugin.json` defines the plugin:
   },
   "license": "MIT",
   "skills": "./skills/",
-  "agents": ["./agents/agent-name.md"],
+  "agents": "./agents/",
   "hooks": "./hooks/"
 }
 ```
@@ -57,8 +57,10 @@ The manifest file at `.claude-plugin/plugin.json` defines the plugin:
 - `author` - object with `name` and `email`
 - `license` - SPDX license identifier
 - `skills` - path to skills directory (relative to plugin root)
-- `agents` - array of paths to agent definition files
+- `agents` - path to agents directory (relative to plugin root)
 - `hooks` - path to hooks directory
+
+This guide covers common fields. For unrecognized fields, check the upstream references before flagging as an issue.
 
 ## Marketplace Registration
 
@@ -100,6 +102,8 @@ skills:
 
 System prompt / instructions for the agent.
 ```
+
+The `tools` field is optional. If omitted, the agent inherits all tools from the parent conversation, including MCP tools. Specify `tools` only to restrict the agent to a subset of tools.
 
 ## Naming Conventions
 
