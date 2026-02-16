@@ -1,2 +1,7 @@
-.claude/
+# Claude Code local state (not committed)
+.claude/settings.local.json
+.claude/plans/
+.claude/todos/
+
+# OS files
 .DS_Store

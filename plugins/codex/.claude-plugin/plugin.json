@@ -1,0 +1,16 @@
+{
+  "name": "codex",
+  "version": "1.0.0",
+  "description": "Codex-powered code review, plan review, and completion verification",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "mcpServers": {
+    "codex": {
+      "command": "codex",
+      "args": ["mcp-server"]
+    }
+  }
+}
