@@ -1,8 +1,8 @@
 ---
 name: review
 description: >-
-  Use Codex MCP for plan review, completion verification, and code review on
-  multi-file changes or after context compactions.
+  Codex-powered plan review, completion verification, and code review. This skill
+  should be used on multi-file changes or after context compactions.
 ---
 
 # Codex Review

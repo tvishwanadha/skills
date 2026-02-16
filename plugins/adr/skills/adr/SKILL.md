@@ -54,7 +54,7 @@ Create an ADR when the decision:
 
 Draft the ADR as part of planning - writing Context and Consequences helps clarify the decision and surface which existing ADRs and subsystems are affected. It starts as Proposed and can be revised; don't wait until you have a perfect answer.
 
-Follow the step-by-step procedure in [reference/creating-adrs.md](reference/creating-adrs.md). When drafting or reviewing an ADR, consult the [writing quality guide](reference/writing-adrs.md) for section guidance and anti-patterns to avoid.
+Follow the step-by-step procedure in [references/creating-adrs.md](references/creating-adrs.md). When drafting or reviewing an ADR, consult the [writing quality guide](references/writing-adrs.md) for section guidance and anti-patterns to avoid.
 
 **ADRs are immutable once accepted - never edit the content of an accepted ADR.** To change a decision, create a new ADR that supersedes or amends the original (only the old ADR's Status section is updated). If your implementation would contradict an accepted ADR, stop and get user approval before drafting a superseding ADR.
 
@@ -62,5 +62,5 @@ Follow the step-by-step procedure in [reference/creating-adrs.md](reference/crea
 
 ## Further Reading
 
-- [ADR background](reference/adr-guide.md) - what ADRs are, when to create them, template formats
-- [Writing good ADRs](reference/writing-adrs.md) - content quality and anti-patterns
+- [ADR background](references/adr-guide.md) - what ADRs are, when to create them, template formats
+- [Writing good ADRs](references/writing-adrs.md) - content quality and anti-patterns

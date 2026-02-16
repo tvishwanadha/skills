@@ -6,6 +6,7 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 
 ```
 ├── plugins/                        # Published plugins (one directory per plugin)
+│   ├── README.md                   # Plugin catalog
 │   └── <plugin-name>/
 │       ├── .claude-plugin/plugin.json
 │       ├── skills/
@@ -17,6 +18,7 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 │   │   └── self-review/            # Marketplace audit skill
 │   └── agents/                     # Local agent definitions
 │       └── plugin-reviewer.md      # Single-plugin review subagent
+├── .claude/settings.json               # Project-wide plugin configuration
 ├── .claude-plugin/
 │   └── marketplace.json            # Marketplace registry
 ├── CLAUDE.md                       # Project instructions
@@ -24,6 +26,10 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 ├── README.md                       # Marketplace overview
 └── LICENSE
 ```
+
+## Installed Plugins
+
+The `plugin-dev` plugin is enabled project-wide via `.claude/settings.json`. It provides generic Claude Code plugin, skill, and agent development conventions. Local guide skills add marketplace-specific context on top of plugin-dev's generic guidance.
 
 ## Guide Skills
 
@@ -34,13 +40,13 @@ Available guide skills (in `.claude/skills/`):
 | Skill | When to consult |
 |-------|-----------------|
 | [`skills-guide`](.claude/skills/skills-guide/SKILL.md) | Creating or modifying SKILL.md files, reviewing skill quality, understanding frontmatter fields |
-| [`plugins-guide`](.claude/skills/plugins-guide/SKILL.md) | Creating or modifying plugins, writing plugin.json manifests, marketplace registration |
+| [`plugins-guide`](.claude/skills/plugins-guide/SKILL.md) | Marketplace registration, plugin manifest conventions specific to this repo |
 
 **Always read the relevant guide skill before making changes.** These are not optional - they define the conventions and quality bar for this repository. Consult them during planning to align your approach, and refer back to them while implementing to avoid mistakes.
 
 ## Conventions
 
-**Plugins**: each plugin lives in `plugins/<name>/` with a `.claude-plugin/plugin.json` manifest. Read [`plugins-guide`](.claude/skills/plugins-guide/SKILL.md) for the full directory structure, manifest schema, and naming rules.
+**Plugins**: each plugin lives in `plugins/<name>/` with a `.claude-plugin/plugin.json` manifest. Read [`plugins-guide`](.claude/skills/plugins-guide/SKILL.md) for manifest schema and marketplace registration. Generic structure and naming conventions come from `plugin-dev:plugin-structure`.
 
 **Skills**: each skill is a `SKILL.md` file in its own directory. Frontmatter defines metadata; body defines instructions. Read [`skills-guide`](.claude/skills/skills-guide/SKILL.md) for authoring conventions, the review checklist, and anti-patterns to avoid.
 
@@ -66,4 +72,4 @@ claude plugin validate plugins/<plugin-name>
 
 ## Upstream References
 
-Guide skills contain upstream documentation URLs for edge cases. When a guide skill's inline content does not cover a specific question, follow the upstream references listed in that guide skill.
+Generic Claude Code conventions (plugin structure, skill authoring, hooks, MCP) come from `plugin-dev` skills. For edge cases beyond what local guide skills cover, consult the relevant plugin-dev skill or the `claude-code-guide` agent.

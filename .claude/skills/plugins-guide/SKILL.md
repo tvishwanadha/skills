@@ -1,52 +1,20 @@
 ---
 name: plugins-guide
 description: >-
-  Plugin structure and packaging conventions. Consult when creating or modifying
-  plugins, writing plugin.json manifests, or registering plugins in the marketplace.
+  Marketplace registration and plugin manifest conventions for this repository.
+  Consult when creating or modifying plugins, writing plugin.json manifests, or
+  registering plugins in the marketplace.
 user-invocable: false
 
 ---
 
-# Plugin Structure and Packaging Guide
+# Plugin Conventions - Marketplace Reference
 
-Reference for structuring Claude Code plugins in this marketplace.
-
-## Plugin Directory Layout
-
-Each plugin lives under `plugins/<plugin-name>/` and follows this structure:
-
-```
-plugins/<plugin-name>/
-├── .claude-plugin/
-│   └── plugin.json          # Plugin metadata and manifest
-├── skills/                  # Skills provided by this plugin
-│   └── <skill-name>/
-│       └── SKILL.md         # Skill definition
-├── agents/                  # Agent definitions (optional)
-│   └── <agent-name>.md
-├── hooks/                   # Hook scripts (optional)
-└── README.md                # Plugin documentation (optional)
-```
+Marketplace-specific conventions for plugins in this repository. For generic Claude Code plugin structure guidance, see the wrapping note at the end.
 
 ## plugin.json Schema
 
 The manifest file at `.claude-plugin/plugin.json` defines the plugin:
-
-```json
-{
-  "name": "plugin-name",
-  "version": "1.0.0",
-  "description": "Short description of what the plugin does",
-  "author": {
-    "name": "Author Name",
-    "email": "author@example.com"
-  },
-  "license": "MIT",
-  "skills": "./skills/",
-  "agents": "./agents/",
-  "hooks": "./hooks/"
-}
-```
 
 ### Required fields
 - `name` - lowercase, hyphen-separated identifier
@@ -59,8 +27,9 @@ The manifest file at `.claude-plugin/plugin.json` defines the plugin:
 - `skills` - path to skills directory (relative to plugin root)
 - `agents` - path to agents directory (relative to plugin root)
 - `hooks` - path to hooks directory
+- `mcpServers` - MCP server configuration
 
-This guide covers common fields. For unrecognized fields, check the upstream references before flagging as an issue.
+The `plugin-structure` skill from plugin-dev has the full manifest reference including all supported fields.
 
 ## Marketplace Registration
 
@@ -76,16 +45,7 @@ Add a new entry to the `plugins` array in the marketplace file:
 }
 ```
 
-Required per-plugin fields: `name` and `source`. `description` is optional but recommended. The marketplace file lives at the repository root.
-
-## Skills Within Plugins
-
-Skills bundled in a plugin follow the same conventions as standalone skills. See the [`skills-guide`](../skills-guide/SKILL.md) for detailed SKILL.md authoring rules.
-
-Key points:
-- One SKILL.md per skill, in its own directory under `skills/`
-- Skill directory name must match the `name` field in frontmatter
-- Plugin skills are installed via `claude plugin install <marketplace>/<plugin-name>`
+Required per-plugin fields: `name` and `source`. `description` is optional but recommended. The marketplace file lives at `.claude-plugin/marketplace.json` in the repository.
 
 ## Agents Within Plugins
 
@@ -105,17 +65,6 @@ System prompt / instructions for the agent.
 
 The `tools` field is optional. If omitted, the agent inherits all tools from the parent conversation, including MCP tools. Specify `tools` only to restrict the agent to a subset of tools.
 
-## Naming Conventions
+## Generic Plugin Conventions
 
-- **Plugin names**: lowercase, hyphen-separated (e.g., `skill-reviewer`, `adr`)
-- **Skill names**: match containing directory, lowercase with hyphens
-- **Agent names**: match filename (without `.md`), lowercase with hyphens
-
-## Upstream References
-
-For edge cases or to verify specific rules, consult:
-1. The `claude-code-guide` agent (if available in the current environment)
-2. Upstream documentation:
-   - `https://code.claude.com/docs/en/plugins.md`
-   - `https://code.claude.com/docs/en/plugins-reference.md`
-   - `https://code.claude.com/docs/en/plugin-marketplaces.md`
+For comprehensive Claude Code plugin structure guidance (directory layout, auto-discovery, `${CLAUDE_PLUGIN_ROOT}`, component patterns, naming conventions), consult the `plugin-dev:plugin-structure` skill if plugin-dev is installed.

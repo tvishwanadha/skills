@@ -1,8 +1,9 @@
 ---
 name: codex
 description: >-
-  Codex MCP tool usage, thread configuration, and thread lifecycle. Consult when
-  using Codex for code review, plan review, or completion verification.
+  Codex MCP tool usage, thread configuration, and thread lifecycle. Consult this
+  skill when an agent or skill needs Codex MCP tool reference for code review,
+  plan review, or completion verification.
 user-invocable: false
 
 ---

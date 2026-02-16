@@ -13,11 +13,20 @@ argument-hint: "[plugin-name | --diff <git-ref>]"
 
 Orchestrate a full review of this marketplace: plugins, local skills, local agents, and documentation. Spawns one isolated subagent per plugin, reviews local assets directly, then synthesizes a unified health report.
 
+## Examples
+
+- `/self-review` - full review of all plugins, local skills, agents, and docs
+- `/self-review codex` - review only the codex plugin
+- `/self-review --diff HEAD~3` - review only what changed in the last 3 commits
+- `/self-review --diff main` - review only what changed on this branch vs main
+
 ## Procedure
 
 > **All Task calls must be foreground** - never set `run_in_background: true`. Subagents require the Skill tool, which is only available in foreground tasks.
 
 ### 0. Parse arguments
+
+Determine the repo root (the directory containing `.claude-plugin/marketplace.json`) and use absolute paths throughout.
 
 Determine the review mode from `$ARGUMENTS`:
 
@@ -98,7 +107,7 @@ In `--diff` mode, only launch tasks for in-scope targets: plugins in `scopedPlug
   - Flag missing docs, stale references, or inconsistencies between docs and actual repo state
   - Return findings as: Summary, Issues (with severity), Recommendations
 
-Wait for all tasks to complete and collect their outputs. If a task fails, include the error in the report under the relevant section and degrade the overall status accordingly.
+Wait for all tasks to complete and collect their outputs. If a task fails, include the error in the report under the relevant section. Any task failure sets the overall status to at least "Needs Attention"; if more than half of tasks fail, set to "Major Issues".
 
 ### 5. Synthesize the report
 
@@ -118,9 +127,9 @@ Combine pre-flight results and all task outputs into a unified report:
 
 ## Plugin Reviews
 
-| Plugin | Quality | Structure | Manifest | Skills | Agents | Cross-Refs |
-|--------|---------|-----------|----------|--------|--------|------------|
-| name   | Good    | PASS      | PASS     | PASS   | N/A    | PASS       |
+| Plugin | Quality | Structure | Manifest | Skills | Agents | Cross-Refs | Hooks | MCP | Security | Files |
+|--------|---------|-----------|----------|--------|--------|------------|-------|-----|----------|-------|
+| name   | Good    | PASS      | PASS     | PASS   | N/A    | PASS       | N/A   | N/A | PASS     | PASS  |
 
 <full subagent output for each plugin>
 
@@ -139,11 +148,15 @@ Combine pre-flight results and all task outputs into a unified report:
 ## Cross-Cutting Observations
 - <patterns, inconsistencies, or shared issues across all reviewed assets>
 
-## High Priority
+## Critical Issues
 1. <most impactful across everything>
 2. ...
 
-## Low-Hanging Fruit
+## Major Issues
+1. ...
+2. ...
+
+## Minor Issues
 1. <quick wins across everything>
 2. ...
 ```
