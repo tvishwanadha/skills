@@ -2,7 +2,7 @@
 
 Step-by-step procedure for creating, superseding, and amending ADRs using file tools (no external dependencies).
 
-> **Immutability rule**: Never edit the content of an accepted ADR. To change a decision, create a new ADR that supersedes or amends the original. Only the old ADR's Status line is updated — all other content is permanent.
+> **Immutability rule**: Never edit the content of an accepted ADR. To change a decision, create a new ADR that supersedes or amends the original. Only the old ADR's Status line is updated - all other content is permanent.
 >
 > **Proposed ADRs are mutable.** If a Proposed ADR needs changes, edit it directly. If it's no longer relevant, delete it or set its status to Deprecated. The supersede/amend workflow only applies to Accepted ADRs.
 
@@ -37,7 +37,7 @@ Slugify the title:
 ### 4. Write the ADR
 
 1. Read the template at [`../assets/nygard-template.md`](../assets/nygard-template.md)
-2. Replace placeholders: `{NUMBER}` → bare integer (e.g., `1` not `0001` — padding is only for filenames), `{TITLE}` → title, `{DATE}` → today's date (ISO `YYYY-MM-DD`)
+2. Replace placeholders: `{NUMBER}` → bare integer (e.g., `1` not `0001` - padding is only for filenames), `{TITLE}` → title, `{DATE}` → today's date (ISO `YYYY-MM-DD`)
 3. Verify no `{...}` placeholders remain in the output
 4. Write the file to the ADR directory
 
@@ -51,15 +51,15 @@ The old ADR **must** have status `Accepted` before it can be superseded. If it i
    Proposed
    Supersedes [ADR-NNNN](NNNN-old-title.md)
    ```
-3. Edit **only** the old ADR's Status section — replace the entire status with:
+3. Edit **only** the old ADR's Status section - replace the entire status with:
    ```
    Superseded by [ADR-NNNN](NNNN-new-title.md)
    ```
-4. **Do not modify any other content in the old ADR.** Accepted ADRs are immutable historical records — only the Status section is ever updated.
+4. **Do not modify any other content in the old ADR.** Accepted ADRs are immutable historical records - only the Status section is ever updated.
 
 ### 6. Amend an existing ADR
 
-The old ADR **must** have status `Accepted` before it can be amended. If it is already Superseded or Deprecated, do not amend it — create a new ADR referencing the latest accepted record instead. An ADR can have multiple amendments; each adds another "Amended by" line to the Status section.
+The old ADR **must** have status `Accepted` before it can be amended. If it is already Superseded or Deprecated, do not amend it - create a new ADR referencing the latest accepted record instead. An ADR can have multiple amendments; each adds another "Amended by" line to the Status section.
 
 1. Create a new ADR following steps 1–4. Mention the prior ADR in the Context section (e.g., "This amends ADR-N to clarify…").
 2. Set the new ADR's Status section to:
@@ -67,25 +67,25 @@ The old ADR **must** have status `Accepted` before it can be amended. If it is a
    Proposed
    Amends [ADR-NNNN](NNNN-old-title.md)
    ```
-3. Edit **only** the old ADR's Status section — keep the existing status and append a new line:
+3. Edit **only** the old ADR's Status section - keep the existing status and append a new line:
    ```
    Accepted
    Amended by [ADR-NNNN](NNNN-new-title.md)
    ```
    If there are already "Amended by" lines, add the new one below them.
-4. **Do not modify any other content in the old ADR.** Accepted ADRs are immutable historical records — only the Status section is ever updated.
+4. **Do not modify any other content in the old ADR.** Accepted ADRs are immutable historical records - only the Status section is ever updated.
 
 ---
 
 ## Status Transitions
 
 - **Proposed** → **Accepted**: After review and approval
-- **Proposed** → **Deprecated** or deleted: If the decision is rejected or no longer relevant (Proposed ADRs are mutable — just edit or remove them)
+- **Proposed** → **Deprecated** or deleted: If the decision is rejected or no longer relevant (Proposed ADRs are mutable - just edit or remove them)
 - **Accepted** → **Superseded by ADR-N**: When replaced by a newer decision (status is replaced)
 - **Accepted** → **Deprecated**: When no longer relevant
 - **Accepted** + **Amended by ADR-N**: When clarified or extended (status stays Accepted, amendment note added below)
 
 ### Supersede vs Amend
 
-- **Supersede**: The new decision *replaces* the old entirely — the original approach is no longer valid.
-- **Amend**: The new decision *clarifies or extends* the original without replacing it — the core decision still holds.
+- **Supersede**: The new decision *replaces* the old entirely - the original approach is no longer valid.
+- **Amend**: The new decision *clarifies or extends* the original without replacing it - the core decision still holds.

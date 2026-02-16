@@ -1,6 +1,6 @@
 # Agent Guide
 
-This repository is a personal plugin marketplace — a collection of reusable skills, agents, and plugins for AI coding assistants.
+This repository is a personal plugin marketplace - a collection of reusable skills, agents, and plugins for AI coding assistants.
 
 ## Directory Layout
 
@@ -20,14 +20,14 @@ This repository is a personal plugin marketplace — a collection of reusable sk
 ├── .claude-plugin/
 │   └── marketplace.json            # Marketplace registry
 ├── CLAUDE.md                       # Project instructions
-├── AGENTS.md                       # This file — agent guidance
+├── AGENTS.md                       # This file - agent guidance
 ├── README.md                       # Marketplace overview
 └── LICENSE
 ```
 
 ## Guide Skills
 
-This repository uses **guide skills** — background-knowledge reference skills that the agent should consult automatically when working on related topics. Guide skills follow the `*-guide` naming convention and are marked `user-invocable: false`.
+This repository uses **guide skills** - background-knowledge reference skills that the agent should consult automatically when working on related topics. Guide skills follow the `*-guide` naming convention and are marked `user-invocable: false`.
 
 Available guide skills (in `.claude/skills/`):
 
@@ -36,7 +36,7 @@ Available guide skills (in `.claude/skills/`):
 | [`skills-guide`](.claude/skills/skills-guide/SKILL.md) | Creating or modifying SKILL.md files, reviewing skill quality, understanding frontmatter fields |
 | [`plugins-guide`](.claude/skills/plugins-guide/SKILL.md) | Creating or modifying plugins, writing plugin.json manifests, marketplace registration |
 
-**Always read the relevant guide skill before making changes.** These are not optional — they define the conventions and quality bar for this repository. Consult them during planning to align your approach, and refer back to them while implementing to avoid mistakes.
+**Always read the relevant guide skill before making changes.** These are not optional - they define the conventions and quality bar for this repository. Consult them during planning to align your approach, and refer back to them while implementing to avoid mistakes.
 
 ## Conventions
 

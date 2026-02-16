@@ -49,16 +49,16 @@ The manifest file at `.claude-plugin/plugin.json` defines the plugin:
 ```
 
 ### Required fields
-- `name` — lowercase, hyphen-separated identifier
-- `version` — semver format
-- `description` — concise summary of the plugin's purpose
+- `name` - lowercase, hyphen-separated identifier
+- `version` - semver format
+- `description` - concise summary of the plugin's purpose
 
 ### Optional fields
-- `author` — object with `name` and `email`
-- `license` — SPDX license identifier
-- `skills` — path to skills directory (relative to plugin root)
-- `agents` — array of paths to agent definition files
-- `hooks` — path to hooks directory
+- `author` - object with `name` and `email`
+- `license` - SPDX license identifier
+- `skills` - path to skills directory (relative to plugin root)
+- `agents` - array of paths to agent definition files
+- `hooks` - path to hooks directory
 
 ## Marketplace Registration
 

@@ -10,7 +10,7 @@ ADRs document *why* choices were made, not just what was chosen. This preserves 
 
 ## When to Create an ADR
 
-Create an ADR for **architecturally significant** decisions — those that:
+Create an ADR for **architecturally significant** decisions - those that:
 
 - Affect the structure, non-functional characteristics, dependencies, interfaces, or construction techniques of the system
 - Are hard to reverse or change later
@@ -42,7 +42,7 @@ The original ADR format proposed by Michael Nygard in 2011. Simple and effective
 
 - **Title**: Short noun phrase (e.g., "Use PostgreSQL for persistence")
 - **Status**: Proposed, Accepted, Deprecated, Superseded by ADR-N, or Amended by ADR-N
-- **Context**: The forces at play — technical, political, social, project-specific
+- **Context**: The forces at play - technical, political, social, project-specific
 - **Decision**: The response to the forces, stated in full sentences
 - **Consequences**: The resulting context after applying the decision
 
@@ -67,7 +67,7 @@ More comprehensive but heavier. Nygard format is sufficient for most projects.
 
 ### Immutability Principle
 
-Once an ADR is Accepted, don't modify its content — treat it as a historical record. If the decision needs to change:
+Once an ADR is Accepted, don't modify its content - treat it as a historical record. If the decision needs to change:
 - Create a new ADR that **supersedes** the old one
 - Update the old ADR's status to "Superseded by ADR-N"
 
@@ -85,9 +85,9 @@ Once an ADR is Accepted, don't modify its content — treat it as a historical r
 
 ## Further Reading
 
-- [Writing good ADRs](writing-adrs.md) — section-by-section guidance, anti-patterns, START/ecADR checklists
+- [Writing good ADRs](writing-adrs.md) - section-by-section guidance, anti-patterns, START/ecADR checklists
 - [Michael Nygard's original blog post](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) (2011)
-- [adr-tools](https://github.com/npryce/adr-tools) — canonical CLI reference for status transitions and linking conventions
-- [ADR GitHub organization](https://adr.github.io/) — templates, tooling, practices
-- [ADR templates collection](https://adr.github.io/adr-templates/) — community-maintained template formats
-- [ADR practices posts](https://adr.github.io/ad-practices/) — best practices from adr.github.io maintainers
+- [adr-tools](https://github.com/npryce/adr-tools) - canonical CLI reference for status transitions and linking conventions
+- [ADR GitHub organization](https://adr.github.io/) - templates, tooling, practices
+- [ADR templates collection](https://adr.github.io/adr-templates/) - community-maintained template formats
+- [ADR practices posts](https://adr.github.io/ad-practices/) - best practices from adr.github.io maintainers

@@ -39,19 +39,19 @@ Glob for `.claude/skills/*/SKILL.md` and `.claude/agents/*.md` to build the list
 
 Launch **all tasks in parallel** (single message, multiple Task calls):
 
-**Plugin reviews** — for each plugin that passed pre-flight, launch a Task with:
+**Plugin reviews** - for each plugin that passed pre-flight, launch a Task with:
 - `subagent_type`: `"plugin-reviewer"`
 - `prompt`: the absolute plugin path, the marketplace description from the registry, and the absolute repo root path
 
-**Local skill reviews** — for each local skill, launch a Task with:
+**Local skill reviews** - for each local skill, launch a Task with:
 - `subagent_type`: `"general-purpose"`
 - `prompt`: instruct the agent to read the skill review checklist at `<repo-root>/plugins/skill-reviewer/skills/skill-reviewer/SKILL.md` (using the absolute repo root path), then review the local skill at the given absolute path. Return findings in the checklist's output format (Summary, Issues, Checklist Results, Recommendations).
 
-**Local agent reviews** — for each local agent, launch a Task with:
+**Local agent reviews** - for each local agent, launch a Task with:
 - `subagent_type`: `"general-purpose"`
 - `prompt`: instruct the agent to read the agent format in `<repo-root>/.claude/skills/plugins-guide/SKILL.md` (using the absolute repo root path), then review the agent at the given absolute path. Check: valid frontmatter (name, description, tools), skills references resolve to existing local skills, body provides clear instructions, filename matches name field. Return findings as: Summary, Issues (with severity), Recommendations.
 
-**Documentation review** — launch one Task with:
+**Documentation review** - launch one Task with:
 - `subagent_type`: `"general-purpose"`
 - `prompt`: instruct the agent to read the repo-level docs (`CLAUDE.md`, `AGENTS.md`, `README.md`, `plugins/README.md`) and `.claude-plugin/marketplace.json`, then check for:
   - `AGENTS.md` guide skills table lists all local skills in `.claude/skills/`
@@ -112,6 +112,6 @@ Combine pre-flight results and all task outputs into a unified report:
 ```
 
 **Overall status rules:**
-- **Healthy** — all plugins and local skills Good, docs consistent, no pre-flight failures
-- **Needs Attention** — any asset rated Needs Work, or minor pre-flight/doc issues
-- **Major Issues** — any asset rated Major Issues, or critical failures
+- **Healthy** - all plugins and local skills Good, docs consistent, no pre-flight failures
+- **Needs Attention** - any asset rated Needs Work, or minor pre-flight/doc issues
+- **Major Issues** - any asset rated Major Issues, or critical failures

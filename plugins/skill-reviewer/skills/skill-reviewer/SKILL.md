@@ -9,7 +9,7 @@ allowed-tools: Read, Glob, Grep, WebFetch
 
 Review a single SKILL.md file for quality, completeness, and adherence to best practices.
 
-**Input**: `$ARGUMENTS` — path to a skill directory or SKILL.md file. If a directory is given, look for `SKILL.md` inside it.
+**Input**: `$ARGUMENTS` - path to a skill directory or SKILL.md file. If a directory is given, look for `SKILL.md` inside it.
 
 ## Procedure
 
@@ -22,7 +22,7 @@ Review a single SKILL.md file for quality, completeness, and adherence to best p
 
 3. **Run the review checklist** below against the file
 
-4. **Verify file integrity** — use Glob and Read to check that all referenced files exist; use Grep to search for `$ARGUMENTS` usage and file path references in the body
+4. **Verify file integrity** - use Glob and Read to check that all referenced files exist; use Grep to search for `$ARGUMENTS` usage and file path references in the body
 
 5. **Report findings** in the output format described at the end
 
@@ -40,7 +40,7 @@ Review a single SKILL.md file for quality, completeness, and adherence to best p
 #### `description`
 - Non-empty; include keywords for auto-invocation (Claude matches user intent against descriptions)
 - Describes both **what** the skill does and **when** to use it
-- Note: all skill descriptions share a global budget (~16,000 chars / 2% of context window) — keep descriptions concise
+- Note: all skill descriptions share a global budget (~16,000 chars / 2% of context window) - keep descriptions concise
 
 #### `disable-model-invocation`
 - Should be `true` for side-effect workflows (deploy, commit, send, publish)
@@ -48,10 +48,10 @@ Review a single SKILL.md file for quality, completeness, and adherence to best p
 
 #### `user-invocable`
 - Should be `false` only for background-knowledge skills (guidelines, context)
-- If absent, default is `true` — verify that makes sense
+- If absent, default is `true` - verify that makes sense
 
 #### `allowed-tools`
-- Only list tools the skill actually needs — no over-permissive access
+- Only list tools the skill actually needs - no over-permissive access
 - Use comma-space delimiter: `Read, Grep, Glob` (Claude Code convention)
 - Flag if powerful tools (Bash, Write, Edit) are listed but not clearly needed
 
@@ -61,7 +61,7 @@ Review a single SKILL.md file for quality, completeness, and adherence to best p
 
 #### `argument-hint`
 - If the skill accepts arguments, this should be present with a bracket-notation hint (e.g. `[issue-number]`)
-- Verify `$ARGUMENTS` or positional substitutions (`$0`, `$1`, etc. — 0-based) are used in the body if hint is present
+- Verify `$ARGUMENTS` or positional substitutions (`$0`, `$1`, etc. - 0-based) are used in the body if hint is present
 
 #### `model`
 - Optional override for which Claude model to use when skill is active
@@ -78,7 +78,7 @@ Review a single SKILL.md file for quality, completeness, and adherence to best p
 
 #### Invocation model coherence
 - The combination of `user-invocable`, `disable-model-invocation`, and `description` should make sense together
-- A skill that is not user-invocable AND has model invocation disabled would never trigger — flag this
+- A skill that is not user-invocable AND has model invocation disabled would never trigger - flag this
 
 ### Content
 
@@ -92,14 +92,14 @@ Review a single SKILL.md file for quality, completeness, and adherence to best p
 - Edge cases addressed or acknowledged
 
 #### Argument handling
-- If `argument-hint` is set, `$ARGUMENTS` or positional substitutions (`$0`, `$1` — 0-based index) must appear in the body
+- If `argument-hint` is set, `$ARGUMENTS` or positional substitutions (`$0`, `$1` - 0-based index) must appear in the body
 - `$ARGUMENTS[N]` and `$N` are equivalent (e.g. `$0` = first arg, `$1` = second)
 - If `$ARGUMENTS` is used, behavior when no argument is provided should be defined
 
 #### Supporting files
 - Referenced from SKILL.md with relative paths
 - Organized in subdirectories (`reference/`, `scripts/`, `assets/`) if more than 2–3 files
-- File references should be one level deep — avoid deeply nested reference chains
+- File references should be one level deep - avoid deeply nested reference chains
 
 ### Integrity (verify with Glob/Read)
 
@@ -165,10 +165,10 @@ For each issue found:
 ```
 
 Severity levels:
-- **critical** — Must fix. Skill will malfunction or violate spec constraints.
-- **high** — Should fix. Reduces quality, portability, or safety.
-- **medium** — Consider fixing. Meaningful improvement with moderate effort.
-- **low** — Minor improvement. Style or best-practice suggestion, often quick to fix.
+- **critical** - Must fix. Skill will malfunction or violate spec constraints.
+- **high** - Should fix. Reduces quality, portability, or safety.
+- **medium** - Consider fixing. Meaningful improvement with moderate effort.
+- **low** - Minor improvement. Style or best-practice suggestion, often quick to fix.
 
 ### Checklist Results
 
@@ -180,6 +180,6 @@ Compact pass/fail for each checklist category:
 
 ### Recommendations
 
-**High priority** — most impactful improvements first.
+**High priority** - most impactful improvements first.
 
-**Low-hanging fruit** — quick wins that are easy to fix.
+**Low-hanging fruit** - quick wins that are easy to fix.

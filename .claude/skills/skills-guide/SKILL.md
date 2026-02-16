@@ -8,4 +8,4 @@ user-invocable: false
 
 ---
 
-This skill provides the authoritative reference for writing SKILL.md files — covering frontmatter fields (name, description, allowed-tools, user-invocable, etc.), content structure, argument handling, anti-patterns, and the review checklist. Read the full reference at [`plugins/skill-reviewer/skills/skill-reviewer/SKILL.md`](../../../plugins/skill-reviewer/skills/skill-reviewer/SKILL.md).
+This skill provides the authoritative reference for writing SKILL.md files - covering frontmatter fields (name, description, allowed-tools, user-invocable, etc.), content structure, argument handling, anti-patterns, and the review checklist. Read the full reference at [`plugins/skill-reviewer/skills/skill-reviewer/SKILL.md`](../../../plugins/skill-reviewer/skills/skill-reviewer/SKILL.md).

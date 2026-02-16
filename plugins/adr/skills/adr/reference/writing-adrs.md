@@ -6,7 +6,7 @@ Content quality guidance for drafting ADR sections. Synthesized from [Olaf Zimme
 
 ### Title
 
-Use a short noun phrase that summarizes the decision — not a question.
+Use a short noun phrase that summarizes the decision - not a question.
 
 - Good: "Use gVisor for sandbox isolation"
 - Bad: "What should we use for isolation?"
@@ -19,7 +19,7 @@ Describe the forces at play without bias toward any option:
 - What quality attributes matter most?
 - What alternatives exist, and what are their tradeoffs?
 
-Discuss at least two approaches — this is where evidence belongs (prior experience, PoC results, expert input). Cover perspectives of developers, operators, maintainers, and end users.
+Discuss at least two approaches - this is where evidence belongs (prior experience, PoC results, expert input). Cover perspectives of developers, operators, maintainers, and end users.
 
 ### Decision
 
@@ -47,9 +47,9 @@ Document both positive and negative outcomes:
 
 ### Weak Justifications (avoid)
 
-- "Everybody does it" — appeal to popularity without evidence
-- "We've always done it this way" — historical inertia
-- "I don't know other options" — insufficient research
+- "Everybody does it" - appeal to popularity without evidence
+- "We've always done it this way" - historical inertia
+- "I don't know other options" - insufficient research
 - Resume-driven decisions or vendor pitches without substantiation
 
 ---
@@ -96,7 +96,7 @@ Document both positive and negative outcomes:
 
 ## Further Reading
 
-- [How to create ADRs — and how not to](https://www.ozimmer.ch/practices/2023/04/03/ADRCreation.html) — 7 good practices and 11 anti-patterns
-- [Architecture Decision Making](https://www.ozimmer.ch/practices/2020/04/27/ArchitectureDecisionMaking.html) — justification frameworks and Y-statements
-- [Definition of Ready for ADs](https://ozimmer.ch/practices/2023/12/01/ADDefinitionOfReady.html) — START criteria deep dive
-- [Definition of Done for ADs](https://ozimmer.ch/practices/2020/05/22/ADDefinitionOfDone.html) — ecADR framework
+- [How to create ADRs - and how not to](https://www.ozimmer.ch/practices/2023/04/03/ADRCreation.html) - 7 good practices and 11 anti-patterns
+- [Architecture Decision Making](https://www.ozimmer.ch/practices/2020/04/27/ArchitectureDecisionMaking.html) - justification frameworks and Y-statements
+- [Definition of Ready for ADs](https://ozimmer.ch/practices/2023/12/01/ADDefinitionOfReady.html) - START criteria deep dive
+- [Definition of Done for ADs](https://ozimmer.ch/practices/2020/05/22/ADDefinitionOfDone.html) - ecADR framework

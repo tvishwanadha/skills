@@ -1,6 +1,6 @@
 # Teja's Plugin Marketplace
 
-Personal collection of reusable Claude Code plugins — skills, agents, and hooks packaged for easy installation across projects.
+Personal collection of reusable Claude Code plugins - skills, agents, and hooks packaged for easy installation across projects.
 
 ## Available Plugins
 
