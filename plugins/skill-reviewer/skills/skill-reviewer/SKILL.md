@@ -165,9 +165,10 @@ For each issue found:
 ```
 
 Severity levels:
-- **ERROR** — Must fix. Skill will malfunction or violate spec constraints.
-- **WARNING** — Should fix. Reduces quality, portability, or safety.
-- **INFO** — Consider fixing. Style or best-practice suggestion.
+- **critical** — Must fix. Skill will malfunction or violate spec constraints.
+- **high** — Should fix. Reduces quality, portability, or safety.
+- **medium** — Consider fixing. Meaningful improvement with moderate effort.
+- **low** — Minor improvement. Style or best-practice suggestion, often quick to fix.
 
 ### Checklist Results
 
@@ -179,4 +180,6 @@ Compact pass/fail for each checklist category:
 
 ### Recommendations
 
-Prioritized list of specific, actionable improvements. Most impactful first.
+**High priority** — most impactful improvements first.
+
+**Low-hanging fruit** — quick wins that are easy to fix.
