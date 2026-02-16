@@ -3,12 +3,11 @@ name: review
 description: >-
   Use Codex MCP for plan review, completion verification, and code review on
   multi-file changes or after context compactions.
-
 ---
 
 # Codex Review
 
-Consult the `codex` skill for MCP tool usage, thread configuration, and thread lifecycle.
+Consult the [`codex` skill](../codex/SKILL.md) for MCP tool usage, thread configuration, and thread lifecycle.
 
 - **Read-only reviewer** - provides feedback, you make the changes
 
