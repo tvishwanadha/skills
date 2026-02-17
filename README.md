@@ -7,7 +7,7 @@ Personal collection of reusable Claude Code plugins - skills, agents, and hooks 
 | Plugin | Description |
 |--------|-------------|
 | [adr](plugins/adr/) | Architecture Decision Records - consult and manage ADRs for project design decisions |
-| [skill-reviewer](plugins/skill-reviewer/) | Review SKILL.md files for quality, completeness, and best practices |
+| [reviewer](plugins/reviewer/) | Layered code review framework with extensible core reviews, parallel orchestration, and project-local customization |
 | [codex](plugins/codex/) | Codex-powered code review, plan review, and completion verification |
 
 ## Installation
@@ -16,7 +16,7 @@ Add this marketplace to your Claude Code settings, then install individual plugi
 
 ```bash
 claude plugin install teja-skills/adr
-claude plugin install teja-skills/skill-reviewer
+claude plugin install teja-skills/reviewer
 claude plugin install teja-skills/codex
 ```
 

@@ -1,0 +1,10 @@
+{
+  "name": "reviewer",
+  "version": "1.0.0",
+  "description": "Layered code review framework with extensible core reviews, parallel orchestration, and project-local customization",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT"
+}

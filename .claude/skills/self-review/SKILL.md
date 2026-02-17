@@ -53,7 +53,7 @@ Run `git diff --name-only <git-ref>` via Bash to get changed files. Map each cha
 | `.claude-plugin/marketplace.json` | Registry checks + documentation review |
 | `.claude/skills/plugins-guide/**` | ALL plugins (conventions changed) |
 | `.claude/skills/skills-guide/**` | ALL skills (conventions changed) |
-| `plugins/skill-reviewer/skills/skill-reviewer/**` | ALL skills (checklist changed) |
+| `plugins/reviewer/skills/review-skill/**` | ALL skills (checklist changed) |
 | `.claude/agents/plugin-reviewer.md` | ALL plugins (reviewer changed) |
 
 Deduplicate the targets. If any rule sets a scope to "all", that overrides individual names for that category - discard the named entries and use "all". If no changed files map to any review target, report "No reviewable changes found for `<git-ref>`" and stop.
@@ -90,7 +90,7 @@ In `--diff` mode, only launch tasks for in-scope targets: plugins in `scopedPlug
 
 **Local skill reviews** - for each local skill, launch a Task with:
 - `subagent_type`: `"general-purpose"`
-- `prompt`: instruct the agent to read the skill review checklist at `<repo-root>/plugins/skill-reviewer/skills/skill-reviewer/SKILL.md` (using the absolute repo root path), then review the local skill at the given absolute path. Return findings in the checklist's output format (Summary, Issues, Checklist Results, Recommendations).
+- `prompt`: instruct the agent to read the skill review checklist at `<repo-root>/plugins/reviewer/skills/review-skill/SKILL.md` (using the absolute repo root path), then review the local skill at the given absolute path. Return findings in the checklist's output format (Summary, Issues, Checklist Results, Recommendations).
 
 **Local agent reviews** - for each local agent, launch a Task with:
 - `subagent_type`: `"general-purpose"`

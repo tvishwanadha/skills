@@ -39,7 +39,7 @@ user-invocable: false
 
 ## Full Reference
 
-The complete review checklist, output format, and upstream references are in the [`skill-reviewer` skill](../../../plugins/skill-reviewer/skills/skill-reviewer/SKILL.md).
+The complete review checklist, output format, and upstream references are in the [`review-skill` skill](../../../plugins/reviewer/skills/review-skill/SKILL.md).
 
 ## Generic Conventions
 
