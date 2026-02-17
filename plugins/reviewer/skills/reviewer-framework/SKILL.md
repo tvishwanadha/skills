@@ -24,7 +24,7 @@ Rate each finding on a 0-100 scale:
 | 30-49 | Speculative - possible issue, needs human judgment | Potential performance concern |
 | 0-29 | Low - stylistic preference or uncertain observation | Alternative approach suggestion |
 
-**Reporting threshold**: Only findings with confidence >= 80 appear in the final report. Return all findings with scores - the orchestrator handles filtering.
+**Reporting threshold**: Default: findings with confidence >= 80 appear in the final report (the orchestrator or its extension may adjust this). Return all findings with scores - the orchestrator handles filtering.
 
 ## Severity Levels
 
@@ -78,6 +78,6 @@ The orchestrator combines findings from parallel review tasks:
 
 1. Collect all findings from all review types
 2. Deduplicate (see above)
-3. Filter by confidence threshold (>= 80)
+3. Filter by confidence threshold (default >= 80)
 4. Sort by severity (critical > high > medium > low), then by confidence (descending)
 5. Present the unified report

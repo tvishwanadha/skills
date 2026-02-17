@@ -37,8 +37,10 @@ Review documentation for accuracy, completeness, structure, and quality.
 
 2. **Read target documentation** and understand what it describes
 
-3. **Cross-reference with code** - use Glob/Grep/Read to verify that documented features, APIs, file paths, and examples match the actual codebase
+3. **Load skills** - invoke `reviewer:reviewer-framework` via the Skill tool for output format, severity definitions, and confidence scoring
 
-4. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined)
+4. **Cross-reference with code** - use Glob/Grep/Read to verify that documented features, APIs, file paths, and examples match the actual codebase
 
-5. **Report findings** using the reviewer-framework output format (severity, confidence, category, file:line, description, suggestion)
+5. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined)
+
+6. **Report findings** using the reviewer-framework output format

@@ -39,8 +39,4 @@ user-invocable: false
 
 ## Full Reference
 
-The complete review checklist, output format, and upstream references are in the [`review-skill` skill](../../../plugins/reviewer/skills/review-skill/SKILL.md).
-
-## Generic Conventions
-
-For comprehensive Claude Code skill authoring guidance (progressive disclosure, writing style, validation checklist), consult the `plugin-dev:skill-development` skill if plugin-dev is installed.
+For the complete review checklist, output format, and upstream references, consult the `plugin-dev:skill-development` skill.

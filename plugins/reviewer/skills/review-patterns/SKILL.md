@@ -38,8 +38,10 @@ Review code for adherence to naming conventions, structural patterns, style cons
 
 2. **Read target files** and understand the project's existing conventions by sampling nearby code
 
-3. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
+3. **Load skills** - invoke `reviewer:reviewer-framework` via the Skill tool for output format, severity definitions, and confidence scoring
 
-4. **Compare against project norms** - use Grep to check if flagged patterns are consistent or inconsistent with the rest of the codebase
+4. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
 
-5. **Report findings** using the reviewer-framework output format (severity, confidence, category, file:line, description, suggestion)
+5. **Compare against project norms** - use Grep to check if flagged patterns are consistent or inconsistent with the rest of the codebase
+
+6. **Report findings** using the reviewer-framework output format

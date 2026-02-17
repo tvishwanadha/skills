@@ -6,9 +6,9 @@ Personal collection of Claude Code plugins for reuse across projects.
 
 | Name | Description | Contents |
 |------|-------------|----------|
-| [adr](./adr/) | Architecture Decision Records - consult and manage ADRs for project design decisions | **Skill:** `adr` - Auto-invoked when planning features, modifying core systems, or making architectural decisions. Includes reference guide on ADR best practices. |
-| [reviewer](./reviewer/) | Layered code review framework with extensible core reviews, parallel orchestration, and project-local customization | **Skills:** `self-review` (orchestrator), `review-skill`, `review-logic`, `review-patterns`, `review-documentation`, `reviewer-framework` (guide), `reviewer-init`, `customize-core-review`, `add-core-review`, `extend-self-review`, `create-reviewer-agent` (creation). **Agents:** `reviewer` (opus), `simple-reviewer` (sonnet). |
-| [codex](./codex/) | Codex-powered code review, plan review, and completion verification | **MCP:** `codex` (Codex mcp-server). **Skills:** `codex` (guide - MCP tool usage), `review` (review workflows). **Agent:** `review` - Preloads both skills. |
+| [adr](./adr/) | Architecture Decision Records - consult and manage ADRs | 1 skill, 0 agents |
+| [reviewer](./reviewer/) | Layered code review framework with extensible core reviews and parallel orchestration | 11 skills, 2 agents |
+| [codex](./codex/) | Codex-powered code review, plan review, and completion verification | 2 skills, 1 agent, MCP server |
 
 ## Installation
 

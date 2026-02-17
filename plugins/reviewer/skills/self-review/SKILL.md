@@ -45,7 +45,7 @@ Determine the review scope from `$ARGUMENTS`:
 
 ### 2. Gather target files
 
-- For `--diff` mode: partition the changed file list into **existing files** (still on disk) and **deleted files** (removed in this diff). Existing files are the review scope. Deleted files are passed as context in each Task prompt so reviewers can flag stale references or unintended removals.
+- For `--diff` mode: partition the changed file list into **existing files** (still on disk) and **deleted files** (removed in this diff). Existing files are the review scope. Deleted files are passed as context in each Task prompt so reviewers can flag stale references or unintended removals. If both lists are empty, report "No changes found vs `<ref>`" and exit without launching review tasks.
 - For directory: use Glob to discover files in the directory
 - For file paths: use the paths directly
 
@@ -55,11 +55,13 @@ Check if any files in scope are SKILL.md files. In `--diff` mode, check if any c
 
 Try to invoke `self-review-extension` via the Skill tool.
 
-If it loads, its instructions take priority over the built-in defaults. The extension can:
+If it loads, its instructions take priority over the built-in defaults. Extensions are additive - built-in review types are always included unless the extension explicitly removes them. The extension can:
 - Add or remove review types from the list
 - Change agent assignments per review type
 - Adjust the confidence threshold
 - Add pre/post-review steps
+
+**Namespace resolution**: built-in types use the `reviewer:` prefix (e.g., `reviewer:review-logic`). Custom types from extensions use their skill name directly (e.g., `review-plugin`).
 
 If it does not load (skill not found), use the built-in defaults.
 
@@ -92,7 +94,7 @@ Deleted files (review for stale references, not file contents):
 After all Tasks complete, combine their outputs:
 
 1. Collect all findings from all review types
-2. Deduplicate: if multiple reviewers flag the same file:line with the same issue, keep the finding with the highest confidence. Merge context from duplicates.
+2. Deduplicate: if multiple reviewers flag the same file:line with the same issue, keep the finding with the highest confidence (tie-break: most specific suggestion). Merge context from duplicates. Accumulate all originating review types in the `Found by` field.
 3. Filter by confidence threshold (>= 80, or as adjusted by extension)
 4. Sort by severity (critical > high > medium > low), then by confidence (descending)
 

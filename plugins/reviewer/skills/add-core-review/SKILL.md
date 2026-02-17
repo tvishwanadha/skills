@@ -26,6 +26,7 @@ Create a new custom review type. Add project-specific review categories like sec
 
 Extract the type name from `$ARGUMENTS`. Validate:
 - Not empty (ask if missing)
+- If name starts with `review-`, strip the prefix (e.g., `review-security` becomes `security`)
 - Not a built-in type name (`logic`, `patterns`, `documentation`, `skill`)
 - Lowercase, hyphens allowed, no spaces
 
@@ -42,9 +43,9 @@ If it exists:
 
 Ask the user for:
 - **Focus area** - what this review checks for (1-2 sentences)
-- **Auto-invocation keywords** - phrases that should trigger this review
+- **Auto-invocation keywords** - verb phrases that should trigger this review (e.g., "check for security issues", not just "security")
 - **Review rules** - categorized bullet list of specific checks
-- **Additional tools** - any tools beyond Read, Glob, Grep (e.g., Bash for running linters)
+- **Additional tools** - any tools beyond Read, Glob, Grep, Skill (e.g., Bash for running linters)
 
 ### 4. Generate and write
 
@@ -65,7 +66,7 @@ Write the result to `.claude/skills/review-<name>/SKILL.md`.
 
 Check if `.claude/skills/self-review-extension/SKILL.md` exists:
 
-- **If yes**: read it, show current content, and offer to add the new review type. Ask which agent to use (`reviewer:reviewer` or `reviewer:simple-reviewer`). If accepted, edit the extension to include the new type.
+- **If yes**: read it, show current content, and offer to add the new review type. Ask which agent to use (`reviewer:reviewer` or `reviewer:simple-reviewer`). Note: if the review type requires tools beyond the standard reviewer agents (e.g., Bash, MCP tools), recommend creating a custom agent via `/reviewer:create-reviewer-agent` instead. If accepted, edit the extension to include the new type.
 - **If no**: print instructions suggesting `/reviewer:extend-self-review` to configure the orchestrator to include this new type.
 
 ### 6. Confirm

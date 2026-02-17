@@ -65,7 +65,7 @@ The reviewer plugin provides a structured review system with three layers:
   |     +-- simple-reviewer agent -> review-documentation -> [local-review-documentation?] -> default-documentation.md
   |     +-- reviewer agent -> review-skill -> [local-review-skill?] -> default-skill.md (if SKILL.md in scope)
   |
-  +-- Coalesce: deduplicate, filter by confidence >= 80, sort by severity
+  +-- Coalesce: deduplicate, filter by confidence threshold (default >= 80), sort by severity
   |
   +-- Present unified report
 ```
@@ -114,7 +114,7 @@ description: Custom logic review rules for my-project.
 user-invocable: false
 ---
 
-# Local Review Logic
+# Local Review: Logic
 
 Do not use the default review rules. Apply only these checks:
 

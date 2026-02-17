@@ -37,11 +37,13 @@ Review SKILL.md files against the skill authoring checklist and conventions.
 
 2. **Read the file** and parse frontmatter (YAML between `---` fences) and body content
 
-3. **Apply loaded review rules** - run through every checklist item from the loaded guidance (defaults, local, or combined)
+3. **Load skills** - invoke `reviewer:reviewer-framework` via the Skill tool for output format, severity definitions, and confidence scoring
 
-4. **Verify file integrity** - use Glob and Read to check that all referenced files exist; use Grep to verify `$ARGUMENTS` usage and file path references
+4. **Apply loaded review rules** - run through every checklist item from the loaded guidance (defaults, local, or combined)
 
-5. **Report findings** using the reviewer-framework output format (severity, confidence, category, file:line, description, suggestion)
+5. **Verify file integrity** - use Glob and Read to check that all referenced files exist; use Grep to verify `$ARGUMENTS` usage and file path references
+
+6. **Report findings** using the reviewer-framework output format
 
 ## Upstream References
 

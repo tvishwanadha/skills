@@ -12,13 +12,17 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 │       ├── skills/
 │       └── agents/
 ├── .claude/
-│   ├── skills/                     # Local skills
+│   ├── skills/                     # Local skills (guide skills, review overrides, custom review types)
 │   │   ├── plugins-guide/          # Plugin conventions (guide skill)
 │   │   ├── skills-guide/           # Skill conventions (guide skill)
-│   │   └── self-review/            # Marketplace audit skill
-│   └── agents/                     # Local agent definitions
-│       └── plugin-reviewer.md      # Single-plugin review subagent
-├── .claude/settings.json               # Project-wide plugin configuration
+│   │   ├── local-review-skill/     # Local override for skill review
+│   │   ├── local-review-patterns/  # Local override for patterns review
+│   │   ├── local-review-documentation/ # Local override for documentation review
+│   │   ├── review-plugin/          # Plugin structure review type
+│   │   ├── review-codex/           # Codex-powered deep review type
+│   │   └── self-review-extension/  # Self-review orchestrator extension
+│   ├── agents/                     # Local agents (optional, created on demand)
+│   └── settings.json               # Project-wide plugin configuration
 ├── .claude-plugin/
 │   └── marketplace.json            # Marketplace registry
 ├── CLAUDE.md                       # Project instructions
@@ -29,32 +33,33 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 
 ## Installed Plugins
 
-The `plugin-dev` plugin is enabled project-wide via `.claude/settings.json`. It provides generic Claude Code plugin, skill, and agent development conventions. Local guide skills add marketplace-specific context on top of plugin-dev's generic guidance.
+Three plugins are enabled project-wide via `.claude/settings.json`:
+
+- **`plugin-dev`** (external) - generic Claude Code plugin, skill, and agent development conventions
+- **`reviewer`** (this repository) - layered code review framework with extensible core reviews and parallel orchestration
+- **`codex`** (this repository) - Codex-powered code review, plan review, and completion verification via MCP
+
+**Important**: enabled plugins use the distributed (installed) version, not the working copy on disk. If you edit plugin files locally, those changes will not take effect until Claude Code is restarted. If you need to test local plugin changes, stop and ask the user to restart.
 
 ## Guide Skills
 
-This repository uses **guide skills** - background-knowledge reference skills that the agent should consult automatically when working on related topics. Guide skills follow the `*-guide` naming convention and are marked `user-invocable: false`.
-
-Available guide skills (in `.claude/skills/`):
+**Always consult the relevant guide skill before making changes.** These define the conventions and quality bar for this repository.
 
 | Skill | When to consult |
 |-------|-----------------|
-| [`skills-guide`](.claude/skills/skills-guide/SKILL.md) | Creating or modifying SKILL.md files, reviewing skill quality, understanding frontmatter fields |
-| [`plugins-guide`](.claude/skills/plugins-guide/SKILL.md) | Marketplace registration, plugin manifest conventions specific to this repo |
+| `skills-guide` | Creating or modifying SKILL.md files, reviewing skill quality, understanding frontmatter fields |
+| `plugins-guide` | Marketplace registration, plugin manifest conventions, agent and skill conventions within plugins |
 
-**Always read the relevant guide skill before making changes.** These are not optional - they define the conventions and quality bar for this repository. Consult them during planning to align your approach, and refer back to them while implementing to avoid mistakes.
+## Local Skill Naming Conventions
 
-## Conventions
-
-**Plugins**: each plugin lives in `plugins/<name>/` with a `.claude-plugin/plugin.json` manifest. Read [`plugins-guide`](.claude/skills/plugins-guide/SKILL.md) for manifest schema and marketplace registration. Generic structure and naming conventions come from `plugin-dev:plugin-structure`.
-
-**Skills**: each skill is a `SKILL.md` file in its own directory. Frontmatter defines metadata; body defines instructions. Read [`skills-guide`](.claude/skills/skills-guide/SKILL.md) for authoring conventions, the review checklist, and anti-patterns to avoid.
-
-**Agents**: agent definitions are Markdown files in `agents/` directories (within plugins or `.claude/agents/`). They configure subagents with tools, skills, and system prompts.
+- `*-guide` - guide skills (conventions and quality bar)
+- `review-*` - custom review types (e.g., `review-plugin`, `review-codex`)
+- `local-review-*` - overrides for built-in review types (e.g., `local-review-skill`)
+- `self-review-extension` - orchestrator customization
 
 ## Quality Bar
 
-Good contributions are concise, well-structured, and follow existing patterns. Skills have clear descriptions for auto-invocation, appropriate tool permissions, and step-by-step instructions. Plugins include a manifest with all required fields and at least one skill. Guide skills document the detailed criteria.
+Local skills follow `skills-guide` conventions. Local agents follow `plugin-dev:agent-development` conventions. Plugins follow `plugins-guide` (which references both). Good contributions are concise, well-structured, and follow existing patterns.
 
 ## Marketplace Registration
 
@@ -62,12 +67,12 @@ When adding a new plugin, register it in [`.claude-plugin/marketplace.json`](.cl
 
 ## Testing
 
-Run the `self-review` skill before committing to validate plugins, local skills, and documentation across the repository.
-
-For single-plugin validation:
+Run `/reviewer:self-review` to validate plugins, local skills, and documentation across the repository. The local extension adds plugin-specific and Codex-powered reviews on top of the built-in review types.
 
 ```
-claude plugin validate plugins/<plugin-name>
+/reviewer:self-review                   # full review
+/reviewer:self-review --diff main       # review changes vs main branch
+/review-plugin plugins/codex            # plugin structure review (local custom type)
 ```
 
 ## Upstream References

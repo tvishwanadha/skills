@@ -1,6 +1,6 @@
 {
   "name": "reviewer",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Layered code review framework with extensible core reviews, parallel orchestration, and project-local customization",
   "author": {
     "name": "Teja Vishwanadha",

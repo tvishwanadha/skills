@@ -37,8 +37,10 @@ Review code for correctness - control flow, edge cases, error handling, state ma
 
 2. **Read target files** and understand the code's purpose and flow
 
-3. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
+3. **Load skills** - invoke `reviewer:reviewer-framework` via the Skill tool for output format, severity definitions, and confidence scoring
 
-4. **Verify findings** - use Grep/Read to confirm issues rather than guessing; trace control flow paths to validate edge case concerns
+4. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
 
-5. **Report findings** using the reviewer-framework output format (severity, confidence, category, file:line, description, suggestion)
+5. **Verify findings** - use Grep/Read to confirm issues rather than guessing; trace control flow paths to validate edge case concerns
+
+6. **Report findings** using the reviewer-framework output format
