@@ -14,9 +14,9 @@
       "description": "Architecture Decision Records - consult and manage ADRs for project design decisions"
     },
     {
-      "name": "skill-reviewer",
-      "source": "./plugins/skill-reviewer",
-      "description": "Review SKILL.md files for quality, completeness, and best practices"
+      "name": "reviewer",
+      "source": "./plugins/reviewer",
+      "description": "Layered code review framework with extensible core reviews, parallel orchestration, and project-local customization"
     },
     {
       "name": "codex",

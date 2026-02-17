@@ -64,6 +64,12 @@ skills:
 System prompt / instructions for the agent.
 ```
 
+For comprehensive agent conventions (frontmatter fields, triggering conditions, system prompts, model selection), consult the `plugin-dev:agent-development` skill.
+
+## Skills Within Plugins
+
+Skills within plugins follow the same conventions as local skills. For skill authoring guidance (frontmatter, content structure, review criteria), consult `skills-guide` which references `plugin-dev:skill-development` for the full specification.
+
 ## Generic Plugin Conventions
 
 For comprehensive Claude Code plugin structure guidance (directory layout, auto-discovery, `${CLAUDE_PLUGIN_ROOT}`, component patterns, naming conventions), consult the `plugin-dev:plugin-structure` skill if plugin-dev is installed.
