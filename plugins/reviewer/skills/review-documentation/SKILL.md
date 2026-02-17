@@ -1,8 +1,9 @@
 ---
 name: review-documentation
 description: >-
-  Review documentation for accuracy, completeness, and quality. Use when asked to
-  review docs, check README accuracy, or audit documentation.
+  This skill should be used when the user asks to "review docs", "check README
+  accuracy", "audit documentation", or "review API docs". Review documentation
+  for accuracy, completeness, and quality.
 allowed-tools: Read, Glob, Grep, Skill
 argument-hint: "[file or directory]"
 ---

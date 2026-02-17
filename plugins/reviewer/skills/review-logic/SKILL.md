@@ -1,9 +1,9 @@
 ---
 name: review-logic
 description: >-
-  Review code for logic errors, control flow issues, edge cases, error handling,
-  and state management. Use when asked to review logic, check for bugs, or audit
-  error handling.
+  This skill should be used when the user asks to "review logic", "check for
+  bugs", "audit error handling", "find edge cases", or "review control flow".
+  Review code for logic errors, edge cases, error handling, and state management.
 allowed-tools: Read, Glob, Grep, Skill
 argument-hint: "[file or directory]"
 ---

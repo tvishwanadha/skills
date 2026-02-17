@@ -1,9 +1,9 @@
 ---
 name: reviewer-framework
 description: >-
-  Shared review methodology - confidence scoring, severity levels, output format,
-  and coalescing rules. Background reference for all reviewer agents and core
-  review skills.
+  Shared review methodology for all reviewer agents and core review skills.
+  Defines confidence scoring, severity levels, output format, and coalescing
+  rules.
 user-invocable: false
 
 ---

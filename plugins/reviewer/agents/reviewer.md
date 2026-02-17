@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Code reviewer using Opus for deep reasoning. Invoke via Task tool with a review skill and scope.
+description: Deep code reviewer for logic analysis, skill quality audits, and complex review types. Invoke via Task tool with a review skill and scope.
 model: opus
 tools: Read, Glob, Grep, Skill, WebFetch
 skills:

@@ -1,9 +1,10 @@
 ---
 name: review-patterns
 description: >-
-  Review code for naming conventions, structural patterns, style consistency, and
-  test quality. Use when asked to review patterns, check conventions, or audit
-  code style.
+  This skill should be used when the user asks to "review patterns", "check
+  conventions", "audit code style", "review naming", or "check test quality".
+  Review code for naming conventions, structural patterns, style consistency,
+  and test quality.
 allowed-tools: Read, Glob, Grep, Skill
 argument-hint: "[file or directory]"
 ---

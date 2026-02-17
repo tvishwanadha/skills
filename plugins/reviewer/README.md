@@ -12,12 +12,11 @@ The reviewer plugin provides a structured review system with three layers:
 
 ## Skills
 
-### Orchestrators
+### Orchestrator
 
 | Skill | Description | Usage |
 |-------|-------------|-------|
 | `self-review` | Parallel code review across multiple review types | `/reviewer:self-review --diff main` |
-| `plan-review` | Review implementation plans for completeness and feasibility | `/reviewer:plan-review path/to/plan.md` |
 
 ### Core Review Types
 
@@ -27,6 +26,16 @@ The reviewer plugin provides a structured review system with three layers:
 | `review-logic` | Control flow, edge cases, error handling, state management |
 | `review-patterns` | Naming, structure, style consistency, test quality |
 | `review-documentation` | README accuracy, API docs, completeness |
+
+### Creation Skills
+
+| Skill | Description | Usage |
+|-------|-------------|-------|
+| `reviewer-init` | Interactive setup wizard | `/reviewer:reviewer-init` |
+| `customize-core-review` | Add project-specific rules to a built-in review type | `/reviewer:customize-core-review patterns` |
+| `add-core-review` | Create a new custom review type | `/reviewer:add-core-review security` |
+| `extend-self-review` | Customize orchestrator behavior | `/reviewer:extend-self-review` |
+| `create-reviewer-agent` | Create a custom reviewer agent | `/reviewer:create-reviewer-agent fast-reviewer` |
 
 ### Framework
 
@@ -38,7 +47,8 @@ The reviewer plugin provides a structured review system with three layers:
 
 | Agent | Model | Purpose |
 |-------|-------|---------|
-| `reviewer` | Opus | Deep reasoning code reviewer, used by orchestrators |
+| `reviewer` | Opus | Deep reasoning code reviewer for logic analysis and skill quality |
+| `simple-reviewer` | Sonnet | Fast code reviewer for pattern matching and documentation checks |
 
 ## How It Works
 
@@ -51,8 +61,8 @@ The reviewer plugin provides a structured review system with three layers:
   |
   +-- Launch parallel Tasks:
   |     +-- reviewer agent -> review-logic -> [local-review-logic?] -> default-logic.md
-  |     +-- reviewer agent -> review-patterns -> [local-review-patterns?] -> default-patterns.md
-  |     +-- reviewer agent -> review-documentation -> [local-review-documentation?] -> default-documentation.md
+  |     +-- simple-reviewer agent -> review-patterns -> [local-review-patterns?] -> default-patterns.md
+  |     +-- simple-reviewer agent -> review-documentation -> [local-review-documentation?] -> default-documentation.md
   |     +-- reviewer agent -> review-skill -> [local-review-skill?] -> default-skill.md (if SKILL.md in scope)
   |
   +-- Coalesce: deduplicate, filter by confidence >= 80, sort by severity
@@ -73,36 +83,29 @@ Each core review skill uses progressive loading:
 
 ## Local Customization
 
-Projects can customize reviews without forking the plugin by creating local skills.
+Projects can customize reviews without forking the plugin. Use the creation skills for guided setup, or create local skills manually.
+
+### Quick Setup
+
+Run the interactive wizard to configure everything at once:
+
+```
+/reviewer:reviewer-init
+```
 
 ### Extending a Core Review
 
-Add project-specific rules on top of the defaults. Create a local skill:
+Add project-specific rules on top of the defaults:
 
 ```
-.claude/skills/local-review-patterns/SKILL.md
+/reviewer:customize-core-review patterns
 ```
 
-```markdown
----
-name: local-review-patterns
-description: Project-specific pattern review rules for my-project.
-user-invocable: false
----
-
-# Local Review Patterns
-
-Apply these project-specific patterns in addition to the defaults:
-
-- Kubernetes resources use `<app>-<component>-<resource>` naming
-- All public types must derive Debug and Clone
-- API handlers follow the `handle_<verb>_<resource>` convention
-- Database queries use the repository pattern, never inline SQL
-```
+This creates `.claude/skills/local-review-patterns/SKILL.md` with project-specific rules that combine with the plugin defaults.
 
 ### Overriding a Core Review
 
-Replace defaults entirely with a custom ruleset:
+Replace defaults entirely with a custom ruleset. Use `/reviewer:customize-core-review <type>` and select "override" mode, or create the skill manually:
 
 ```markdown
 ---
@@ -120,30 +123,25 @@ Do not use the default review rules. Apply only these checks:
 - Error types must implement the project's `AppError` trait
 ```
 
-### Extending an Orchestrator
+### Adding Custom Review Types
+
+Create a new review category (e.g., security, performance):
+
+```
+/reviewer:add-core-review security
+```
+
+This creates `.claude/skills/review-security/SKILL.md` and optionally wires it into the self-review orchestrator.
+
+### Extending the Orchestrator
 
 Modify which review types run, change agents, or adjust thresholds:
 
 ```
-.claude/skills/self-review-extension/SKILL.md
+/reviewer:extend-self-review
 ```
 
-```markdown
----
-name: self-review-extension
-description: Customize self-review for my-project.
-user-invocable: false
----
-
-# Self-Review Extension
-
-Modify the default self-review configuration:
-
-- Add `review-security` to the review types list (using `reviewer:reviewer` agent)
-- Remove `review-documentation` from the list (we handle docs separately)
-- Set confidence threshold to 70 (we want more findings)
-- Use `reviewer:simple-reviewer` for `review-patterns` (faster, patterns are straightforward)
-```
+This creates `.claude/skills/self-review-extension/SKILL.md` to customize the self-review configuration.
 
 ### What Belongs Where
 
@@ -152,7 +150,8 @@ Modify the default self-review configuration:
 | Language-agnostic defaults | Plugin `references/default-x.md` | "consistent naming within module" |
 | Project-specific additions | Local `local-review-x` skill | "k8s resources use `<app>-<component>`" |
 | Complete custom ruleset | Local `local-review-x` skill (with "do not use defaults") | Full project-specific rules |
-| Orchestrator customization | Local `self-review-extension` or `plan-review-extension` | Add/remove review types, adjust threshold |
+| Custom review categories | Local `review-x` skill | Security, performance, domain-specific |
+| Orchestrator customization | Local `self-review-extension` skill | Add/remove review types, adjust threshold |
 
 ## Installation
 

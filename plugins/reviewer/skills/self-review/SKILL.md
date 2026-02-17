@@ -1,9 +1,9 @@
 ---
 name: self-review
 description: >-
-  Orchestrate comprehensive code review by launching reviewer agents in parallel.
-  Use when asked to review code, check changes, audit work quality, or run a
-  self-review.
+  This skill should be used when the user asks to "review code", "check changes",
+  "audit work quality", "run a self-review", or "review a diff". Orchestrate
+  comprehensive code review by launching reviewer agents in parallel.
 allowed-tools: Read, Glob, Grep, Bash, Task, Skill
 argument-hint: "[scope: file, directory, or --diff <ref>]"
 ---
@@ -26,7 +26,9 @@ These defaults apply unless overridden by a `self-review-extension` skill:
 
 - **Review types**: `review-logic`, `review-patterns`, `review-documentation`
   - Additionally include `review-skill` if any SKILL.md files are in scope
-- **Agent**: `reviewer:reviewer` (opus) for all review types
+- **Agent assignments**:
+  - `reviewer:reviewer` (opus) for `review-logic` and `review-skill`
+  - `reviewer:simple-reviewer` (sonnet) for `review-patterns` and `review-documentation`
 - **Confidence threshold**: >= 80
 
 ## Procedure
@@ -65,7 +67,7 @@ If it does not load (skill not found), use the built-in defaults.
 
 For each review type in the final list, launch a Task:
 
-- **`subagent_type`**: the agent name from defaults/extension (default: `"reviewer"` which maps to `reviewer:reviewer`)
+- **`subagent_type`**: the agent name from defaults/extension (e.g., `"reviewer:reviewer"` for logic/skill, `"reviewer:simple-reviewer"` for patterns/documentation)
 - **`prompt`**: instruct the agent to invoke the corresponding review skill (e.g., `reviewer:review-logic`) with the scope as its argument
 
 Launch all Tasks in a single message for parallel execution. Do NOT use `run_in_background: true`.

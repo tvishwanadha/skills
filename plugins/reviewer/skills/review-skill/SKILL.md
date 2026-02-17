@@ -1,8 +1,9 @@
 ---
 name: review-skill
 description: >-
-  Review SKILL.md files for quality, completeness, and best practices. Use when
-  asked to review a skill, audit skill quality, or check a SKILL.md for issues.
+  This skill should be used when the user asks to "review a skill", "audit skill
+  quality", "check a SKILL.md", or "validate skill conventions". Review SKILL.md
+  files for quality, completeness, and best practices.
 allowed-tools: Read, Glob, Grep, Skill, WebFetch
 argument-hint: "[path-to-skill]"
 ---
