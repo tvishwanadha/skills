@@ -14,6 +14,7 @@ Modify the default self-review configuration:
 
 - `review-plugin` (local skill) assigned to `reviewer:reviewer` (opus - structural analysis of plugin directories)
 - `reviewer-extras:review-codex` (plugin skill) assigned to `codex:review` (has Codex MCP tools for deep code review)
+- `reviewer-extras:review-claude-md` (plugin skill) assigned to `reviewer:reviewer` (opus - needs to load skills and do nuanced assessment)
 
 ## Adjust confidence threshold
 

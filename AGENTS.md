@@ -30,16 +30,7 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 └── LICENSE
 ```
 
-## Installed Plugins
-
-Four plugins are enabled project-wide via `.claude/settings.json`:
-
-- **`plugin-dev`** (external) - generic Claude Code plugin, skill, and agent development conventions
-- **`reviewer`** (this repository) - layered code review framework with extensible core reviews and parallel orchestration
-- **`codex`** (this repository) - Codex-powered code review, plan review, and completion verification via MCP
-- **`reviewer-extras`** (this repository) - extra review types for the reviewer framework that depend on other plugins
-
-**Important**: enabled plugins use the distributed (installed) version, not the working copy on disk. If you edit plugin files locally, those changes will not take effect until Claude Code is restarted. If you need to test local plugin changes, stop and ask the user to restart.
+Enabled plugins are configured in `.claude/settings.json` - only reference plugins listed there. These load from the remote/cached version, not the working copy on disk. To test local plugin edits, stop and ask the user to restart with `--plugin-dir` pointing to the local copy.
 
 ## Guide Skills
 

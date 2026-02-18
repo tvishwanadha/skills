@@ -8,26 +8,18 @@ This plugin provides composite review types that bridge multiple plugins togethe
 
 ## Dependencies
 
-| Plugin | Required by | Purpose |
-|--------|-------------|---------|
-| `reviewer` | `review-codex` | Output format, severity levels, confidence scoring via `reviewer-framework` |
-| `codex` | `review-codex` | Codex MCP tools and review workflow via `codex:review` |
+| Plugin | Marketplace | Required by | Purpose |
+|--------|-------------|-------------|---------|
+| `reviewer` | `teja-skills` | `review-codex`, `review-claude-md` | Output format, severity levels, confidence scoring via `reviewer-framework` |
+| `codex` | `teja-skills` | `review-codex` | Codex MCP tools and review workflow via `codex:review` |
+| `claude-md-management` | `claude-plugins-official` | `review-claude-md` | CLAUDE.md quality rubric via `claude-md-improver` |
 
 ## Skills
 
 | Skill | Description | Extra Dependencies |
 |-------|-------------|--------------------|
 | `review-codex` | Deep code review using Codex MCP tools with reviewer framework output | `reviewer`, `codex` |
-
-## Installation
-
-Install this plugin and its dependencies:
-
-```bash
-claude plugin install teja-skills/reviewer
-claude plugin install teja-skills/codex
-claude plugin install teja-skills/reviewer-extras
-```
+| `review-claude-md` | CLAUDE.md and project context file quality, structure, and inter-file relationships | `reviewer`, `claude-md-management` |
 
 ## License
 

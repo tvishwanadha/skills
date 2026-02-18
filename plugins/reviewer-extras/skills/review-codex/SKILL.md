@@ -58,10 +58,10 @@ Instruct Codex to group findings by severity and end with a summary line.
    - `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
    - `codex:review` for the Code Review workflow and Codex thread management
 
-   If neither skill loads, stop and report a single finding:
+   If either skill fails to load, stop and report a single finding:
    ```
    [CRITICAL] Setup: reviewer-extras plugin dependencies are not installed (confidence: 99)
-     Details: This skill requires the `reviewer` and `codex` plugins. Install them and restart Claude Code.
+     Details: At least one required dependency is not installed. Ensure both `reviewer@teja-skills` and `codex@teja-skills` are enabled in settings.json.
    ```
 
 4. **Run Codex review** - follow the Code Review workflow from the loaded `codex:review` skill. Embed the framework's Output Format, Severity Levels, and Confidence Scoring sections in the Codex prompt so findings come back already structured.

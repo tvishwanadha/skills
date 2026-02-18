@@ -1,6 +1,6 @@
 {
   "name": "reviewer-extras",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Extra review types for the reviewer framework that depend on other plugins",
   "author": {
     "name": "Teja Vishwanadha",

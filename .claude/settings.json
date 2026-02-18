@@ -3,6 +3,7 @@
     "plugin-dev@claude-plugins-official": true,
     "codex@teja-skills": true,
     "reviewer@teja-skills": true,
-    "reviewer-extras@teja-skills": true
+    "reviewer-extras@teja-skills": true,
+    "claude-md-management@claude-plugins-official": true
   }
 }
