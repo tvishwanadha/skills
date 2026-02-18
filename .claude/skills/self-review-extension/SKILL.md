@@ -13,7 +13,7 @@ Modify the default self-review configuration:
 ## Add review types
 
 - `review-plugin` (local skill) assigned to `reviewer:reviewer` (opus - structural analysis of plugin directories)
-- `review-codex` (local skill) assigned to `codex:review` (has Codex MCP tools for deep code review)
+- `reviewer-extras:review-codex` (plugin skill) assigned to `codex:review` (has Codex MCP tools for deep code review)
 
 ## Adjust confidence threshold
 

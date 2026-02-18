@@ -19,7 +19,6 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 │   │   ├── local-review-patterns/  # Local override for patterns review
 │   │   ├── local-review-documentation/ # Local override for documentation review
 │   │   ├── review-plugin/          # Plugin structure review type
-│   │   ├── review-codex/           # Codex-powered deep review type
 │   │   └── self-review-extension/  # Self-review orchestrator extension
 │   ├── agents/                     # Local agents (optional, created on demand)
 │   └── settings.json               # Project-wide plugin configuration
@@ -33,11 +32,12 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 
 ## Installed Plugins
 
-Three plugins are enabled project-wide via `.claude/settings.json`:
+Four plugins are enabled project-wide via `.claude/settings.json`:
 
 - **`plugin-dev`** (external) - generic Claude Code plugin, skill, and agent development conventions
 - **`reviewer`** (this repository) - layered code review framework with extensible core reviews and parallel orchestration
 - **`codex`** (this repository) - Codex-powered code review, plan review, and completion verification via MCP
+- **`reviewer-extras`** (this repository) - extra review types for the reviewer framework that depend on other plugins
 
 **Important**: enabled plugins use the distributed (installed) version, not the working copy on disk. If you edit plugin files locally, those changes will not take effect until Claude Code is restarted. If you need to test local plugin changes, stop and ask the user to restart.
 
@@ -53,7 +53,7 @@ Three plugins are enabled project-wide via `.claude/settings.json`:
 ## Local Skill Naming Conventions
 
 - `*-guide` - guide skills (conventions and quality bar)
-- `review-*` - custom review types (e.g., `review-plugin`, `review-codex`)
+- `review-*` - custom review types (e.g., `review-plugin`)
 - `local-review-*` - overrides for built-in review types (e.g., `local-review-skill`)
 - `self-review-extension` - orchestrator customization
 
