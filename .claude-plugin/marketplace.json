@@ -22,6 +22,11 @@
       "name": "codex",
       "source": "./plugins/codex",
       "description": "Codex-powered code review, plan review, and completion verification"
+    },
+    {
+      "name": "reviewer-extras",
+      "source": "./plugins/reviewer-extras",
+      "description": "Extra review types for the reviewer framework that depend on other plugins"
     }
   ]
 }

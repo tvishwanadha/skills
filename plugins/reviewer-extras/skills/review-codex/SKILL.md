@@ -14,10 +14,19 @@ Review code for correctness and issues using deep analysis powered by Codex MCP 
 
 **Input**: `$ARGUMENTS` - file paths or directory to scope the review. If no argument, review the current working directory.
 
+## Dependencies
+
+This skill requires two other plugins to be installed and enabled:
+
+| Plugin | Required for |
+|--------|-------------|
+| `reviewer` | `reviewer-framework` skill - output format, severity levels, confidence scoring |
+| `codex` | `codex:review` skill and Codex MCP tools (`codex`, `codex-reply`) |
+
 ## Examples
 
-- `/review-codex src/` - deep review of files in the src directory
-- `/review-codex path/to/file` - deep review of a specific file
+- `/reviewer-extras:review-codex src/` - deep review of files in the src directory
+- `/reviewer-extras:review-codex path/to/file` - deep review of a specific file
 
 ## Review Rules
 
@@ -48,6 +57,12 @@ Instruct Codex to group findings by severity and end with a summary line.
 3. **Load skills** - invoke via the Skill tool:
    - `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
    - `codex:review` for the Code Review workflow and Codex thread management
+
+   If neither skill loads, stop and report a single finding:
+   ```
+   [CRITICAL] Setup: reviewer-extras plugin dependencies are not installed (confidence: 99)
+     Details: This skill requires the `reviewer` and `codex` plugins. Install them and restart Claude Code.
+   ```
 
 4. **Run Codex review** - follow the Code Review workflow from the loaded `codex:review` skill. Embed the framework's Output Format, Severity Levels, and Confidence Scoring sections in the Codex prompt so findings come back already structured.
 
