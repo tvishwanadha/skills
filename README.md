@@ -10,7 +10,7 @@ Personal collection of Claude Code plugins for reuse across projects.
 | [reviewer](plugins/reviewer/) | Layered code review framework with extensible core reviews and parallel orchestration | 11 skills, 2 agents |
 | [codex](plugins/codex/) | Codex-powered code review, plan review, and completion verification | 2 skills, 1 agent, MCP server |
 | [reviewer-extras](plugins/reviewer-extras/) | Extra review types for the reviewer framework that depend on other plugins | 2 skills, 0 agents |
-| [planner](plugins/planner/) | Enhanced planning with complexity scoring, sub-problem decomposition, and plan review | 2 skills, 0 agents |
+| [planner](plugins/planner/) | Enhanced planning with complexity scoring, sub-problem decomposition, and plan review | 3 skills, 0 agents |
 
 ## Installation
 

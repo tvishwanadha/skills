@@ -19,7 +19,7 @@ The manifest file at `.claude-plugin/plugin.json` defines the plugin:
 
 ### Required fields
 - `name` - lowercase, hyphen-separated identifier
-- `version` - semver format
+- `version` - semver format. Start at `0.0.1`. Under `0.x`, default to patch bumps unless stated otherwise
 - `description` - concise summary of the plugin's purpose
 
 ### Optional fields

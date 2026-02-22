@@ -15,7 +15,7 @@ user-invocable: false
 - READMEs should summarize behavior at a high level, not duplicate detail from SKILL.md - avoid creating two sources of truth that can drift
 - Plans should include a verification step (e.g., `self-review --diff main`) to validate changes against conventions
 
-## Review process
+## Review Process
 
 During plan review (Phase 5), apply the constraints above as a checklist. Additionally:
 

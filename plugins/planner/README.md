@@ -8,6 +8,7 @@ Enhanced planning for Claude Code's built-in plan mode. Adds complexity scoring,
 |-------|------|-------------|
 | `planning-methodology` | Guide | Auto-invokes during planning to score complexity, guide decomposition, and trigger plan review |
 | `review-plan` | Review | Reviews plans for completeness, feasibility, risk coverage, architectural alignment, and coherence |
+| `customize-plan-review` | Interactive | Creates or modifies a `local-plan-standards` skill for project-specific planning constraints |
 
 ## How It Works
 
@@ -28,6 +29,12 @@ Planning methodology loads automatically during plan mode. Plan review can also 
 ```
 /planner:review-plan .claude/plans/my-plan.md
 /planner:review-plan
+```
+
+To create project-specific planning constraints:
+
+```
+/planner:customize-plan-review
 ```
 
 ## Optional Integrations
