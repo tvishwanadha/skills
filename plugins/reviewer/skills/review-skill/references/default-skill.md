@@ -10,7 +10,6 @@
 ### `description`
 - Non-empty; include keywords for auto-invocation (Claude matches user intent against descriptions)
 - Describes both **what** the skill does and **when** to use it
-- Note: all skill descriptions share a global budget (~16,000 chars / 2% of context window) - keep descriptions concise
 
 ### `disable-model-invocation`
 - Should be `true` for side-effect workflows (deploy, commit, send, publish)
