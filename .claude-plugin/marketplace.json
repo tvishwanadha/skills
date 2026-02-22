@@ -27,6 +27,11 @@
       "name": "reviewer-extras",
       "source": "./plugins/reviewer-extras",
       "description": "Extra review types for the reviewer framework that depend on other plugins"
+    },
+    {
+      "name": "planner",
+      "source": "./plugins/planner",
+      "description": "Enhanced planning with complexity scoring, sub-problem decomposition, and plan review"
     }
   ]
 }

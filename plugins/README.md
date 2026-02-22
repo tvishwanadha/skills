@@ -10,6 +10,7 @@ Personal collection of Claude Code plugins for reuse across projects.
 | [reviewer](./reviewer/) | Layered code review framework with extensible core reviews and parallel orchestration | 11 skills, 2 agents |
 | [codex](./codex/) | Codex-powered code review, plan review, and completion verification | 2 skills, 1 agent, MCP server |
 | [reviewer-extras](./reviewer-extras/) | Extra review types for the reviewer framework that depend on other plugins | 2 skills, 0 agents |
+| [planner](./planner/) | Enhanced planning with complexity scoring, sub-problem decomposition, and plan review | 2 skills, 0 agents |
 
 ## Installation
 
@@ -20,6 +21,7 @@ claude plugin install teja-skills/adr
 claude plugin install teja-skills/reviewer
 claude plugin install teja-skills/codex
 claude plugin install teja-skills/reviewer-extras
+claude plugin install teja-skills/planner
 ```
 
 ## Plugin Structure
