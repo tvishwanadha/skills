@@ -73,19 +73,14 @@ Proceed with a direct plan. No decomposition needed.
 
 ### Complex Tasks (Composite 7+, or any dimension >= 8)
 
-Decompose into sub-problems:
+Try to decompose into sub-problems, each with lower complexity than the whole. If the task cannot be meaningfully decomposed, proceed with a single detailed plan.
 
-1. Break the task into 2-5 sub-problems with clear boundaries
-2. Launch parallel `Plan` agents (one per sub-problem), each receiving:
-   - Sub-problem scope and boundaries
-   - Research context gathered in Phase 1
-   - Brief descriptions of sibling sub-problems (for interface awareness)
-3. Each sub-plan should include:
-   - Approach and rationale
-   - Files to modify (verified against codebase)
-   - Ordered implementation steps
-   - Interfaces with sibling sub-problems
-   - Risks and mitigations
+If decomposed, launch parallel `Plan` agents (one per sub-problem), each receiving:
+- Sub-problem scope and boundaries
+- Research context gathered in Phase 1
+- Brief descriptions of sibling sub-problems (for interface awareness)
+
+Each sub-plan should include: approach, files to modify (verified against codebase), ordered implementation steps, interfaces with sibling sub-problems, and risks.
 
 ### Plan Output Format
 
