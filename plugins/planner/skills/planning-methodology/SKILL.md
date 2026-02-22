@@ -1,9 +1,11 @@
 ---
 name: planning-methodology
 description: >-
-  Enhanced planning methodology with complexity scoring, sub-problem
-  decomposition, and plan review. Loaded during plan mode, implementation
-  planning, architecture design, feature breakdown, or solution design.
+  This skill should be loaded during plan mode, when creating a plan,
+  implementation planning, architecture design, feature breakdown, task
+  breakdown, project planning, or solution design. Provides enhanced planning
+  methodology with complexity scoring, sub-problem decomposition, and plan
+  review.
 user-invocable: false
 ---
 
