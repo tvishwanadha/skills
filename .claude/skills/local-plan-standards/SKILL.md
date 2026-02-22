@@ -8,7 +8,7 @@ user-invocable: false
 
 ## Constraints
 
-- Plugin and skill changes must include marketplace registration (`.claude-plugin/marketplace.json`) and catalog updates (`plugins/README.md`)
+- Plugin and skill changes must include marketplace registration (`.claude-plugin/marketplace.json`) and catalog updates (root `README.md`)
 - Skills must follow `skills-guide` conventions: frontmatter fields, naming, content structure, size limits
 - Plugins must follow `plugins-guide` conventions: manifest, directory layout, component organization
 - References to existing plugins or skills must resolve on disk - flag non-existent components unless they are being created as part of the plan

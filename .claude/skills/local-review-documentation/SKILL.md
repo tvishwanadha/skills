@@ -14,5 +14,5 @@ These rules extend the default documentation review rules.
 - Verify cross-reference accuracy (use Glob and Read to confirm):
   - `AGENTS.md` directory layout matches actual repo structure
   - `AGENTS.md` guide skills table lists all guide skills in `.claude/skills/` (Glob for `*-guide` directories)
-  - `plugins/README.md` plugin list matches `.claude-plugin/marketplace.json` entries
+  - Root `README.md` plugin table matches `.claude-plugin/marketplace.json` entries
   - `CLAUDE.md` references `AGENTS.md`

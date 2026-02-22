@@ -6,7 +6,6 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 
 ```
 ├── plugins/                        # Published plugins (one directory per plugin)
-│   ├── README.md                   # Plugin catalog
 │   └── <plugin-name>/
 │       ├── .claude-plugin/plugin.json
 │       ├── skills/
@@ -56,7 +55,7 @@ Local skills follow `skills-guide` conventions. Local agents follow `plugin-dev:
 
 ## Marketplace Registration
 
-When adding a new plugin, register it in [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) and update [`plugins/README.md`](plugins/README.md). The marketplace file maps plugin names to their source directories.
+When adding a new plugin, register it in [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) and update the root [`README.md`](README.md) plugin table. The marketplace file maps plugin names to their source directories.
 
 ## Testing
 
