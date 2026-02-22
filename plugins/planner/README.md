@@ -11,18 +11,14 @@ Enhanced planning for Claude Code's built-in plan mode. Adds complexity scoring,
 
 ## How It Works
 
-The `planning-methodology` guide skill augments the built-in plan mode phases:
-
-1. **Phase 1 - Understanding**: After codebase exploration, scores the task across 7 complexity dimensions (scope, novelty, dependencies, ambiguity, risk, concurrency, domain)
-2. **Phase 2 - Design**: For complex tasks (composite 7+, or any dimension >= 8), decomposes into sub-problems with parallel Plan agents. Moderate tasks get thorough research. Simple tasks proceed directly.
-3. **Phase 3 - Review**: Before ExitPlanMode, invokes `review-plan` to validate the plan against the codebase
+The `planning-methodology` guide skill is invoked during plan mode. It drafts a lightweight plan, scores complexity against the draft, then fleshes out the design - decomposing complex tasks into sub-problems. Every plan is reviewed before presenting to the user.
 
 ## Setup
 
 Add to your project's `CLAUDE.md`:
 
 ```
-When in plan mode, invoke planner:planning-methodology for enhanced planning.
+ALWAYS invoke planner:planning-methodology when entering plan mode.
 ```
 
 ## Usage

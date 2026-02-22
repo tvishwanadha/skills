@@ -18,7 +18,7 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 │   │   ├── local-review-skill/     # Local override for skill review
 │   │   ├── local-review-patterns/  # Local override for patterns review
 │   │   ├── local-review-documentation/ # Local override for documentation review
-│   │   ├── local-review-plan/      # Local override for plan review
+│   │   ├── local-plan-standards/    # Planning constraints and plan review rules
 │   │   ├── review-plugin/          # Plugin structure review type
 │   │   └── self-review-extension/  # Self-review orchestrator extension
 │   ├── agents/                     # Local agents (optional, created on demand)
@@ -47,6 +47,7 @@ Enabled plugins are configured in `.claude/settings.json` - only reference plugi
 - `*-guide` - guide skills (conventions and quality bar)
 - `review-*` - custom review types (e.g., `review-plugin`)
 - `local-review-*` - overrides for built-in review types (e.g., `local-review-skill`)
+- `local-plan-standards` - planning constraints and plan review rules
 - `self-review-extension` - orchestrator customization
 
 ## Quality Bar

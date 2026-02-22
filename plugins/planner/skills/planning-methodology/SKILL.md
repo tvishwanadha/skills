@@ -11,15 +11,38 @@ user-invocable: false
 
 # Planning Methodology
 
-Enhanced workflow for the built-in plan mode. Augments each planning phase with complexity scoring, structured decomposition, and plan review.
+Enhanced workflow for the built-in plan mode. Uses a draft-score-design loop: load project constraints early, draft a lightweight plan, score complexity against the draft, then flesh out the full design.
 
-## Phase 1: Initial Understanding
+## Phase 1: Understanding
 
-After launching Explore agents to understand the codebase:
+### Load Project Constraints
 
-### Score Complexity
+Before launching `Explore` subagents, try to invoke `local-plan-standards` via the Skill tool. If found, extract its rules as planning constraints - these may inform what to explore (e.g., design patterns to follow, architectural boundaries, conventions to verify). If not found, proceed without constraints.
 
-Score the task across 7 dimensions (1-10 each) based on exploration results:
+### Explore and Research
+
+Launch `Explore` Task subagents to understand the codebase, informed by any loaded constraints. Instruct them to also:
+
+- Search for relevant skills via the Skill tool - try invoking skills that might provide domain context (e.g., security skills for auth work, testing skills for test-related changes)
+- Use WebSearch (if available) for best practices and known pitfalls in the problem domain when the task involves unfamiliar patterns or technologies
+
+## Phase 2: Draft Plan
+
+Launch a `Plan` Task subagent to create a lightweight structural plan for the full task. Provide it with:
+- The task description and research context from Phase 1
+- Project constraints loaded in Phase 1 (if any)
+
+The draft should include:
+- High-level approach (1-2 sentences)
+- Key files to modify (verified against codebase)
+- Rough ordered steps (one line each)
+- Any project constraints that apply
+
+This draft is not the final plan - its purpose is to give complexity scoring a concrete artifact to assess.
+
+## Phase 3: Score Complexity
+
+Score the task across 7 dimensions (1-10 each) based on the draft plan. The draft is intentionally lightweight and will understate rough edges - when uncertain, round up:
 
 | Dimension | 1-3 (Low) | 4-6 (Moderate) | 7-10 (High) |
 |-----------|-----------|-----------------|--------------|
@@ -40,7 +63,7 @@ composite = (scope*1.5 + novelty*1.5 + dependencies + ambiguity + risk + concurr
 Present the assessment to the user:
 
 ```
-**Complexity**: N/10 (level) - 1-line rationale
+**Complexity**: N/10 - 1-line rationale
 
 | Dimension | Score | Rationale |
 |-----------|-------|-----------|
@@ -53,51 +76,50 @@ Present the assessment to the user:
 | Domain | N | brief note |
 ```
 
-### Enhanced Research
+## Phase 4: Design
 
-Instruct Explore agents to also:
+Flesh out the draft into a detailed plan using `Plan` Task subagents. First, classify the task tier to determine whether to decompose.
 
-- Search for relevant skills via the Skill tool - try invoking skills that might provide domain context (e.g., security skills for auth work, testing skills for test-related changes)
-- Use WebSearch (if available) for best practices and known pitfalls in the problem domain when the task involves unfamiliar patterns or technologies
+### Decomposition
 
-## Phase 2: Design
+Classify the tier, checking from most to least complex:
 
-### Simple Tasks (Composite 1-3)
+1. **Complex** if composite >= 7 or any single dimension >= 8. Decompose.
+2. **Moderate** if composite >= 4 or any single dimension >= 7. Consider decomposing, especially if multiple dimensions scored >= 6.
+3. **Simple** otherwise. Skip decomposition.
 
-Proceed with a direct plan. No decomposition needed.
+When decomposing, aim for sub-problems that would individually score below 5. If that granularity isn't achievable, still decompose as far as practical - any reduction in complexity helps. Only skip decomposition if the task is truly indivisible. Launch parallel `Plan` subagents for decomposed sub-problems, or a single `Plan` subagent otherwise.
 
-### Moderate Tasks (Composite 4-6)
+### Plan Subagent Inputs
 
-- If any dimension scored >= 7, consider decomposing into sub-problems
-- Otherwise, proceed with a single detailed plan
-
-### Complex Tasks (Composite 7+, or any dimension >= 8)
-
-Try to decompose into sub-problems, each with lower complexity than the whole. If the task cannot be meaningfully decomposed, proceed with a single detailed plan.
-
-If decomposed, launch parallel `Plan` agents (one per sub-problem), each receiving:
-- Sub-problem scope and boundaries
+Every `Plan` subagent receives:
+- The draft plan from Phase 2 (or the relevant sub-problem scope if decomposed)
 - Research context gathered in Phase 1
-- Brief descriptions of sibling sub-problems (for interface awareness)
+- Project constraints loaded in Phase 1 (if any)
+- Brief descriptions of sibling sub-problems, if decomposed (for interface awareness)
 
-Each sub-plan should include: approach, files to modify (verified against codebase), ordered implementation steps, interfaces with sibling sub-problems, and risks.
+### Expected Output
 
-### Plan Output Format
+Each plan should include: approach, files to modify (verified against codebase), ordered implementation steps, interfaces with sibling sub-problems (if decomposed), and risks.
 
 Include at the top of the plan file:
 
 ```
-**Complexity**: N/10 (level) - 1-line rationale
+**Complexity**: N/10 (tier) - 1-line rationale
 ```
 
-If decomposed, include sub-problem sections with clear interface descriptions between them.
+### Synthesis (decomposed plans only)
 
-## Phase 3: Review
+After all parallel `Plan` subagents complete, synthesize sub-plans into a single plan:
+
+1. Verify interfaces between sub-problems are consistent (shared files, data formats, ordering dependencies)
+2. Resolve conflicts where sub-plans make incompatible assumptions
+3. Establish a global implementation order - which sub-problems can be implemented in parallel and which have sequential dependencies
+
+## Phase 5: Review
 
 Before calling ExitPlanMode:
 
 1. Invoke `planner:review-plan` via the Skill tool, passing the plan file path
 2. If critical or high findings exist, address them before proceeding
 3. Present review findings alongside the plan for user approval
-
-Skip plan review for simple tasks (composite 1-3) unless the user requests it.

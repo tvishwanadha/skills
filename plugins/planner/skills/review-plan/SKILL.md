@@ -21,7 +21,7 @@ Review an implementation plan for completeness, feasibility, and coherence.
 
 ## Loading Strategy
 
-1. Try to invoke the skill `local-review-plan` using the Skill tool.
+1. Try to invoke the skill `local-plan-standards` using the Skill tool.
    - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance. Skip step 2.
    - If it loads and does NOT prohibit defaults, continue to step 2, combining the local guidance with the defaults.
    - If it does not load (skill not found), continue to step 2.
