@@ -1,9 +1,10 @@
 ---
 name: plugins-guide
 description: >-
-  Marketplace registration and plugin manifest conventions for this repository.
-  Consult when creating or modifying plugins, writing plugin.json manifests, or
-  registering plugins in the marketplace.
+  This skill should be loaded when creating a plugin, modifying a plugin
+  manifest, writing plugin.json, registering a plugin in the marketplace, or
+  adding skills or agents to a plugin. Defines marketplace registration and
+  plugin conventions for this repository.
 user-invocable: false
 
 ---

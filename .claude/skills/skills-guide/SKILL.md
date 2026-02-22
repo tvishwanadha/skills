@@ -1,7 +1,9 @@
 ---
 name: skills-guide
 description: >-
-  Skill authoring conventions for SKILL.md files - frontmatter, content
+  This skill should be loaded when creating a skill, modifying a SKILL.md,
+  writing skill frontmatter, reviewing skill quality, or authoring skill
+  descriptions. Defines conventions for SKILL.md files - frontmatter, content
   structure, and review criteria.
 user-invocable: false
 

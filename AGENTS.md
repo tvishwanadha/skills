@@ -18,6 +18,7 @@ This repository is a personal plugin marketplace - a collection of reusable skil
 │   │   ├── local-review-skill/     # Local override for skill review
 │   │   ├── local-review-patterns/  # Local override for patterns review
 │   │   ├── local-review-documentation/ # Local override for documentation review
+│   │   ├── local-review-plan/      # Local override for plan review
 │   │   ├── review-plugin/          # Plugin structure review type
 │   │   └── self-review-extension/  # Self-review orchestrator extension
 │   ├── agents/                     # Local agents (optional, created on demand)

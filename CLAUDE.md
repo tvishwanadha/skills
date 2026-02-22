@@ -1,3 +1,5 @@
 Always consult @AGENTS.md before making changes to this repository.
 
-Local guide skills are available for detailed conventions - they auto-invoke when relevant. Use `/skills` to list available slash-command skills.
+ALWAYS load skills via the Skill tool instead of reading SKILL.md files directly. Use `/skills` to list available skills.
+
+ALWAYS invoke planner:planning-methodology when entering plan mode.

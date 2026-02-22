@@ -1,0 +1,10 @@
+{
+  "name": "planner",
+  "version": "0.0.1",
+  "description": "Enhanced planning with complexity scoring, sub-problem decomposition, and plan review",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT"
+}
