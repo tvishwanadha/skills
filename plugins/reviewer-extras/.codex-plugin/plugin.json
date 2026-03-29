@@ -1,0 +1,23 @@
+{
+  "name": "reviewer-extras",
+  "version": "0.0.3",
+  "description": "Extra review types for the reviewer framework that depend on other plugins",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "interface": {
+    "displayName": "Reviewer Extras",
+    "shortDescription": "Composite review types that extend the reviewer framework.",
+    "longDescription": "Adds cross-plugin review workflows such as Codex-backed review and CLAUDE.md review on top of the reviewer framework.",
+    "developerName": "Teja Vishwanadha",
+    "category": "Developer Tools",
+    "capabilities": ["Code Review", "Integrations", "Documentation"],
+    "defaultPrompt": [
+      "Review this change with Codex-backed analysis.",
+      "Check the CLAUDE.md files for structure and quality.",
+      "Show which extra review workflows this repo can use."
+    ]
+  }
+}

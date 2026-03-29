@@ -20,7 +20,7 @@ Create or modify a `self-review-extension` skill to customize which review types
 
 ### 1. Check for existing extension
 
-Use Glob to check if `.claude/skills/self-review-extension/SKILL.md` exists.
+Check if `.claude/skills/self-review-extension/SKILL.md` exists on disk.
 
 If it exists, read and present its current content.
 
@@ -36,7 +36,7 @@ Present the self-review defaults that the extension can modify:
 
 ### 3. Discover custom review types
 
-Use Glob to find `review-*` directories in `.claude/skills/` that aren't the 4 built-in types. Present any discovered custom types as candidates to add.
+Search on disk for `review-*` directories in `.claude/skills/` that aren't the 4 built-in types. Present any discovered custom types as candidates to add.
 
 ### 4. Guide through modifications
 

@@ -21,7 +21,7 @@ Review SKILL.md files against the skill authoring checklist and conventions.
 
 ## Loading Strategy
 
-1. Try to invoke the skill `local-review-skill` using the Skill tool.
+1. Try to load the skill `local-review-skill`.
    - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance. Skip step 2.
    - If it loads and does NOT prohibit defaults, continue to step 2, combining the local guidance with the defaults.
    - If it does not load (skill not found), continue to step 2.
@@ -37,11 +37,11 @@ Review SKILL.md files against the skill authoring checklist and conventions.
 
 2. **Read the file** and parse frontmatter (YAML between `---` fences) and body content
 
-3. **Load skills** - invoke `reviewer:reviewer-framework` via the Skill tool for output format, severity definitions, and confidence scoring
+3. **Load skills** - load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
 
 4. **Apply loaded review rules** - run through every checklist item from the loaded guidance (defaults, local, or combined)
 
-5. **Verify file integrity** - use Glob and Read to check that all referenced files exist; use Grep to verify `$ARGUMENTS` usage and file path references
+5. **Verify file integrity** - check that all referenced files exist on disk; search file contents to verify `$ARGUMENTS` usage and file path references
 
 6. **Report findings** using the reviewer-framework output format
 

@@ -36,7 +36,7 @@ ADRs are the project's architectural knowledge base. **Consult them before plann
 
 **Always consult ADRs before implementing features or making changes.**
 
-1. Glob for ADRs (`docs/adr/*.md`, or `**/adr/*.md` respecting `.gitignore`) and Grep their contents for keywords related to the subsystem you're modifying
+1. Search on disk for ADRs (`docs/adr/*.md`, or `**/adr/*.md` respecting `.gitignore`) and search their contents for keywords related to the subsystem you're modifying
 2. Read ADRs related to the subsystem you're modifying - understand what decisions are already in place and what they affect
 3. Follow accepted decisions unless explicitly asked to change them
 4. If your plan contradicts an ADR, stop and discuss the conflict with the user before proceeding

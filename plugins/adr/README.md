@@ -19,20 +19,17 @@ The ADR plugin teaches an agent to work with Architecture Decision Records as a 
 - Creating new ADRs for architecturally significant decisions
 - Writing quality guidance and anti-patterns
 
-**Resources:**
-- Core SKILL.md with quick reference and workflows
-- `references/creating-adrs.md` - step-by-step creation procedure
-- `references/writing-adrs.md` - content quality and anti-patterns
-- `references/adr-guide.md` - background on ADRs and templates
-- `assets/nygard-template.md` - standard ADR template
-- `assets/init.md` - ADR directory initialization
-
 ## Installation
 
+### Claude Code
+
+```bash
+claude plugin install teja-skills/adr
 ```
-/plugin marketplace add tvishwanadha/teja-skills
-/plugin install adr
-```
+
+### Codex
+
+Official plugin publishing is [coming soon](https://developers.openai.com/codex/plugins/build#publish-official-public-plugins). In the meantime, add this plugin to your repo or personal marketplace at `~/.agents/plugins/marketplace.json`.
 
 ## License
 

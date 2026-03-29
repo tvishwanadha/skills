@@ -1,0 +1,23 @@
+{
+  "name": "planner",
+  "version": "0.0.4",
+  "description": "Enhanced planning with complexity scoring, sub-problem decomposition, and plan review",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "interface": {
+    "displayName": "Planner",
+    "shortDescription": "Improved planning with decomposition, scoring, and plan review.",
+    "longDescription": "Enhances planning workflows with complexity scoring, sub-problem decomposition, and plan review for completeness, risks, and architectural alignment.",
+    "developerName": "Teja Vishwanadha",
+    "category": "Developer Tools",
+    "capabilities": ["Planning", "Review", "Architecture"],
+    "defaultPrompt": [
+      "Break this task into a reviewable implementation plan.",
+      "Review this plan for gaps, risks, and architecture.",
+      "Set up project-specific planning standards for this repo."
+    ]
+  }
+}

@@ -30,7 +30,7 @@ Extract the agent name from `$ARGUMENTS`. Validate:
 
 ### 2. Check for existing agent
 
-Use Glob to check if `.claude/agents/<name>.md` already exists.
+Check if `.claude/agents/<name>.md` already exists on disk.
 
 If it exists:
 1. Read the file and present its current content

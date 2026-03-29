@@ -22,7 +22,7 @@ Review code for adherence to naming conventions, structural patterns, style cons
 
 ## Loading Strategy
 
-1. Try to invoke the skill `local-review-patterns` using the Skill tool.
+1. Try to load the skill `local-review-patterns`.
    - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance. Skip step 2.
    - If it loads and does NOT prohibit defaults, continue to step 2, combining the local guidance with the defaults.
    - If it does not load (skill not found), continue to step 2.
@@ -33,15 +33,15 @@ Review code for adherence to naming conventions, structural patterns, style cons
 
 1. **Determine scope** from `$ARGUMENTS`
    - File paths: review those files directly
-   - Directory: review files in the directory (use Glob to discover)
+   - Directory: review files in the directory
    - No argument: review the current working directory
 
 2. **Read target files** and understand the project's existing conventions by sampling nearby code
 
-3. **Load skills** - invoke `reviewer:reviewer-framework` via the Skill tool for output format, severity definitions, and confidence scoring
+3. **Load skills** - load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
 
 4. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
 
-5. **Compare against project norms** - use Grep to check if flagged patterns are consistent or inconsistent with the rest of the codebase
+5. **Compare against project norms** - search file contents to check if flagged patterns are consistent or inconsistent with the rest of the codebase
 
 6. **Report findings** using the reviewer-framework output format

@@ -32,7 +32,7 @@ Extract the type name from `$ARGUMENTS`. Validate:
 
 ### 2. Check for existing skill
 
-Use Glob to check if `.claude/skills/review-<name>/SKILL.md` already exists.
+Check if `.claude/skills/review-<name>/SKILL.md` already exists on disk.
 
 If it exists:
 1. Read the file and present its current content
@@ -45,7 +45,7 @@ Ask the user for:
 - **Focus area** - what this review checks for (1-2 sentences)
 - **Auto-invocation keywords** - verb phrases that should trigger this review (e.g., "check for security issues", not just "security")
 - **Review rules** - categorized bullet list of specific checks
-- **Additional tools** - any tools beyond Read, Glob, Grep, Skill (e.g., Bash for running linters)
+- **Additional tools** - any tools beyond Read, Glob, Grep, Skill (e.g., shell access for running linters)
 
 ### 4. Generate and write
 

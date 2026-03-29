@@ -42,7 +42,7 @@ Ask the user:
 
 ### 4. Check for existing local skill
 
-Use Glob to check if `.claude/skills/local-review-<type>/SKILL.md` already exists.
+Check if `.claude/skills/local-review-<type>/SKILL.md` already exists on disk.
 
 If it exists:
 1. Read the file and present its current content

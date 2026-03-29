@@ -21,7 +21,7 @@ Review an implementation plan for completeness, feasibility, and coherence.
 
 ## Loading Strategy
 
-1. Try to invoke the skill `local-plan-standards` using the Skill tool.
+1. Try to load the skill `local-plan-standards`.
    - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance. Skip step 2.
    - If it loads and does NOT prohibit defaults, continue to step 2, combining the local guidance with the defaults.
    - If it does not load (skill not found), continue to step 2.
@@ -32,11 +32,11 @@ Review an implementation plan for completeness, feasibility, and coherence.
 
 1. **Determine scope** from `$ARGUMENTS`
    - If a file path is provided, read that plan file
-   - If no argument, use Glob to find the most recent `.md` file in `.claude/plans/` and read it
+   - If no argument, find the most recent `.md` file in `.claude/plans/` and read it
 
 2. **Read the plan** and understand its structure, goals, and proposed changes
 
-3. **Load output format** - invoke `reviewer:reviewer-framework` via the Skill tool for severity levels, confidence scoring, and output format. If it does not load, use this format:
+3. **Load output format** - load `reviewer:reviewer-framework` for severity levels, confidence scoring, and output format. If it does not load, use this format:
    ```
    [SEVERITY] Category: Brief description (confidence: N)
      Section: <plan section or file reference>
@@ -48,8 +48,8 @@ Review an implementation plan for completeness, feasibility, and coherence.
 4. **Apply loaded review rules** - check each category from the loaded guidance (defaults, local, or combined)
 
 5. **Verify claims against the codebase**:
-   - Use Glob to confirm referenced files and directories exist
-   - Use Grep to verify referenced functions, classes, and patterns are real
-   - Use Read to check that proposed modifications are compatible with existing code
+   - Confirm referenced files and directories exist on disk
+   - Search file contents to verify referenced functions, classes, and patterns are real
+   - Read files to check that proposed modifications are compatible with existing code
 
 6. **Report findings** using the loaded or built-in format

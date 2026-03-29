@@ -41,9 +41,10 @@ The plugin bundles an MCP server configuration that runs `codex mcp-server`. Whe
 
 ## Installation
 
-```
-/plugin marketplace add tvishwanadha/teja-skills
-/plugin install codex
+Claude Code only - this plugin wraps Codex as an MCP server for Claude, so it is not applicable to Codex itself.
+
+```bash
+claude plugin install teja-skills/codex
 ```
 
 ## License

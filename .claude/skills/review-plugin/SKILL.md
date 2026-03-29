@@ -21,7 +21,7 @@ Review code for plugin directory structure, manifest validity, skill/agent quali
 
 ## Review Rules
 
-Loaded dynamically from `plugins-guide` (which references `plugin-dev:plugin-structure`, `plugin-dev:agent-development`, and `skills-guide`). Covers: plugin structure, manifest validation, skill quality, agent quality, cross-references, hooks, MCP configuration, security, and file organization.
+Loaded dynamically from `claude-plugins-guide` / `codex-plugins-guide` (which references `plugin-dev:plugin-structure`, `plugin-dev:agent-development`, and `skills-guide`). Covers: plugin structure, manifest validation, skill quality, agent quality, cross-references, hooks, MCP configuration, security, and file organization.
 
 ## Review Procedure
 
@@ -29,12 +29,14 @@ Loaded dynamically from `plugins-guide` (which references `plugin-dev:plugin-str
    - Map files to plugin directories under `plugins/<name>/`
    - If no plugin directories in scope, report "No plugin directories found in scope" and exit
 
-2. **Load skills** - invoke via the Skill tool:
-   - `plugins-guide` for plugin conventions (which references `plugin-dev:plugin-structure`, `plugin-dev:agent-development`, and `skills-guide`)
+2. **Load skills**:
+   - `claude-plugins-guide` / `codex-plugins-guide` for plugin conventions (which references `plugin-dev:plugin-structure`, `plugin-dev:agent-development`, and `skills-guide`)
    - `reviewer:reviewer-framework` for output format and scoring methodology
 
-3. **Apply review rules** - for each plugin: verify structure, validate manifest, review each skill, review agents, check cross-references, validate hooks and MCP, run security checks, check file organization - all against the loaded conventions
+3. **Apply review rules** for each plugin against the loaded conventions:
+   - Verify structure, manifest, skills, agents, cross-references, hooks, MCP, security, file organization
+   - If both `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json` exist, shared fields (`name`, `version`, `description`, `author`, `license`) must match
 
-4. **Verify findings** - use Grep/Read to confirm issues rather than guessing
+4. **Verify findings** - search the codebase to confirm issues rather than guessing
 
 5. **Report findings** using the reviewer-framework output format

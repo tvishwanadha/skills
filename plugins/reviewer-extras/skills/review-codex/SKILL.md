@@ -41,7 +41,7 @@ Instruct Codex to group findings by severity and end with a summary line.
 
 ### Finding Validation
 
-- Verify Codex findings have valid file:line references (spot-check with Read/Grep)
+- Verify Codex findings have valid file:line references (spot-check by reading the files)
 - Discard findings that reference non-existent files or lines
 - Adjust confidence scores if Codex's language suggests uncertainty it didn't self-score
 
@@ -49,12 +49,12 @@ Instruct Codex to group findings by severity and end with a summary line.
 
 1. **Determine scope** from `$ARGUMENTS`
    - File paths: review those files directly
-   - Directory: review files in the directory (use Glob to discover)
+   - Directory: review files in the directory
    - No argument: review the current working directory
 
 2. **Read target files** and build a file summary
 
-3. **Load skills** - invoke via the Skill tool:
+3. **Load skills** - load the following skills:
    - `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
    - `codex:review` for the Code Review workflow and Codex thread management
 

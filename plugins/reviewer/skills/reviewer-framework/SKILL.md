@@ -58,7 +58,7 @@ When reviewing code or content:
 
 1. **Understand scope** - read the target files and understand their purpose before flagging issues
 2. **Check against loaded rules** - apply the specific review rules (from defaults and/or local extensions)
-3. **Verify claims** - use Glob/Grep/Read to confirm issues rather than guessing
+3. **Verify claims** - search the codebase to confirm issues rather than guessing
 4. **Score conservatively** - when uncertain, lower the confidence score rather than omitting the finding
 5. **Be specific** - every finding must reference a file and line number, describe the issue concretely, and suggest a fix
 6. **Avoid false positives** - do not flag intentional patterns as issues; if unsure, lower confidence

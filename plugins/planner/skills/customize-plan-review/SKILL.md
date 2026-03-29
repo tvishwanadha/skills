@@ -30,7 +30,7 @@ Ask the user:
 
 ### 3. Check for existing local skill
 
-Use Glob to check if `.claude/skills/local-plan-standards/SKILL.md` already exists.
+Check if `.claude/skills/local-plan-standards/SKILL.md` already exists on disk.
 
 If it exists:
 1. Read the file and present its current content
@@ -40,7 +40,7 @@ If it exists:
 ### 4. Discover available skills
 
 Scan for skills the user might want to reference as planning constraints:
-- Glob for `.claude/skills/*/SKILL.md` (local skills)
+- Search on disk for `.claude/skills/*/SKILL.md` (local skills)
 - Read `.claude/settings.json` for enabled plugin skills
 
 Present discovered skills as candidates. Planning constraints often reference convention skills (e.g., "Code must follow `local-review-patterns` conventions") - the planner loads referenced skills during Phase 1 to understand the full constraint.

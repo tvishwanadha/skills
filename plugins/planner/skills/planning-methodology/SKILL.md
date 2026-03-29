@@ -17,13 +17,13 @@ Enhanced workflow for the built-in plan mode. Uses a draft-score-design loop: lo
 
 ### Load Project Constraints
 
-Before launching `Explore` subagents, try to invoke `local-plan-standards` via the Skill tool. If found, extract its rules as planning constraints - these may inform what to explore (e.g., design patterns to follow, architectural boundaries, conventions to verify). If not found, proceed without constraints.
+Before launching `Explore` subagents, try to load `local-plan-standards`. If found, extract its rules as planning constraints - these may inform what to explore (e.g., design patterns to follow, architectural boundaries, conventions to verify). If not found, proceed without constraints.
 
 ### Explore and Research
 
 Launch `Explore` Task subagents to understand the codebase, informed by any loaded constraints. Instruct them to also:
 
-- Search for relevant skills via the Skill tool - try invoking skills that might provide domain context (e.g., security skills for auth work, testing skills for test-related changes)
+- Search for relevant skills - try loading skills that might provide domain context (e.g., security skills for auth work, testing skills for test-related changes)
 - Use WebSearch (if available) for best practices and known pitfalls in the problem domain when the task involves unfamiliar patterns or technologies
 
 ## Phase 2: Draft Plan
@@ -120,6 +120,6 @@ After all parallel `Plan` subagents complete, synthesize sub-plans into a single
 
 Before calling ExitPlanMode:
 
-1. Invoke `planner:review-plan` via the Skill tool, passing the plan file path
+1. Load `planner:review-plan`, passing the plan file path
 2. If critical or high findings exist, address them before proceeding
 3. Present review findings alongside the plan for user approval

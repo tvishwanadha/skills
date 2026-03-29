@@ -44,12 +44,16 @@ To create project-specific planning constraints:
 
 ## Installation
 
+### Claude Code
+
 ```bash
 claude plugin install teja-skills/planner
 ```
 
-Or for local testing:
+### Codex
 
-```bash
-claude --plugin-dir ./plugins/planner
-```
+Official plugin publishing is [coming soon](https://developers.openai.com/codex/plugins/build#publish-official-public-plugins). In the meantime, add this plugin to your repo or personal marketplace at `~/.agents/plugins/marketplace.json`.
+
+## License
+
+MIT

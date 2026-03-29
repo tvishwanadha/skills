@@ -1,0 +1,32 @@
+{
+  "name": "teja-skills",
+  "interface": {
+    "displayName": "Teja Skills"
+  },
+  "plugins": [
+    {
+      "name": "adr",
+      "source": { "source": "local", "path": "./plugins/adr" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "reviewer",
+      "source": { "source": "local", "path": "./plugins/reviewer" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "reviewer-extras",
+      "source": { "source": "local", "path": "./plugins/reviewer-extras" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "planner",
+      "source": { "source": "local", "path": "./plugins/planner" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    }
+  ]
+}

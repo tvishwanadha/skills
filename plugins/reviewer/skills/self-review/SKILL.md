@@ -33,27 +33,27 @@ These defaults apply unless overridden by a `self-review-extension` skill:
 
 ## Procedure
 
-> **All Task calls must be foreground** - never set `run_in_background: true`. Subagents need the Skill tool for conditional loading, which is only available in foreground tasks.
+> **All review subagents must run in foreground** so they can load skills. Never set `run_in_background: true`.
 
 ### 1. Parse scope
 
 Determine the review scope from `$ARGUMENTS`:
 
 - **Empty or blank**: review the current working directory
-- **Starts with `--diff`**: extract the git ref (token after `--diff`, default `HEAD~1` if missing). Run `git diff --name-only <ref>` via Bash to get changed files.
+- **Starts with `--diff`**: extract the git ref (token after `--diff`, default `HEAD~1` if missing). Run `git diff --name-only <ref>` in the shell to get changed files.
 - **Otherwise**: treat as file path(s) or directory
 
 ### 2. Gather target files
 
-- For `--diff` mode: partition the changed file list into **existing files** (still on disk) and **deleted files** (removed in this diff). Existing files are the review scope. Deleted files are passed as context in each Task prompt so reviewers can flag stale references or unintended removals. If both lists are empty, report "No changes found vs `<ref>`" and exit without launching review tasks.
-- For directory: use Glob to discover files in the directory
+- For `--diff` mode: partition the changed file list into **existing files** (still on disk) and **deleted files** (removed in this diff). Existing files are the review scope. Deleted files are passed as context in each review prompt so reviewers can flag stale references or unintended removals. If both lists are empty, report "No changes found vs `<ref>`" and exit without launching review tasks.
+- For directory: discover files in the directory
 - For file paths: use the paths directly
 
-Check if any files in scope are SKILL.md files. In `--diff` mode, check if any changed file paths end with `SKILL.md` (string match on the file list). Otherwise, Glob for `**/SKILL.md` within the target. If SKILL.md files are found, add `review-skill` to the review types list.
+Check if any files in scope are SKILL.md files. In `--diff` mode, check if any changed file paths end with `SKILL.md` (string match on the file list). Otherwise, search on disk for `**/SKILL.md` within the target. If SKILL.md files are found, add `review-skill` to the review types list.
 
 ### 3. Check for extension
 
-Try to invoke `self-review-extension` via the Skill tool.
+Try to load `self-review-extension`.
 
 If it loads, its instructions take priority over the built-in defaults. Extensions are additive - built-in review types are always included unless the extension explicitly removes them. The extension can:
 - Add or remove review types from the list
@@ -61,7 +61,7 @@ If it loads, its instructions take priority over the built-in defaults. Extensio
 - Adjust the confidence threshold
 - Add pre/post-review steps
 
-**Namespace resolution**: built-in types use the `reviewer:` prefix (e.g., `reviewer:review-logic`). Custom types from extensions use their skill name directly (e.g., `review-plugin`).
+**Namespace resolution**: built-in types can be referenced with or without the `reviewer:` prefix (e.g., `review-logic` or `reviewer:review-logic`). Custom types from extensions use their skill name directly (e.g., `review-plugin`).
 
 If it does not load (skill not found), use the built-in defaults.
 
@@ -69,8 +69,8 @@ If it does not load (skill not found), use the built-in defaults.
 
 For each review type in the final list, launch a Task:
 
-- **`subagent_type`**: the agent name from defaults/extension (e.g., `"reviewer:reviewer"` for logic/skill, `"reviewer:simple-reviewer"` for patterns/documentation)
-- **`prompt`**: instruct the agent to invoke the corresponding review skill (e.g., `reviewer:review-logic`) with the scope as its argument
+- **`subagent_type`**: the agent name from defaults/extension (e.g., `"reviewer"` or `"reviewer:reviewer"` for logic/skill, `"simple-reviewer"` or `"reviewer:simple-reviewer"` for patterns/documentation)
+- **`prompt`**: instruct the agent to invoke the corresponding review skill (e.g., `review-logic` or `reviewer:review-logic`) with the scope as its argument
 
 Launch all Tasks in a single message for parallel execution. Do NOT use `run_in_background: true`.
 

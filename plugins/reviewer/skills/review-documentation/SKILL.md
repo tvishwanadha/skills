@@ -21,7 +21,7 @@ Review documentation for accuracy, completeness, structure, and quality.
 
 ## Loading Strategy
 
-1. Try to invoke the skill `local-review-documentation` using the Skill tool.
+1. Try to load the skill `local-review-documentation`.
    - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance. Skip step 2.
    - If it loads and does NOT prohibit defaults, continue to step 2, combining the local guidance with the defaults.
    - If it does not load (skill not found), continue to step 2.
@@ -37,9 +37,9 @@ Review documentation for accuracy, completeness, structure, and quality.
 
 2. **Read target documentation** and understand what it describes
 
-3. **Load skills** - invoke `reviewer:reviewer-framework` via the Skill tool for output format, severity definitions, and confidence scoring
+3. **Load skills** - load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
 
-4. **Cross-reference with code** - use Glob/Grep/Read to verify that documented features, APIs, file paths, and examples match the actual codebase
+4. **Cross-reference with code** - search the codebase to verify that documented features, APIs, file paths, and examples match the actual codebase
 
 5. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined)
 

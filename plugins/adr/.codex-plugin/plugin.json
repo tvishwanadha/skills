@@ -1,0 +1,23 @@
+{
+  "name": "adr",
+  "version": "1.0.1",
+  "description": "Architecture Decision Records - consult and manage ADRs for project design decisions",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "interface": {
+    "displayName": "ADR",
+    "shortDescription": "Consult and manage architecture decision records.",
+    "longDescription": "Helps agents review existing ADRs before planning work and create new ADRs for significant architectural decisions.",
+    "developerName": "Teja Vishwanadha",
+    "category": "Developer Tools",
+    "capabilities": ["Architecture", "Planning", "Documentation"],
+    "defaultPrompt": [
+      "Check existing ADRs before planning this change.",
+      "Explain why this architecture was chosen from the ADRs.",
+      "Help me write a new ADR for this design decision."
+    ]
+  }
+}

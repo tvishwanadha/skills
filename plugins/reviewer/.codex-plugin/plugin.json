@@ -1,0 +1,23 @@
+{
+  "name": "reviewer",
+  "version": "0.0.3",
+  "description": "Layered code review framework with extensible core reviews, parallel orchestration, and project-local customization",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "interface": {
+    "displayName": "Reviewer",
+    "shortDescription": "Extensible review workflows for code, skills, patterns, and docs.",
+    "longDescription": "Provides layered review orchestration, reusable review types, and project-local customization for structured repository review.",
+    "developerName": "Teja Vishwanadha",
+    "category": "Developer Tools",
+    "capabilities": ["Code Review", "Documentation", "Quality"],
+    "defaultPrompt": [
+      "Review the current diff for logic, patterns, and docs.",
+      "Run a self-review of these changes against main.",
+      "Help me add a custom review type for this project."
+    ]
+  }
+}

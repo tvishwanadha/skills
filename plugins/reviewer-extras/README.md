@@ -6,20 +6,24 @@ Extra review types for the reviewer framework that depend on other plugins.
 
 This plugin provides composite review types that bridge multiple plugins together. Each skill requires specific dependencies to be installed alongside this plugin.
 
-## Dependencies
-
-| Plugin | Marketplace | Required by | Purpose |
-|--------|-------------|-------------|---------|
-| `reviewer` | `teja-skills` | `review-codex`, `review-claude-md` | Output format, severity levels, confidence scoring via `reviewer-framework` |
-| `codex` | `teja-skills` | `review-codex` | Codex MCP tools and review workflow via `codex:review` |
-| `claude-md-management` | `claude-plugins-official` | `review-claude-md` | CLAUDE.md quality rubric via `claude-md-improver` |
-
 ## Skills
 
-| Skill | Description | Extra Dependencies |
-|-------|-------------|--------------------|
-| `review-codex` | Deep code review using Codex MCP tools with reviewer framework output | `reviewer`, `codex` |
-| `review-claude-md` | CLAUDE.md and project context file quality, structure, and inter-file relationships | `reviewer`, `claude-md-management` |
+| Skill | Description | Required plugins |
+|-------|-------------|------------------|
+| `review-codex` | Deep code review using Codex MCP tools | `teja-skills/reviewer`, `teja-skills/codex` |
+| `review-claude-md` | CLAUDE.md and project context file quality and structure | `teja-skills/reviewer`, `claude-plugins-official/claude-md-management` |
+
+## Installation
+
+### Claude Code
+
+```bash
+claude plugin install teja-skills/reviewer-extras
+```
+
+### Codex
+
+Official plugin publishing is [coming soon](https://developers.openai.com/codex/plugins/build#publish-official-public-plugins). In the meantime, add this plugin to your repo or personal marketplace at `~/.agents/plugins/marketplace.json`.
 
 ## License
 

@@ -61,12 +61,12 @@ This skill requires two other plugins to be installed and enabled:
 
 1. **Determine scope** from `$ARGUMENTS`
    - File paths: review those files directly
-   - Directory: review files in the directory (use Glob to discover)
+   - Directory: review files in the directory
    - No argument: review the current working directory
 
-2. **Discover context files** - Glob for CLAUDE.md, .claude.md, .claude.local.md, and AGENTS.md within scope
+2. **Discover context files** - search on disk for CLAUDE.md, .claude.md, .claude.local.md, and AGENTS.md within scope
 
-3. **Load skills** - invoke via the Skill tool:
+3. **Load skills** - load the following skills:
    - `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
    - `claude-md-management:claude-md-improver` for the CLAUDE.md quality rubric
 

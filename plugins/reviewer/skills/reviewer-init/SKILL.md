@@ -20,10 +20,10 @@ Run an interactive setup wizard for the reviewer plugin. Detect existing configu
 ### 1. Detect existing setup
 
 Scan for existing reviewer configuration:
-- Glob for `local-review-*` directories in `.claude/skills/`
+- Search on disk for `local-review-*` directories in `.claude/skills/`
 - Check for `.claude/skills/self-review-extension/SKILL.md`
-- Glob for custom `review-*` directories in `.claude/skills/` (excluding the 4 built-in types)
-- Glob for custom agent files in `.claude/agents/`
+- Search on disk for custom `review-*` directories in `.claude/skills/` (excluding the 4 built-in types)
+- Check for custom agent files in `.claude/agents/`
 
 Present a summary of what already exists.
 
@@ -38,7 +38,7 @@ Show available setup options (multi-select). Mark already-configured items:
 
 ### 3. Execute selected options
 
-For each selected option, invoke the corresponding creation skill via the Skill tool:
+For each selected option, load the corresponding creation skill:
 
 | Selection | Skill to invoke | Arguments |
 |-----------|----------------|-----------|

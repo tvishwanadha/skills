@@ -31,10 +31,10 @@ Review code for {FOCUS}.
 
 2. **Read target files** and understand context
 
-3. **Load skills** - invoke `reviewer:reviewer-framework` via the Skill tool for output format, severity definitions, and confidence scoring
+3. **Load skills** - load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
 
 4. **Apply review rules** - check each rule above against the code
 
-5. **Verify findings** - use Grep/Read to confirm issues rather than guessing
+5. **Verify findings** - search the codebase to confirm issues rather than guessing
 
 6. **Report findings** using the reviewer-framework output format (severity, confidence, category, file:line, description, suggestion)

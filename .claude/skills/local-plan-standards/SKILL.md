@@ -10,7 +10,7 @@ user-invocable: false
 
 - Plugin and skill changes must include marketplace registration (`.claude-plugin/marketplace.json`) and catalog updates (root `README.md`)
 - Skills must follow `skills-guide` conventions: frontmatter fields, naming, content structure, size limits
-- Plugins must follow `plugins-guide` conventions: manifest, directory layout, component organization
+- Plugins must follow `claude-plugins-guide` / `codex-plugins-guide` conventions: manifest, directory layout, component organization
 - References to existing plugins or skills must resolve on disk - flag non-existent components unless they are being created as part of the plan
 - READMEs should summarize behavior at a high level, not duplicate detail from SKILL.md - avoid creating two sources of truth that can drift
 - Plans should include a verification step (e.g., `self-review --diff main`) to validate changes against conventions
@@ -19,8 +19,8 @@ user-invocable: false
 
 During plan review (Phase 5), apply the constraints above as a checklist. Additionally:
 
-- Load `skills-guide` and `plugins-guide` via the Skill tool to verify specific conventions when the plan touches skills or plugins
-- Verify referenced file paths with Glob
+- Load `skills-guide` and `claude-plugins-guide` / `codex-plugins-guide` to verify specific conventions when the plan touches skills or plugins
+- Search on disk to verify referenced file paths exist
 
 ### Codex holistic review
 
