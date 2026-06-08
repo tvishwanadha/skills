@@ -14,29 +14,25 @@ Create or modify a `self-review-extension` skill to customize which review types
 
 ## Examples
 
-- `/reviewer:extend-self-review` - create or modify the self-review extension
+- `reviewer:extend-self-review` - create or modify the self-review extension
 
 ## Procedure
 
+> `<local-skills>/` below is the project's local skills directory (e.g. `.claude/skills/`); prefer one that already exists.
+
 ### 1. Check for existing extension
 
-Check if `.claude/skills/self-review-extension/SKILL.md` exists on disk.
+Check if `<local-skills>/self-review-extension/SKILL.md` exists on disk.
 
 If it exists, read and present its current content.
 
 ### 2. Show built-in defaults
 
-Present the self-review defaults that the extension can modify:
-
-- **Review types**: `review-logic`, `review-patterns`, `review-documentation` (+ `review-skill` when SKILL.md files are in scope)
-- **Agent assignments**:
-  - `reviewer:reviewer` (opus) for `review-logic` and `review-skill`
-  - `reviewer:simple-reviewer` (sonnet) for `review-patterns` and `review-documentation`
-- **Confidence threshold**: >= 80
+Read the "Built-in Defaults" section of `reviewer:self-review` and present it to the user - review types, agent assignments, and confidence threshold.
 
 ### 3. Discover custom review types
 
-Search on disk for `review-*` directories in `.claude/skills/` that aren't the 4 built-in types. Present any discovered custom types as candidates to add.
+Search on disk for `review-*` directories in `<local-skills>/` that aren't the 4 built-in types. Present any discovered custom types as candidates to add.
 
 ### 4. Guide through modifications
 
@@ -58,7 +54,7 @@ Read the template from [assets/self-review-extension.md](assets/self-review-exte
 | `{PROJECT}` | Project name (infer from directory or ask) |
 | `{MODIFICATIONS}` | Bullet list of all selected modifications |
 
-Write the result to `.claude/skills/self-review-extension/SKILL.md`.
+Write the result to `<local-skills>/self-review-extension/SKILL.md`.
 
 ### 6. Confirm
 

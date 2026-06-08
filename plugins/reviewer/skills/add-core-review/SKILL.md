@@ -17,10 +17,12 @@ Create a new custom review type. Add project-specific review categories like sec
 
 ## Examples
 
-- `/reviewer:add-core-review security` - create a security review type
-- `/reviewer:add-core-review plugin` - create a plugin-specific review type
+- `reviewer:add-core-review security` - create a security review type
+- `reviewer:add-core-review plugin` - create a plugin-specific review type
 
 ## Procedure
+
+> `<local-skills>/` below is the project's local skills directory (e.g. `.claude/skills/`); prefer one that already exists.
 
 ### 1. Parse and validate name
 
@@ -32,7 +34,7 @@ Extract the type name from `$ARGUMENTS`. Validate:
 
 ### 2. Check for existing skill
 
-Check if `.claude/skills/review-<name>/SKILL.md` already exists on disk.
+Check if `<local-skills>/review-<name>/SKILL.md` already exists on disk.
 
 If it exists:
 1. Read the file and present its current content
@@ -60,15 +62,15 @@ Read the template from [assets/review-type.md](assets/review-type.md). Replace p
 
 If additional tools were specified, add them to the `allowed-tools` frontmatter field.
 
-Write the result to `.claude/skills/review-<name>/SKILL.md`.
+Write the result to `<local-skills>/review-<name>/SKILL.md`.
 
 ### 5. Auto-wire into self-review extension
 
-Check if `.claude/skills/self-review-extension/SKILL.md` exists:
+Check if `<local-skills>/self-review-extension/SKILL.md` exists:
 
-- **If yes**: read it, show current content, and offer to add the new review type. Ask which agent to use (`reviewer:reviewer` or `reviewer:simple-reviewer`). Note: if the review type requires tools beyond the standard reviewer agents (e.g., Bash, MCP tools), recommend creating a custom agent via `/reviewer:create-reviewer-agent` instead. If accepted, edit the extension to include the new type.
-- **If no**: print instructions suggesting `/reviewer:extend-self-review` to configure the orchestrator to include this new type.
+- **If yes**: read it, show current content, and offer to add the new review type. Ask which agent to use (`reviewer:reviewer` or `reviewer:simple-reviewer`). Note: if the review type requires tools beyond the standard reviewer agents (e.g., Bash, MCP tools), recommend creating a custom agent via `reviewer:create-reviewer-agent` instead. If accepted, edit the extension to include the new type.
+- **If no**: print instructions suggesting `reviewer:extend-self-review` to configure the orchestrator to include this new type.
 
 ### 6. Confirm
 
-Print what was created and how to invoke it (e.g., `/review-<name> src/`).
+Print what was created and how to invoke it (e.g., `review-<name> src/`).

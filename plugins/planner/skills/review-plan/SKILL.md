@@ -16,8 +16,8 @@ Review an implementation plan for completeness, feasibility, and coherence.
 
 ## Examples
 
-- `/planner:review-plan .claude/plans/my-plan.md` - review a specific plan
-- `/planner:review-plan` - review the most recent plan file in `.claude/plans/`
+- `planner:review-plan .claude/plans/my-plan.md` - review a specific plan
+- `planner:review-plan` - review the most recent plan file in `.claude/plans/`
 
 ## Loading Strategy
 

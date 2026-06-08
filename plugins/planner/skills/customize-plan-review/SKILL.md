@@ -14,6 +14,8 @@ Create or modify a `local-plan-standards` skill that adds project-specific plann
 
 ## Procedure
 
+> `<local-skills>/` below is the project's local skills directory (e.g. `.claude/skills/`); prefer one that already exists.
+
 ### 1. Show current defaults
 
 Read the plugin's default plan review rules:
@@ -30,7 +32,7 @@ Ask the user:
 
 ### 3. Check for existing local skill
 
-Check if `.claude/skills/local-plan-standards/SKILL.md` already exists on disk.
+Check if `<local-skills>/local-plan-standards/SKILL.md` already exists on disk.
 
 If it exists:
 1. Read the file and present its current content
@@ -40,8 +42,8 @@ If it exists:
 ### 4. Discover available skills
 
 Scan for skills the user might want to reference as planning constraints:
-- Search on disk for `.claude/skills/*/SKILL.md` (local skills)
-- Read `.claude/settings.json` for enabled plugin skills
+- Search on disk for `<local-skills>/*/SKILL.md` (local skills)
+- Read the harness's enabled-plugins config (e.g. `.claude/settings.json`) for enabled plugin skills
 
 Present discovered skills as candidates. Planning constraints often reference convention skills (e.g., "Code must follow `local-review-patterns` conventions") - the planner loads referenced skills during Phase 1 to understand the full constraint.
 
@@ -70,7 +72,7 @@ Read the template from [assets/local-plan-standards.md](assets/local-plan-standa
 | `{CONSTRAINTS}` | User-provided bullet list of constraints |
 | `{REVIEW_PROCESS}` | User-provided review process additions |
 
-Write the result to `.claude/skills/local-plan-standards/SKILL.md`.
+Write the result to `<local-skills>/local-plan-standards/SKILL.md`.
 
 ### 8. Confirm
 

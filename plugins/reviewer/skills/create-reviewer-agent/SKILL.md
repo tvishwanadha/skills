@@ -16,8 +16,8 @@ Create a custom reviewer agent with a specific model, tools, and skills. Add spe
 
 ## Examples
 
-- `/reviewer:create-reviewer-agent security-reviewer` - create a security-focused reviewer
-- `/reviewer:create-reviewer-agent fast-reviewer` - create a fast haiku-based reviewer
+- `reviewer:create-reviewer-agent security-reviewer` - create a security-focused reviewer
+- `reviewer:create-reviewer-agent fast-reviewer` - create a fast haiku-based reviewer
 
 ## Procedure
 

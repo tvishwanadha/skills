@@ -21,12 +21,12 @@ The manifest at `.claude-plugin/plugin.json` defines the plugin for Claude Code.
 
 ### Required fields
 
-- `name` - lowercase, hyphen-separated identifier
-- `version` - semver format, start at `0.0.1`
-- `description` - concise summary of the plugin's purpose
+- `name` - lowercase, hyphen-separated identifier (the only required field if a manifest is present)
 
 ### Recommended fields
 
+- `version` - semver format, start at `0.0.1`
+- `description` - concise summary of the plugin's purpose
 - `author` - object with `name` and `email`
 - `license` - SPDX identifier
 - `skills` - custom path to skills directory (only needed if not using default `skills/`)
@@ -63,21 +63,7 @@ Skills within plugins follow the same conventions as local skills. Each skill li
 
 ### Agents
 
-Agent definitions are Markdown files in `agents/`:
-
-```yaml
----
-name: agent-name
-description: What the agent does
-tools: Read, Glob, Grep
-skills:
-  - skill-name
----
-
-System prompt / instructions for the agent.
-```
-
-For comprehensive agent conventions (frontmatter fields, triggering conditions, model selection), consult `plugin-dev:agent-development` if available.
+Agent definitions are Markdown files in `agents/`, one per agent, with YAML frontmatter and a system prompt body. For agent conventions (frontmatter fields, triggering, model selection), consult `plugin-dev:agent-development` if available.
 
 ### Hooks
 
@@ -85,7 +71,4 @@ Hook definitions in `hooks/` provide event-driven automation. For hook conventio
 
 ## Reference
 
-- `plugin-dev:plugin-structure` - full manifest reference and directory layout conventions
-- `plugin-dev:agent-development` - agent frontmatter, tools, and triggering
-- `plugin-dev:skill-development` - skill authoring spec
-- `plugin-dev:hook-development` - hook events and configuration
+- Canonical Claude Code plugin spec - manifest, component discovery, and agent frontmatter: https://code.claude.com/docs/en/plugins-reference.md

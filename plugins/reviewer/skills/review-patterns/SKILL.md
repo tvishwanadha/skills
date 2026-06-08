@@ -2,23 +2,24 @@
 name: review-patterns
 description: >-
   This skill should be used when the user asks to "review patterns", "check
-  conventions", "audit code style", "review naming", or "check test quality".
-  Review code for naming conventions, structural patterns, style consistency,
-  and test quality.
+  conventions", "audit code style", "review naming", "check test quality",
+  "reduce duplication", "simplify code", or "check for reuse". Review code for
+  naming conventions, structural patterns, style consistency, test quality, and
+  reuse/simplification/efficiency cleanups.
 allowed-tools: Read, Glob, Grep, Skill
 argument-hint: "[file or directory]"
 ---
 
 # Review: Patterns
 
-Review code for adherence to naming conventions, structural patterns, style consistency, and test quality.
+Review code for adherence to naming conventions, structural patterns, style consistency, test quality, and reuse/simplification/efficiency cleanups (duplication, needless complexity, and clear performance wins).
 
 **Input**: `$ARGUMENTS` - file paths or directory to scope the review. If no argument, review the current working directory. Diff-scoping is handled by the orchestrator (`self-review`), which resolves diffs to file lists before invoking this skill.
 
 ## Examples
 
-- `/reviewer:review-patterns src/` - review patterns in the src directory
-- `/reviewer:review-patterns src/handler.ts src/utils.ts` - review specific files
+- `reviewer:review-patterns src/` - review patterns in the src directory
+- `reviewer:review-patterns src/handler.ts src/utils.ts` - review specific files
 
 ## Loading Strategy
 

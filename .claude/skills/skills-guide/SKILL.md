@@ -18,15 +18,16 @@ user-invocable: false
 - **`allowed-tools`** - comma-space format (`Read, Glob, Grep`); only list tools the skill actually uses; guide skills (`user-invocable: false`) don't need this field
 - **`user-invocable`** - set `false` only for background-knowledge/guide skills
 - **`disable-model-invocation`** - set `true` for side-effect workflows (deploy, commit, send)
-- **`argument-hint`** - bracket notation (e.g., `[path-to-file]`); if present, `$ARGUMENTS` must appear in body
+- **`argument-hint`** - bracket notation (e.g., `[path-to-file]`); use `$ARGUMENTS` in the body to consume the argument
 - **`context`** - use `fork` only with actionable task instructions, not guideline-only content
 
 ## Content Rules
 
-- Under 500 lines; use supporting files (`reference/`, `assets/`) for detailed content
+- Under 500 lines; use supporting files (`references/`, `assets/`) for detailed content
 - Step-by-step instructions, not walls of text
 - If `argument-hint` is set, define behavior when no argument is provided
 - All file references must use relative paths and resolve to existing files
+- Prefer the `.md` form of any doc URL over its rendered HTML page - the consumer is an agent that fetches it
 
 ## Key Anti-patterns
 
@@ -41,4 +42,6 @@ user-invocable: false
 
 ## Full Reference
 
-For the complete review checklist, output format, and upstream references, consult the `plugin-dev:skill-development` skill.
+- Agent Skills open standard (the portable `SKILL.md` spec): https://agentskills.io/specification.md - some frontmatter fields above are harness-specific extensions on top of this core
+- Claude Code's field spec, covering those extensions: https://code.claude.com/docs/en/skills.md
+- For the review checklist and output format, consult the `plugin-dev:skill-development` skill if available

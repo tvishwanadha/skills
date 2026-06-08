@@ -15,8 +15,8 @@ Review code for {FOCUS}.
 
 ## Examples
 
-- `/review-{NAME} src/` - review files in the src directory
-- `/review-{NAME} path/to/file` - review a specific file
+- `review-{NAME} src/` - review files in the src directory
+- `review-{NAME} path/to/file` - review a specific file
 
 ## Review Rules
 

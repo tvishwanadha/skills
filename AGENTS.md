@@ -31,4 +31,4 @@ Enabled plugins are configured in `.claude/settings.json` - only reference plugi
 
 ## Testing
 
-Run `/reviewer:self-review --diff main` before finishing substantial changes.
+Run `reviewer:self-review --diff main` before finishing substantial changes.

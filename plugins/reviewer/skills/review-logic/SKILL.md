@@ -16,8 +16,8 @@ Review code for correctness - control flow, edge cases, error handling, state ma
 
 ## Examples
 
-- `/reviewer:review-logic src/` - review logic in the src directory
-- `/reviewer:review-logic src/handler.ts src/utils.ts` - review specific files
+- `reviewer:review-logic src/` - review logic in the src directory
+- `reviewer:review-logic src/handler.ts src/utils.ts` - review specific files
 
 ## Loading Strategy
 

@@ -5,7 +5,6 @@ description: >-
   Defines confidence scoring, severity levels, output format, and coalescing
   rules.
 user-invocable: false
-
 ---
 
 # Reviewer Framework
@@ -80,4 +79,5 @@ The orchestrator combines findings from parallel review tasks:
 2. Deduplicate (see above)
 3. Filter by confidence threshold (default >= 80)
 4. Sort by severity (critical > high > medium > low), then by confidence (descending)
-5. Present the unified report
+5. If the orchestrator defines a verification step (as `self-review` does), verify the surviving findings before presenting; otherwise present directly
+6. Present the unified report

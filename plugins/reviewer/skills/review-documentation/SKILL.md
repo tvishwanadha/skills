@@ -16,8 +16,8 @@ Review documentation for accuracy, completeness, structure, and quality.
 
 ## Examples
 
-- `/reviewer:review-documentation docs/` - review docs in a directory
-- `/reviewer:review-documentation README.md CHANGELOG.md` - review specific doc files
+- `reviewer:review-documentation docs/` - review docs in a directory
+- `reviewer:review-documentation README.md CHANGELOG.md` - review specific doc files
 
 ## Loading Strategy
 

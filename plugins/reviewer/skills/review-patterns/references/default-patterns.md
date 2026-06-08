@@ -37,3 +37,23 @@
 - **Export surface** - modules export only what consumers need; flag large public APIs with unused exports
 - **Colocation** - related code (type + helpers + tests) lives together rather than scattered across the project
 - **Index/barrel files** - re-export files that obscure the actual source; flag when they complicate navigation
+
+## Reuse and Simplification
+
+- **Duplicated logic** - the same block repeated across functions or files that should be factored into a shared helper
+- **Reinvented utilities** - hand-rolled code that duplicates an existing project helper, a standard-library function, or a well-known library API
+- **Unnecessary complexity** - convoluted conditionals, deeply nested ternaries, or control flow that can be flattened or expressed more directly
+- **Redundant indirection** - temporary variables, wrapper functions, or layers that add no clarity over inlining
+- **Manual iteration** - explicit loops or accumulators that a built-in expresses more clearly (map/filter/reduce, comprehensions, standard algorithms)
+- **Over-abstraction** - premature generalization, single-use abstractions, or configuration knobs for values that never vary
+- **Dead parameters and returns** - arguments, fields, or return values that are computed but never consumed by any caller
+
+## Efficiency
+
+Flag clear, low-risk wins only - do not speculate about micro-optimizations.
+
+- **Repeated work** - recomputing an invariant inside a loop instead of hoisting it out
+- **Inefficient algorithms** - O(n^2) or worse where a set/map lookup, single pass, or sort makes it O(n) or O(n log n)
+- **Redundant copies** - unnecessary allocations, full-collection copies, or string concatenation in a loop where a builder/join fits
+- **N+1 access patterns** - per-item queries, requests, or file reads inside a loop that could be batched or hoisted
+- **Needless eager work** - computing or fetching data that is frequently unused where short-circuiting or laziness fits

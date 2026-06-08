@@ -5,7 +5,6 @@ description: >-
   skill when an agent or skill needs Codex MCP tool reference for code review,
   plan review, or completion verification.
 user-invocable: false
-
 ---
 
 # Codex MCP Guide
@@ -21,24 +20,10 @@ If content is outside the project, inline it in your prompt.
 
 ## Thread Configuration
 
-When starting a thread with the `codex` tool, configure these parameters:
+Set at thread start; immutable afterward.
 
-**approval-policy** - Controls shell command approval:
-- `never` - **Always use this.** Claude and Codex don't support interactive approval
-  flows properly - other options will cause the thread to hang.
-
-**sandbox** - Controls filesystem and network access:
-- `read-only` - Read files only, no writes/commands/network (safest for pure review)
-- `workspace-write` - Read/write in workspace, run commands, optionally enable network
-  (use if Codex needs to run tests or fetch dependencies)
-- `danger-full-access` - No sandbox, no approvals (not recommended)
-
-**Important:** These cannot be changed after starting a thread.
-
-**Recommended defaults:**
-- `approval-policy: never` (required - other values break)
-- `sandbox: read-only` for pure review tasks
-- `sandbox: workspace-write` if Codex needs to run tests or access network
+- **approval-policy** - Keep the default; approvals surface inline via MCP elicitation.
+- **sandbox** - `read-only` for pure review; `workspace-write` when Codex should run tests or edit files.
 
 ## Thread Management
 

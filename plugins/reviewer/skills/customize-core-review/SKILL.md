@@ -17,10 +17,12 @@ Create or modify a local review override for one of the 4 built-in core review t
 
 ## Examples
 
-- `/reviewer:customize-core-review patterns` - add project-specific pattern rules
-- `/reviewer:customize-core-review logic` - override default logic review rules
+- `reviewer:customize-core-review patterns` - add project-specific pattern rules
+- `reviewer:customize-core-review logic` - override default logic review rules
 
 ## Procedure
+
+> `<local-skills>/` below is the project's local skills directory (e.g. `.claude/skills/`); prefer one that already exists.
 
 ### 1. Parse and validate type
 
@@ -42,7 +44,7 @@ Ask the user:
 
 ### 4. Check for existing local skill
 
-Check if `.claude/skills/local-review-<type>/SKILL.md` already exists on disk.
+Check if `<local-skills>/local-review-<type>/SKILL.md` already exists on disk.
 
 If it exists:
 1. Read the file and present its current content
@@ -63,7 +65,7 @@ Read the template from [assets/local-review.md](assets/local-review.md). Replace
 | `{MODE_LINE}` | Mode-specific instruction (see template) |
 | `{RULES}` | User-provided bullet list of rules |
 
-Write the result to `.claude/skills/local-review-<type>/SKILL.md`.
+Write the result to `<local-skills>/local-review-<type>/SKILL.md`.
 
 ### 7. Confirm
 

@@ -16,15 +16,21 @@ The reviewer plugin provides a structured review system with three layers:
 
 | Skill | Description | Usage |
 |-------|-------------|-------|
-| `self-review` | Parallel code review across multiple review types | `/reviewer:self-review --diff main` |
+| `self-review` | Parallel code review across multiple review types, then hands off to fixing | `reviewer:self-review --diff main` |
+
+### Fixing
+
+| Skill | Description | Usage |
+|-------|-------------|-------|
+| `fix-findings` | Cluster verified findings and apply fixes interactively; invoked automatically after `self-review` | `reviewer:fix-findings` |
 
 ### Core Review Types
 
 | Skill | Focus |
 |-------|-------|
-| `review-skill` | SKILL.md quality, frontmatter, structure, conventions |
+| `review-skill` | SKILL.md quality, conventions, and cross-skill correctness |
 | `review-logic` | Control flow, edge cases, error handling, state management |
-| `review-patterns` | Naming, structure, style consistency, test quality |
+| `review-patterns` | Conventions, structure, tests, and reuse/efficiency cleanups |
 | `review-documentation` | README accuracy, API docs, completeness |
 
 ## Agents
@@ -36,9 +42,12 @@ The reviewer plugin provides a structured review system with three layers:
 
 ## Usage
 
+Commands below use Claude Code's `/` prefix; on Codex, invoke with `$` instead.
+
 | Goal | Command |
 |------|---------|
 | Review changes | `/reviewer:self-review --diff main` |
+| Apply fixes for findings | `/reviewer:fix-findings` |
 | Set up for your project | `/reviewer:reviewer-init` |
 | Add project-specific rules | `/reviewer:customize-core-review <type>` |
 | Add a new review category | `/reviewer:add-core-review <name>` |
@@ -57,43 +66,11 @@ claude plugin install teja-skills/reviewer
 
 Official plugin publishing is [coming soon](https://developers.openai.com/codex/plugins/build#publish-official-public-plugins). In the meantime, add this plugin to your repo or personal marketplace at `~/.agents/plugins/marketplace.json`.
 
-Codex plugins cannot contribute subagents - they must be added manually. Create TOML files in `.codex/agents/` at the project root:
+Codex plugins cannot contribute subagents - they must be added manually. Copy this repo's agent definitions - [`.codex/agents/reviewer.toml`](../../.codex/agents/reviewer.toml) and [`.codex/agents/simple-reviewer.toml`](../../.codex/agents/simple-reviewer.toml) - into `.codex/agents/` at your project root (or `~/.codex/agents/` for personal use).
 
-`.codex/agents/reviewer.toml`:
+Set each agent's `model` to your preference - a capable model for `reviewer`, a fast/lower-cost one for `simple-reviewer`. The `reviewer-framework` skill is automatically available from the installed plugin. See the [Codex subagents guide](https://developers.openai.com/codex/subagents) for the full TOML schema, including `[[skills.config]]` for custom skill configuration.
 
-```toml
-name = "reviewer"
-description = "Deep code reviewer for logic analysis, skill quality audits, and complex review types. Invoke via Task tool with a review skill and scope."
-model = "gpt-5.4"
-model_reasoning_effort = "high"
-sandbox_mode = "read-only"
-developer_instructions = """
-You are a code reviewer. Your task prompt will specify which review skill to invoke and what scope to review. Follow the reviewer-framework conventions for output format and confidence scoring.
-
-Invoke the specified review skill using the Skill tool, passing the scope as its argument. The review skill will load its rules (checking for local overrides first, then defaults) and guide you through the review procedure.
-
-Return all findings with confidence scores. Do not filter by threshold - the orchestrator handles filtering.
-"""
-```
-
-`.codex/agents/simple-reviewer.toml`:
-
-```toml
-name = "simple-reviewer"
-description = "Fast code reviewer for pattern matching, documentation checks, and straightforward review types. Invoke via Task tool with a review skill and scope."
-model = "gpt-5.4-mini"
-model_reasoning_effort = "high"
-sandbox_mode = "read-only"
-developer_instructions = """
-You are a code reviewer. Your task prompt will specify which review skill to invoke and what scope to review. Follow the reviewer-framework conventions for output format and confidence scoring.
-
-Invoke the specified review skill using the Skill tool, passing the scope as its argument. The review skill will load its rules (checking for local overrides first, then defaults) and guide you through the review procedure.
-
-Return all findings with confidence scores. Do not filter by threshold - the orchestrator handles filtering.
-"""
-```
-
-Adjust `model` to your preferred model. The `reviewer-framework` skill is automatically available from the installed plugin. See the [Codex subagents guide](https://developers.openai.com/codex/subagents) for the full TOML schema, including `[[skills.config]]` for custom skill configuration.
+The `create-reviewer-agent` skill is Claude Code-only - it writes a Markdown agent definition. On Codex, author custom reviewer agents by hand as TOML, following the same pattern as the built-in agents above.
 
 ## License
 

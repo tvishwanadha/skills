@@ -13,16 +13,18 @@ Run an interactive setup wizard for the reviewer plugin. Detect existing configu
 
 ## Examples
 
-- `/reviewer:reviewer-init` - run the interactive setup wizard
+- `reviewer:reviewer-init` - run the interactive setup wizard
 
 ## Procedure
+
+> `<local-skills>/` below is the project's local skills directory (e.g. `.claude/skills/`); prefer one that already exists.
 
 ### 1. Detect existing setup
 
 Scan for existing reviewer configuration:
-- Search on disk for `local-review-*` directories in `.claude/skills/`
-- Check for `.claude/skills/self-review-extension/SKILL.md`
-- Search on disk for custom `review-*` directories in `.claude/skills/` (excluding the 4 built-in types)
+- Search on disk for `local-review-*` directories in `<local-skills>/`
+- Check for `<local-skills>/self-review-extension/SKILL.md`
+- Search on disk for custom `review-*` directories in `<local-skills>/` (excluding the 4 built-in types)
 - Check for custom agent files in `.claude/agents/`
 
 Present a summary of what already exists.
@@ -54,4 +56,4 @@ Invoke skills sequentially - each one is interactive and needs user input.
 After all selected options are complete, print a summary of what was created:
 - Files created or modified
 - How the configuration affects the review workflow
-- Next steps (e.g., "Run `/reviewer:self-review` to test your configuration")
+- Next steps (e.g., "Run `reviewer:self-review` to test your configuration")

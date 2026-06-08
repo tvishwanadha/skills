@@ -14,7 +14,7 @@ user-invocable: false
 
 Conventions for Codex plugin manifests and marketplace registration in this repository.
 
-For the full upstream spec, consult the official build guide at https://developers.openai.com/codex/plugins/build or the `$plugin-creator` skill bundled in Codex.
+For the full upstream spec, consult the official build guide at https://developers.openai.com/codex/plugins/build.md or the `$plugin-creator` skill bundled in Codex.
 
 ## Plugin Manifest
 
@@ -140,7 +140,7 @@ Skills within plugins live in `skills/<skill-name>/SKILL.md` and follow the same
 
 ### Agents
 
-Codex plugins cannot contribute subagent definitions. Subagents must be added manually as TOML files in `.codex/agents/` at the project root or `~/.codex/agents/` for personal agents. See the [Codex subagents guide](https://developers.openai.com/codex/subagents) for the TOML schema and options.
+Codex plugins cannot contribute subagent definitions. Subagents must be added manually as TOML files in `.codex/agents/` at the project root or `~/.codex/agents/` for personal agents. See the [Codex subagents guide](https://developers.openai.com/codex/subagents.md) for the TOML schema and options.
 
 If a plugin relies on custom agents, document the required TOML definitions in the plugin README so users can create them manually.
 
@@ -155,5 +155,5 @@ MCP server configuration in `.mcp.json` gives the plugin access to additional to
 ## Reference
 
 - `openai/plugins` repo: canonical marketplace example with `interface` metadata
-- Official docs: https://developers.openai.com/codex/plugins
-- Build guide: https://developers.openai.com/codex/plugins/build
+- Official docs: https://developers.openai.com/codex/plugins.md
+- Build guide: https://developers.openai.com/codex/plugins/build.md
