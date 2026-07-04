@@ -6,8 +6,8 @@ Multi-model orchestration hierarchy - the session model orchestrates and signs o
 
 `/cascade:orchestrate <goal>` runs in the main session, which owns the goal end to end:
 
-1. Restate the goal as acceptance criteria and slice it vertically.
-2. Delegate each slice to the `slice-lead` agent (Opus), which returns a plan and pauses.
+1. Restate the goal as acceptance criteria, slice it vertically, and size each slice against a complexity rubric - oversized slices are re-cut before any delegation.
+2. Delegate each slice to the `slice-lead` agent (Opus), which returns a plan and pauses - or returns NEEDS_RESLICING if the slice turns out bigger than its brief.
 3. Review the plan, iterate via feedback to the same lead, approve explicitly.
 4. The lead delegates implementation to `implementer` (Sonnet), which federates builds, lints, tests, and shell commands to `mechanic` (Haiku) - successes come back summarized, failures verbatim and in full.
 5. The lead reviews the slice diff, routes findings back for fixes, then reports; the orchestrator validates independently and signs off.
