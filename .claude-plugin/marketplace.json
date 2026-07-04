@@ -32,6 +32,11 @@
       "name": "planner",
       "source": "./plugins/planner",
       "description": "Enhanced planning with complexity scoring, sub-problem decomposition, and plan review"
+    },
+    {
+      "name": "cascade",
+      "source": "./plugins/cascade",
+      "description": "Multi-model orchestration hierarchy - the session model orchestrates and signs off, Opus leads vertical slices, Sonnet implements, Haiku runs mechanical tasks"
     }
   ]
 }
