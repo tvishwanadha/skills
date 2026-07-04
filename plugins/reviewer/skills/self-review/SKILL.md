@@ -49,16 +49,21 @@ First, check for the `--no-fix` flag: if the token `--no-fix` appears anywhere i
 - **Starts with `--diff`**: extract the git ref (token after `--diff`, default `HEAD~1` if missing). Resolve the merge-base, then diff the **working tree** against it, so the scope includes committed branch work plus uncommitted/untracked changes while excluding commits the base has that the branch lacks: `b=$(git merge-base <ref> HEAD); git diff --name-only "$b"`, plus `git ls-files --others --exclude-standard` for untracked files. Do NOT use `git diff <ref>...HEAD` - three-dot compares merge-base to HEAD and silently drops all uncommitted work.
 - **Otherwise**: treat as file path(s) or directory. This is whole-file review, not diff-scoped (no hunk focus in step 4).
 
-### 2. Gather target files and hunks
+### 2. Gather target files and build the review packet
 
 **Diff modes** (the empty default and `--diff <ref>`):
 
 - Partition the changed file list into **existing files** (still on disk) and **deleted files** (removed in this diff). Existing files are the review scope. Deleted files are passed as context in each review prompt so reviewers can flag stale references or unintended removals. If both lists are empty, report "No changes found" (name the ref for `--diff`; for the empty default say "no uncommitted changes and no diff vs `<base>`") and exit without launching review tasks.
-- **Capture the hunks.** Run the same `git diff` resolved in step 1, *without* `--name-only` (`git diff HEAD`, or `git diff "$b"` against the merge-base for `--diff` / clean-tree modes), and retain the per-file hunks with their `@@` line markers. Untracked files have no diff entry: treat the whole file as a single added hunk covering all its lines. Keep this in memory - it drives the focus instruction in step 4 and the mechanical filter in step 6.
+- **Write the review packet.** Generate one packet file per review round at a unique scratch path, e.g. `packet=$(mktemp -t self-review-packet)`. Build the whole thing by redirecting shell output straight to the file - do not read the diff or hunks into your own context at this step. The packet must contain, in order:
+  1. The commit list for the resolved range: `git log --oneline "$b"..HEAD`. If the scope is the empty-default uncommitted-changes case (no commit range, just working tree vs `HEAD`), write a line noting "uncommitted changes only" instead.
+  2. `git diff --stat` for the resolved range (`git diff --stat HEAD`, or `git diff --stat "$b"` for `--diff` / clean-tree modes).
+  3. The full diff with wide context: `git diff -U10 HEAD`, or `git diff -U10 "$b"` (same ref resolved in step 1).
+  4. Each untracked file, appended in full and labeled with its path (e.g. `echo "=== <path> (untracked, full file) ==="` followed by the file's contents), since untracked files have no diff entry.
+- Name the packet uniquely per round (e.g. a timestamp or PID in the `mktemp` template) so a re-review (step 9) gets a fresh packet instead of reusing a stale one.
 
-**Directory**: discover files in the directory. No hunks (whole-file review).
+**Directory**: discover files in the directory. No packet (whole-file review).
 
-**File paths**: use the paths directly. No hunks (whole-file review).
+**File paths**: use the paths directly. No packet (whole-file review).
 
 ### 3. Check for extension
 
@@ -81,7 +86,9 @@ For each review type in the final list, spawn a reviewer subagent:
 - **Agent**: the reviewer agent from defaults/extension (e.g., `"reviewer"` or `"reviewer:reviewer"` for logic/skill, `"simple-reviewer"` or `"reviewer:simple-reviewer"` for patterns/documentation)
 - **Prompt**: instruct the agent to invoke the corresponding review skill (e.g., `review-logic` or `reviewer:review-logic`) with the scope as its argument
 
-**In diff modes**, also include the hunks captured in step 2 plus a focus instruction, so reviewers concentrate on what changed. Reviewers still read whole files for context, but only changed lines should be flagged. In whole-file modes (directory / file paths) there are no hunks - omit the hunks and the focus instruction.
+**In diff modes**, also pass the packet file's path plus the file list, so reviewers concentrate on what changed. In whole-file modes (directory / file paths) there is no packet - omit the packet path and the packet-reading instruction below.
+
+Do not add ad-hoc suppression to reviewer prompts - no "do not flag X", no pre-rated severities. Durable exceptions belong in versioned convention files (local review overrides, `self-review-extension`); anything else gets raised by the reviewer and adjudicated after verification.
 
 Spawn all reviewers concurrently, not sequentially, under the foreground rule from the callout above.
 
@@ -99,16 +106,21 @@ Files to review:
 Deleted files (review for stale references, not file contents):
 - src/old-handler.ts
 
-Focus: review ONLY the changed lines shown in the hunks below. Read the whole
-file for context, but do not flag pre-existing code unless this change directly
-breaks or worsens it. The only other out-of-hunk findings allowed are about a
-deleted file or a reference this change leaves stale.
+Review packet: /tmp/self-review-packet.XXXX
 
-Changed hunks (per file, with @@ markers):
+The packet is your view of the diff - read it once; its commit list, diff
+stat, and `-U10` context lines carry the changes. Do not re-run git to
+re-derive the diff, and do not re-read changed files just to see the changes
+again. Exception: if a hunk you must judge is cut off mid-function even at 10
+lines of context, read that file directly and say so in your report.
+Repo-wide checks that your review type's rules require (e.g. structure,
+manifests, related-file consistency) remain in scope and are not limited by
+the packet.
 
-  src/handler.ts
-  @@ -12,7 +12,9 @@ function handle(req) {
-     ...
+Focus: review ONLY the changed lines shown in the packet. Do not flag
+pre-existing code unless this change directly breaks or worsens it. The only
+other out-of-hunk findings allowed are about a deleted file or a reference
+this change leaves stale.
 ```
 
 ### 5. Coalesce findings
@@ -126,14 +138,14 @@ The result is the set of **survivors** - findings that cleared the threshold. Th
 
 Verification always runs on the survivors from step 5. It never adds new findings - it only keeps, drops, or downgrades existing ones.
 
-**Tier 0 - mechanical filter (no agent).** Using the hunks retained in step 2:
+**Tier 0 - mechanical filter (no agent).** Consult the packet file from step 2 with targeted searches (e.g. grep for the file/line or `@@` marker), not a full read:
 
 - Drop any finding whose `file:line` is not inside a changed hunk, unless the finding names specific unchanged code that this change breaks or worsens (judge by the finding's substance, not whether it is phrased as an argument), or concerns a deleted file / stale reference (deleted-file findings are exempt - they are the reason deleted files are passed as context in step 2).
 - Drop findings whose `file:line` does not exist or does not contain what the finding describes (spot-check by reading the file). This does not apply to deleted-file findings.
-- Whole-file modes have no hunks: skip the hunk-membership check and apply only the reference-validity check.
+- Whole-file modes have no packet: skip the hunk-membership check and apply only the reference-validity check.
 - All diff modes diff the working tree (against `HEAD` or the merge-base), so hunk line numbers match what reviewers read on disk; still allow a small line offset before dropping a near-miss.
 
-**Tier 1 - adversarial fanout.** For each finding that survives Tier 0, spawn a `reviewer` (opus) subagent whose job is to *refute*, not re-review. Spawn them concurrently, under the same foreground rule as the callout above. Each prompt contains one finding plus its hunk (in whole-file modes, pass the surrounding file region instead, since there is no hunk) and instructs:
+**Tier 1 - adversarial fanout.** For each finding that survives Tier 0, spawn a `reviewer` (opus) subagent whose job is to *refute*, not re-review. Spawn them concurrently, under the same foreground rule as the callout above. Each prompt contains one finding plus the packet path (in whole-file modes, pass the surrounding file region instead, since there is no packet) and instructs:
 
 ```
 Do NOT invoke any review skill. Your job is to refute this finding.

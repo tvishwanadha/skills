@@ -51,6 +51,8 @@ After all findings, include a summary line:
 Total: N findings (X critical, Y high, Z medium, W low)
 ```
 
+**Terse output contract**: your final message is the report itself, not a description of it. Begin directly with the findings or verdict - no preamble, no process narration ("I reviewed...", "Let me check..."), no closing summary beyond the totals line above. Every line must be a verdict, a finding with file:line, or a check performed.
+
 ## Review Methodology
 
 When reviewing code or content:
