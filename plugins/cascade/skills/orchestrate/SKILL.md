@@ -13,7 +13,7 @@ argument-hint: "[goal or desired outcome]"
 
 # Orchestrate
 
-Deliver a goal through the cascade hierarchy: this session orchestrates, `cascade:slice-lead` (Opus) plans and delivers each vertical slice, `cascade:implementer` (Sonnet) writes the code, `cascade:mechanic` (Haiku) runs commands.
+Deliver a goal through the cascade hierarchy: this session orchestrates, `slice-lead` (Opus) plans and delivers each vertical slice, `implementer` (Sonnet) writes the code, `mechanic` (Haiku) runs commands.
 
 The goal is `$ARGUMENTS`. If no goal is given, derive it from the conversation; if it is ambiguous, ask the user before slicing.
 
@@ -27,7 +27,7 @@ You are the orchestrator. You own the outcome and are the final authority on sig
 
 2. **Slice vertically.** Survey the codebase just enough to cut the goal into vertical slices - each an end-to-end, independently verifiable increment of the goal, not a horizontal layer (no "all the models" then "all the handlers"). Order by dependency, then by risk (riskiest first). Track one task per slice. Never create a slice whose acceptance criteria you cannot state - resolve that ambiguity with the user first.
 
-3. **Delegate a slice.** Spawn `cascade:slice-lead` in the foreground - background agents cannot use the Skill tool, which the lead needs for self-review. The lead stays resumable after it returns; send all follow-ups to the same lead with SendMessage so it keeps its context. The delegation prompt must include:
+3. **Delegate a slice.** Spawn a `slice-lead` agent and wait for its plan. Send all follow-ups by resuming the same lead so it keeps its context; start a fresh lead (re-passing the slice brief and prior plan) only if resumption is not possible. The delegation prompt must include:
    - the slice scope and its purpose within the overall goal
    - acceptance criteria for the slice
    - constraints and pointers to relevant code
@@ -39,15 +39,15 @@ You are the orchestrator. You own the outcome and are the final authority on sig
 
 6. **Validate the slice.** The lead reports what was delivered, the review outcome, and verification evidence. Verify independently:
    - read the key changes and check them against the acceptance criteria
-   - reject any slice that was not reviewed - by the self-review skill, or by the lead's own declared diff review when that skill is unavailable
-   - if verification evidence is thin, dispatch `cascade:mechanic` for an independent build/test run
+   - reject any slice whose report does not say how the diff was reviewed and how findings were resolved
+   - if verification evidence is thin, dispatch a `mechanic` agent for an independent build/test run
    Sign off, or return the slice to the lead with specific defects.
 
 7. **Repeat** for each remaining slice, feeding forward anything learned. After the last slice, validate the assembled whole against the original acceptance criteria and report the outcome to the user.
 
 ## Rules
 
-- One slice in flight at a time; leads run in the foreground.
+- One slice in flight at a time; the next slice starts only after sign-off on the current one.
 - Never skip plan approval, even for a slice that looks trivial.
 - Ambiguity travels up, not down: unresolved questions about the goal go to the user, and a lead's escalation gets a decision from you - never "use your judgment".
 - If a lead reports the slice cannot meet its purpose as scoped, re-slice rather than pushing the lead to force it.

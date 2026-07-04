@@ -10,7 +10,9 @@ Multi-model orchestration hierarchy - the session model orchestrates and signs o
 2. Delegate each slice to the `slice-lead` agent (Opus), which returns a plan and pauses.
 3. Review the plan, iterate via feedback to the same lead, approve explicitly.
 4. The lead delegates implementation to `implementer` (Sonnet), which federates builds, lints, tests, and shell commands to `mechanic` (Haiku) - successes come back summarized, failures verbatim and in full.
-5. The lead self-reviews the slice diff, routes findings back for fixes, then reports; the orchestrator validates independently and signs off.
+5. The lead reviews the slice diff, routes findings back for fixes, then reports; the orchestrator validates independently and signs off.
+
+Slices run one at a time - the next begins only after sign-off on the current one.
 
 Ambiguity travels up the chain (mechanic -> implementer -> lead -> orchestrator -> user); no tier resolves unclear instructions by guessing.
 
@@ -25,9 +27,7 @@ Ambiguity travels up the chain (mechanic -> implementer -> lead -> orchestrator 
 
 ## Prerequisites
 
-- Claude Code >= 2.1.172, for subagent nesting (the lead spawns the implementer, which spawns the mechanic).
-- The [reviewer](../reviewer/) plugin, for the lead's self-review step. Without it the lead falls back to reviewing the slice diff itself and declares that in its report.
-- Slices run one at a time: leads must run as foreground subagents because backgrounded subagents cannot load skills.
+- Claude Code with subagent nesting (the lead spawns the implementer, which spawns the mechanic).
 
 ## Installation
 

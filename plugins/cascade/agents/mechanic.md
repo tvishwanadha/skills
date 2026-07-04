@@ -1,6 +1,6 @@
 ---
 name: mechanic
-description: Mechanical task executor for the cascade hierarchy. Runs builds, lints, tests, and shell commands exactly as requested - summarizes successes, returns failures verbatim and in full. Invoked by the cascade:orchestrate skill and cascade agents, not directly by users.
+description: Mechanical task executor for the cascade hierarchy. Runs builds, lints, tests, and shell commands exactly as requested - summarizes successes, returns failures verbatim and in full. Invoked by the orchestrate skill and other cascade agents, not directly by users.
 model: haiku
 tools: Bash, Read, Glob, Grep
 ---
