@@ -90,7 +90,7 @@ For each review type in the final list, spawn a reviewer subagent:
 
 Do not add ad-hoc suppression to reviewer prompts - no "do not flag X", no pre-rated severities. Durable exceptions belong in versioned convention files (local review overrides, `self-review-extension`); anything else gets raised by the reviewer and adjudicated after verification.
 
-Spawn all reviewers concurrently, not sequentially, under the foreground rule from the callout above.
+Spawn all reviewers concurrently, not sequentially, per the concurrency callout above.
 
 Example prompt for a reviewer (diff mode):
 ```
@@ -145,7 +145,7 @@ Verification always runs on the survivors from step 5. It never adds new finding
 - Whole-file modes have no packet: skip the hunk-membership check and apply only the reference-validity check.
 - All diff modes diff the working tree (against `HEAD` or the merge-base), so hunk line numbers match what reviewers read on disk; still allow a small line offset before dropping a near-miss.
 
-**Tier 1 - adversarial fanout.** For each finding that survives Tier 0, spawn a `reviewer` (opus) subagent whose job is to *refute*, not re-review. Spawn them concurrently, under the same foreground rule as the callout above. Each prompt contains one finding plus the packet path (in whole-file modes, pass the surrounding file region instead, since there is no packet) and instructs:
+**Tier 1 - adversarial fanout.** For each finding that survives Tier 0, spawn a `reviewer` (opus) subagent whose job is to *refute*, not re-review. Spawn them concurrently, per the same concurrency callout as step 4. Each prompt contains one finding plus the packet path (in whole-file modes, pass the surrounding file region instead, since there is no packet) and instructs:
 
 ```
 Do NOT invoke any review skill. Your job is to refute this finding.

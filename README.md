@@ -53,7 +53,7 @@ plugin-name/
 ├── .claude-plugin/
 │   └── plugin.json          # Claude Code manifest
 ├── .codex-plugin/
-│   └── plugin.json          # Codex manifest
+│   └── plugin.json          # Codex manifest (omitted by Claude-specific plugins)
 ├── skills/                  # Agent Skills
 │   └── skill-name/
 │       └── SKILL.md         # Skill definition
