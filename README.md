@@ -10,7 +10,6 @@ Personal collection of AI coding assistant plugins for reuse across projects. Co
 | [reviewer](plugins/reviewer/) | Layered code review framework with extensible core reviews and parallel orchestration |
 | [codex](plugins/codex/) | Codex-powered code review, plan review, and completion verification |
 | [reviewer-extras](plugins/reviewer-extras/) | Extra review types for the reviewer framework that depend on other plugins |
-| [planner](plugins/planner/) | Enhanced planning with complexity scoring, sub-problem decomposition, and plan review |
 | [cascade](plugins/cascade/) | Multi-model orchestration hierarchy - the session model orchestrates and signs off, Opus leads vertical slices, Sonnet implements, Haiku runs mechanical tasks |
 
 ## Installation
@@ -24,7 +23,6 @@ claude plugin install teja-skills/adr
 claude plugin install teja-skills/reviewer
 claude plugin install teja-skills/codex
 claude plugin install teja-skills/reviewer-extras
-claude plugin install teja-skills/planner
 claude plugin install teja-skills/cascade
 ```
 
