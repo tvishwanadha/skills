@@ -203,4 +203,4 @@ Unless `--no-fix` was set (step 1), invoke the `reviewer:fix-findings` skill to 
 
 ### 9. Iterative re-review
 
-If the user fixes issues and asks for re-review, repeat the process. Focus on the previously flagged files unless the user specifies a different scope.
+If the user fixes issues and asks for re-review, repeat the process against the same scope as the original review, not just the flagged or fixed files - a narrowed re-review misses regressions and unfixed findings elsewhere in the scope. Narrow only when the user explicitly asks.
