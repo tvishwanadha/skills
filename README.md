@@ -11,7 +11,7 @@ Personal collection of AI coding assistant plugins for reuse across projects. Co
 | [codex](plugins/codex/) | Codex-powered code review, plan review, and completion verification |
 | [reviewer-extras](plugins/reviewer-extras/) | Extra review types for the reviewer framework that depend on other plugins |
 | [planner](plugins/planner/) | Enhanced planning with complexity scoring, sub-problem decomposition, and plan review |
-| [cascade](plugins/cascade/) | Multi-model orchestration hierarchy - session model orchestrates, Opus leads slices, Sonnet implements, Haiku runs mechanical tasks |
+| [cascade](plugins/cascade/) | Multi-model orchestration hierarchy - the session model orchestrates and signs off, Opus leads vertical slices, Sonnet implements, Haiku runs mechanical tasks |
 
 ## Installation
 
@@ -38,7 +38,7 @@ All plugins except `codex` and `cascade` (which are Claude-specific) are also av
 2. Add `.claude-plugin/plugin.json` with the plugin manifest
 3. Add skills in `skills/<skill-name>/SKILL.md`
 4. Register in [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json)
-5. Add `.codex-plugin/plugin.json` manifest (copy version/description/author/license from Claude manifest, add `interface` block)
+5. Add `.codex-plugin/plugin.json` manifest (copy version/description/author/license from Claude manifest, add `interface` block) - Claude-specific plugins skip steps 5 and 6
 6. Register in [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) with `policy` and `category`
 7. Update the plugin table above with the new entry
 
