@@ -36,3 +36,7 @@ claude plugin install teja-skills/cascade
 ```
 
 This plugin is Claude-specific - it pins agents to Claude model tiers and relies on Claude Code subagent nesting - so there is no Codex variant.
+
+## License
+
+MIT
