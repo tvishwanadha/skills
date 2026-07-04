@@ -29,6 +29,21 @@ user-invocable: false
 - All file references must use relative paths and resolve to existing files
 - Prefer the `.md` form of any doc URL over its rendered HTML page - the consumer is an agent that fetches it
 
+## Agent-Facing Content
+
+SKILL.md is read by the agent executing the skill, not by a human browsing docs. Cut on sight:
+
+- Justification/rationale - sentences explaining why a rule exists
+- Reassurance - meta-claims about coverage or safety
+- Illustrative examples that explain mechanism rather than direct action
+- Tool names as guidance - describe the capability and let the model pick the tool (naming tools in `allowed-tools` is fine - that is a permission grant, not guidance)
+
+Write imperatives. If a sentence explains why or that something is true rather than telling the agent what to do, delete it.
+
+When revising a skill, do not patch-fix - bolting a clause onto the skill per reviewer finding turns it to sediment. Rewrite the section from its goal and audience in one pass; test every line by "does an agent need this to act, and can it not derive it?".
+
+Before splitting a skill into sub-sections or separate skills, check that the parts have divergent mechanics. Identical mechanism with varying input, stance, or trigger is one capability - keep it as one skill.
+
 ## Key Anti-patterns
 
 - Vague descriptions ("Helps with X") - poor auto-invocation matching

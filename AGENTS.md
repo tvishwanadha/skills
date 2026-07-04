@@ -29,6 +29,10 @@ Enabled plugins are configured in `.claude/settings.json` - only reference plugi
 | `claude-plugins-guide` | Claude Code marketplace registration, `.claude-plugin/plugin.json` manifest, agent and skill conventions within plugins |
 | `codex-plugins-guide` | Codex marketplace registration, `.codex-plugin/plugin.json` manifest, `interface` metadata, path resolution |
 
+## Conventions
+
+- Use plain hyphens (`-`), never em dashes, in all markdown files.
+
 ## Testing
 
 Run `reviewer:self-review --diff main` before finishing substantial changes.

@@ -35,7 +35,7 @@ These defaults apply unless overridden by a `self-review-extension` skill:
 
 ## Procedure
 
-> **Run all reviewers concurrently, and each must keep the ability to invoke its review skill.** On Claude Code that means launching them in a single message and never setting `run_in_background: true` - backgrounded subagents cannot load skills.
+> **Run all reviewers concurrently.** If possible, launch them all in a single message so they run in parallel and their reports return together for coalescing.
 
 ### 1. Parse scope
 
