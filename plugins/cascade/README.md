@@ -4,6 +4,22 @@ Multi-model orchestration hierarchy - the session model orchestrates and signs o
 
 ## How it works
 
+Work flows down the hierarchy; plans, evidence, and escalations flow back up. Dashed edges are direct delegation - the lighter path for work that does not need a full cascade; the Setup section below makes it the default.
+
+```mermaid
+graph TD
+    user([user]) -- "goal or plan" --> session[main session]
+    session -- "slice brief" --> lead["slice-lead (Opus)"]
+    lead -- "plan, then report" --> session
+    lead -- "approved plan" --> impl["implementer (Sonnet)"]
+    impl -- "status report" --> lead
+    impl -- "commands" --> mech["mechanic (Haiku)"]
+    mech -- "results, failures in full" --> impl
+    lead -- "commands" --> mech
+    session -. "small task" .-> impl
+    session -. "commands" .-> mech
+```
+
 `/cascade:orchestrate <goal>` runs in the main session, which owns the goal end to end. It accepts a goal to break down, or a plan that already converged (in conversation or plan mode) - converged plans skip lead authoring; leads validate their pre-approved portion instead:
 
 1. Restate the goal as acceptance criteria, slice it vertically, and size each slice against a complexity rubric - oversized slices are re-cut before any delegation.
@@ -41,7 +57,7 @@ The first line makes the cheap tiers the default executors for all work; the sec
 
 ## Prerequisites
 
-- Claude Code with subagent nesting (a lead or the main session spawns the implementer, which spawns the mechanic).
+- Claude Code with subagent nesting (see the diagram for who spawns whom).
 
 ## Installation
 
