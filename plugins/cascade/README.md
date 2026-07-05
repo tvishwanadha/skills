@@ -4,7 +4,7 @@ Multi-model orchestration hierarchy - the session model orchestrates and signs o
 
 ## How it works
 
-`/cascade:orchestrate <goal>` runs in the main session, which owns the goal end to end:
+`/cascade:orchestrate <goal>` runs in the main session, which owns the goal end to end. It accepts a goal to break down, or a plan that already converged (in conversation or plan mode) - converged plans skip lead authoring; leads validate their pre-approved portion instead:
 
 1. Restate the goal as acceptance criteria, slice it vertically, and size each slice against a complexity rubric - oversized slices are re-cut before any delegation.
 2. Delegate each slice to the `slice-lead` agent (Opus), which returns a plan and pauses - or returns NEEDS_RESLICING if the slice turns out bigger than its brief.
@@ -15,6 +15,20 @@ Multi-model orchestration hierarchy - the session model orchestrates and signs o
 Slices run one at a time - the next begins only after sign-off on the current one.
 
 Ambiguity travels up the chain (mechanic -> implementer -> lead -> orchestrator -> user); no tier resolves unclear instructions by guessing.
+
+Outside a full cascade, the main session can delegate to the lower tiers directly: `implementer` for implementation work, `mechanic` for command execution.
+
+## Setup
+
+To make delegation the default rather than opt-in, add to your project's `CLAUDE.md`:
+
+```
+Delegate implementation to the cascade `implementer` agent and command execution to the cascade `mechanic` agent - the main session plans, reviews, and decides; it does not write code or run builds and tests itself. Reserve direct shell use for trivial read-only one-liners.
+
+When a plan converges - in plan mode or in conversation - hand execution to `cascade:orchestrate`.
+```
+
+The first line makes the cheap tiers the default executors for all work; the second routes every approved plan into the cascade. Omit either to keep that behavior opt-in.
 
 ## Components
 
@@ -27,7 +41,7 @@ Ambiguity travels up the chain (mechanic -> implementer -> lead -> orchestrator 
 
 ## Prerequisites
 
-- Claude Code with subagent nesting (the lead spawns the implementer, which spawns the mechanic).
+- Claude Code with subagent nesting (a lead or the main session spawns the implementer, which spawns the mechanic).
 
 ## Installation
 
