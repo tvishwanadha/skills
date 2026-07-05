@@ -54,7 +54,7 @@ Hand off to a background agent that can edit files. Give it a scoped prompt with
 
 ### 6. Summarize
 
-Report applied / modified / skipped / failed counts, list the changed files, and tell the user to review the diff (`git diff`). Offer a re-review of the changed files via `reviewer:self-review <changed files> --no-fix`.
+Report applied / modified / skipped / failed counts, list the changed files, and tell the user to review the diff (`git diff`). Offer a re-review via `reviewer:self-review <original review scope> --no-fix` - use the same scope as the original review, not just the changed files, so regressions and unfixed findings elsewhere in the scope are caught.
 
 ## Safe subset
 
