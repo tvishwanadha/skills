@@ -1,7 +1,7 @@
 {
   "name": "cascade",
-  "version": "0.0.3",
-  "description": "Multi-model orchestration hierarchy - the session model orchestrates and signs off, Opus leads vertical slices, Sonnet implements, Haiku runs mechanical tasks",
+  "version": "0.0.4",
+  "description": "Multi-model orchestration hierarchy - the session orchestrates and signs off, a lead plans and delivers each vertical slice, an implementer writes the code, a mechanic runs commands",
   "author": {
     "name": "Teja Vishwanadha",
     "email": "496868+tvishwanadha@users.noreply.github.com"

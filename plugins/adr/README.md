@@ -29,7 +29,23 @@ claude plugin install teja-skills/adr
 
 ### Codex
 
-Official plugin publishing is [coming soon](https://developers.openai.com/codex/plugins/build#publish-official-public-plugins). In the meantime, add this plugin to your repo or personal marketplace at `~/.agents/plugins/marketplace.json`.
+Add this entry to your project marketplace at `<your-repo>/.agents/plugins/marketplace.json`:
+
+```json
+{
+  "name": "adr",
+  "source": {
+    "source": "git-subdir",
+    "url": "https://github.com/tvishwanadha/skills.git",
+    "path": "./plugins/adr",
+    "ref": "main"
+  },
+  "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+  "category": "Developer Tools"
+}
+```
+
+Then `codex plugin marketplace add .` and `codex plugin add adr@project-plugins`. See the [marketplace setup recipe](../../README.md#codex) for the full file and its caveats.
 
 ## License
 

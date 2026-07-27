@@ -1,0 +1,4 @@
+[features.multi_agent_v2]
+enabled = true
+# Expect peak load around 6 concurrent slices x 3 live threads (lead, implementer, mechanic), plus reviewer fan-out.
+max_concurrent_threads_per_session = 24

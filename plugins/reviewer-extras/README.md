@@ -23,7 +23,25 @@ claude plugin install teja-skills/reviewer-extras
 
 ### Codex
 
-Official plugin publishing is [coming soon](https://developers.openai.com/codex/plugins/build#publish-official-public-plugins). In the meantime, add this plugin to your repo or personal marketplace at `~/.agents/plugins/marketplace.json`.
+Add this entry to your project marketplace at `<your-repo>/.agents/plugins/marketplace.json`:
+
+```json
+{
+  "name": "reviewer-extras",
+  "source": {
+    "source": "git-subdir",
+    "url": "https://github.com/tvishwanadha/skills.git",
+    "path": "./plugins/reviewer-extras",
+    "ref": "main"
+  },
+  "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+  "category": "Developer Tools"
+}
+```
+
+Then `codex plugin marketplace add .` and `codex plugin add reviewer-extras@project-plugins`. See the [marketplace setup recipe](../../README.md#codex) for the full file and its caveats.
+
+The dependency plugins listed above need their own marketplace entries, same shape. Claude plugins install on Codex even without a Codex manifest.
 
 ## License
 

@@ -5,28 +5,40 @@ description: >-
   execution: a goal that needs breaking down and delegating, or a plan that
   has converged (in conversation or plan mode) and is ready to build. Explicit
   asks to "orchestrate" or "cascade" work also invoke it. Coordinate the
-  cascade model hierarchy - slice the goal or plan vertically, delegate each
-  slice to an Opus lead for planning and delivery, review and approve plans,
-  and sign off on results.
+  cascade hierarchy - slice the goal or plan vertically, delegate each slice
+  to a lead for planning and delivery, review and approve plans, and sign
+  off on results.
 allowed-tools: Read, Glob, Grep, Task, SendMessage, TaskCreate, TaskUpdate
 argument-hint: "[goal or converged plan]"
 ---
 
 # Orchestrate
 
-Deliver a goal through the cascade hierarchy: this session orchestrates, `slice-lead` (Opus) plans and delivers each vertical slice, `implementer` (Sonnet) writes the code, `mechanic` (Haiku) runs commands.
+Deliver a goal through the cascade hierarchy: this session orchestrates, `slice-lead` plans and delivers each vertical slice, `implementer` writes the code, `mechanic` runs commands.
 
 The input is `$ARGUMENTS` - a goal, or a plan that has already converged. A plan approved in this conversation (including plan mode) is the input even when `$ARGUMENTS` is empty. Given neither, derive the goal from the conversation; if it is ambiguous, ask the user before slicing.
 
 ## Role
 
-You are the orchestrator. You own the outcome and are the final authority on sign-off. Do not plan, implement, or debug slices yourself - your leverage is slicing, plan review, and validation.
+You are the orchestrator. You own the outcome and are the final authority on sign-off. Do not plan, implement, or debug slices yourself.
 
 ## Procedure
 
 1. **Pin the outcome.** Restate the goal as a verifiable outcome with acceptance criteria. Every slice and every sign-off is judged against this.
 
-2. **Slice vertically and size each slice.** Survey the codebase just enough to cut the goal into candidate slices, then run every candidate through both gates below. When the input is a converged plan, slice the plan's work - regroup its steps into slices as needed; both gates apply unchanged. Re-cut and re-score until every slice passes; a slice that cannot be cut to pass both gates is an ambiguity - raise it to the user. Cutting and re-cutting happen here, in this session - never delegate the cut. Track one task per slice, recording its sizing envelope, composite score, dependencies, and a one-line rationale. Order by dependency, then by risk (riskiest first).
+2. **Slice vertically and size each slice.**
+
+   a. Survey the codebase just enough to cut the goal into candidate slices. When the input is a converged plan, slice the plan's work, regrouping its steps into slices as needed.
+
+   b. Run every candidate through both gates below. Both gates apply unchanged to a converged plan.
+
+   c. Re-cut and re-score until every slice passes.
+
+   d. A slice that cannot be cut to pass both gates is an ambiguity - raise it to the user. Cutting and re-cutting happen in this session; never delegate the cut.
+
+   e. Track one task per slice, recording its sizing envelope, composite score, dependencies, and a one-line rationale.
+
+   f. Order by dependency, then by risk (riskiest first).
 
    **Slice gate.** State the slice's acceptance criteria and a verification that does not depend on any future slice. If no such verification exists, the cut is horizontal - re-cut. Cutting rules:
    - Cut the first slice as a walking skeleton: the thinnest end-to-end path through every layer the goal touches. Later slices thicken it.
@@ -52,7 +64,7 @@ You are the orchestrator. You own the outcome and are the final authority on sig
 
    A slice with composite >= 5 or any dimension >= 7 is oversized - re-cut it and re-score.
 
-3. **Delegate every ready slice.** A slice is ready when every slice it depends on has your sign-off (step 6) - a lead reporting done does not make it ready. Dispatch all ready slices whose envelopes share no files with each other or with a slice in flight: spawn one `slice-lead` agent per slice, in a single message so they run concurrently. When envelopes share files, dispatch one slice and hold the rest until it is signed off. Send all follow-ups by resuming a slice's own lead so it keeps its context; start a fresh lead (re-passing the slice brief and prior plan) only if resumption is not possible. The delegation prompt must include:
+3. **Delegate every ready slice.** A slice is ready when every slice it depends on has your sign-off (step 6) - a lead reporting done does not make it ready. Dispatch all ready slices whose envelopes share no files with each other or with a slice in flight: spawn one `slice-lead` agent per slice, dispatching them together so they run concurrently rather than one at a time. When envelopes share files, dispatch one slice and hold the rest until it is signed off. Send all follow-ups by resuming a slice's own lead so it keeps its context; start a fresh lead (re-passing the slice brief and prior plan) only if resumption is not possible. The delegation prompt must include:
    - the slice scope and its purpose within the overall goal
    - acceptance criteria for the slice
    - the sizing envelope: the files, components, and integration points the slice was scored on
@@ -81,7 +93,7 @@ You are the orchestrator. You own the outcome and are the final authority on sig
 
 ## Rules
 
-- Run slices in parallel whenever step 3 allows; a slice waits only for an unmet dependency or an in-flight envelope that shares its files.
+- Run slices in parallel whenever step 3 allows.
 - Never skip plan approval, even for a slice that looks trivial.
 - Ambiguity travels up, not down: unresolved questions about the goal go to the user, and a lead's escalation gets a decision from you - never "use your judgment".
 - A lead that returns NEEDS_RESLICING or reports the slice cannot meet its purpose gets a re-cut, never pressure to force the slice as scoped.

@@ -1,0 +1,23 @@
+{
+  "name": "cascade",
+  "version": "0.0.4",
+  "description": "Multi-model orchestration hierarchy - the session orchestrates and signs off, a lead plans and delivers each vertical slice, an implementer writes the code, a mechanic runs commands",
+  "author": {
+    "name": "Teja Vishwanadha",
+    "email": "496868+tvishwanadha@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "interface": {
+    "displayName": "Cascade",
+    "shortDescription": "Delegate goals through a layered planning and delivery hierarchy.",
+    "longDescription": "Slices a goal or converged plan into vertical slices, delegates each to a lead that plans and delivers it, routes implementation to an implementer that writes the code, and routes commands to a mechanic that runs them - while the session reviews plans and signs off on results.",
+    "developerName": "Teja Vishwanadha",
+    "category": "Developer Tools",
+    "capabilities": ["Orchestration", "Planning", "Automation"],
+    "defaultPrompt": [
+      "Orchestrate this goal through the cascade hierarchy.",
+      "Break this converged plan into vertical slices and delegate it.",
+      "Delegate implementation and command execution for this task."
+    ]
+  }
+}
