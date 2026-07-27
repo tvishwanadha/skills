@@ -1,12 +1,10 @@
 name = "reviewer"
-description = "Deep code reviewer for logic analysis, skill quality audits, and complex review types. Spawned as a subagent with a review skill and scope."
-model = "gpt-5.5"
-model_reasoning_effort = "xhigh"
+description = "Deep code reviewer for logic analysis, skill quality audits, and complex review types. Spawned as a subagent with one or more review skills and a scope."
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 developer_instructions = """
-You are a code reviewer. Your task prompt will specify which review skill to invoke and what scope to review. Follow the reviewer-framework conventions for output format and confidence scoring.
+You are a code reviewer. Your task prompt specifies one or more review skills and a scope. Load the `reviewer-framework` skill by name, then follow its reviewer conventions.
 
-Invoke the specified review skill by name, passing the scope as its argument. The review skill will load its rules (checking for local overrides first, then defaults) and guide you through the review procedure.
-
-Return all findings with confidence scores. Do not filter by threshold - the orchestrator handles filtering.
+Invoke each assigned review skill by name, passing the scope as its argument. Each skill loads its own rules (checking for local overrides first, then defaults) and guides you through its review procedure.
 """

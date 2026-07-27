@@ -5,13 +5,11 @@ description: >-
   a custom review", "add security review", "add performance review", or "create
   a new review category". Create a new custom review type with project-specific
   rules.
-allowed-tools: Read, Write, Edit, Glob, Grep
+allowed-tools: Read, Write, Edit, Glob, Grep, AskUserQuestion, Skill
 argument-hint: "[type-name (e.g., security, plugin, codex)]"
 ---
 
 # Add Core Review
-
-Create a new custom review type. Add project-specific review categories like security, performance, accessibility, or domain-specific checks.
 
 **Input**: `$ARGUMENTS` - name for the new review type (e.g., `security`, `plugin`, `codex`).
 
@@ -29,8 +27,8 @@ Create a new custom review type. Add project-specific review categories like sec
 Extract the type name from `$ARGUMENTS`. Validate:
 - Not empty (ask if missing)
 - If name starts with `review-`, strip the prefix (e.g., `review-security` becomes `security`)
-- Not a built-in type name (`logic`, `patterns`, `documentation`, `skill`)
-- Lowercase, hyphens allowed, no spaces
+- Not a built-in type name (`logic`, `patterns`, `documentation`, `skill`) - if it is, stop and redirect the user to `reviewer:customize-core-review`
+- Lowercase, hyphens allowed, no spaces - if it contains invalid characters, normalize to lowercase-hyphen form and confirm the normalized name with the user
 
 ### 2. Check for existing skill
 
@@ -44,8 +42,8 @@ If it exists:
 ### 3. Gather review definition
 
 Ask the user for:
-- **Focus area** - what this review checks for (1-2 sentences)
-- **Auto-invocation keywords** - verb phrases that should trigger this review (e.g., "check for security issues", not just "security")
+- **Focus area** - a short domain summary of what this review checks for (used directly in the skill's description)
+- **Scope** - `packet` (review the changed lines via the diff packet; the common case) or `explore` (investigate the whole codebase for what the change affects; for change-impact types). Defaults to `packet` when not declared.
 - **Review rules** - categorized bullet list of specific checks
 - **Additional tools** - any tools beyond Read, Glob, Grep, Skill (e.g., shell access for running linters)
 
@@ -56,8 +54,7 @@ Read the template from [assets/review-type.md](assets/review-type.md). Replace p
 | Placeholder | Value |
 |-------------|-------|
 | `{NAME}` | The review type name |
-| `{FOCUS}` | What this review checks for |
-| `{KEYWORDS}` | Auto-invocation trigger phrases |
+| `{FOCUS}` | Short domain summary of what this review checks for |
 | `{RULES}` | Categorized bullet list of review rules |
 
 If additional tools were specified, add them to the `allowed-tools` frontmatter field.
@@ -68,8 +65,14 @@ Write the result to `<local-skills>/review-<name>/SKILL.md`.
 
 Check if `<local-skills>/self-review-extension/SKILL.md` exists:
 
-- **If yes**: read it, show current content, and offer to add the new review type. Ask which agent to use (`reviewer:reviewer` or `reviewer:simple-reviewer`). Note: if the review type requires tools beyond the standard reviewer agents (e.g., Bash, MCP tools), recommend creating a custom agent via `reviewer:create-reviewer-agent` instead. If accepted, edit the extension to include the new type.
-- **If no**: print instructions suggesting `reviewer:extend-self-review` to configure the orchestrator to include this new type.
+- **If yes**:
+  1. Read the file and show its current content
+  2. Offer to add the new review type; if declined, stop
+  3. If the review type needs tools the standard agents lack, invoke `reviewer:create-reviewer-agent`, then return here and continue at the next sub-step with the new agent as a choice
+  4. Ask which agent to use (`reviewer:reviewer`, `reviewer:simple-reviewer`, or a custom agent)
+  5. Record the scope gathered in step 3 (`packet` or `explore`)
+  6. Edit the extension to include the new type with its agent and scope
+- **If no**: print instructions suggesting `reviewer:extend-self-review` to configure the orchestrator to include this new type, its agent, and its scope.
 
 ### 6. Confirm
 

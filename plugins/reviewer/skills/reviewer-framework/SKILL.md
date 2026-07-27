@@ -1,17 +1,17 @@
 ---
 name: reviewer-framework
 description: >-
-  Shared review methodology for all reviewer agents and core review skills.
-  Defines confidence scoring, severity levels, output format, and coalescing
-  rules.
+  This skill should be loaded when running or orchestrating a review. Defines
+  confidence scoring, severity levels, finding output format, and the
+  deduplication and coalescing rules orchestrators apply.
 user-invocable: false
 ---
 
 # Reviewer Framework
 
-Shared conventions for all review types in the reviewer plugin. This skill is preloaded by reviewer agents and defines the common methodology.
+## For Reviewers
 
-## Confidence Scoring
+### Confidence Scoring
 
 Rate each finding on a 0-100 scale:
 
@@ -23,16 +23,16 @@ Rate each finding on a 0-100 scale:
 | 30-49 | Speculative - possible issue, needs human judgment | Potential performance concern |
 | 0-29 | Low - stylistic preference or uncertain observation | Alternative approach suggestion |
 
-**Reporting threshold**: Default: findings with confidence >= 80 appear in the final report (the orchestrator or its extension may adjust this). Return all findings with scores - the orchestrator handles filtering.
+**Reporting threshold**: return all findings with their scores - do not filter. The orchestrator applies the threshold.
 
-## Severity Levels
+### Severity Levels
 
 - **Critical** - Must fix. Causes failures, data loss, security vulnerabilities, or spec violations that prevent correct operation.
 - **High** - Should fix. Degrades quality, safety, portability, or maintainability significantly.
 - **Medium** - Consider fixing. Meaningful improvement with moderate effort. The code works but could be better.
 - **Low** - Minor. Style suggestions, best-practice nudges, or small readability improvements.
 
-## Output Format
+### Output Format
 
 Structure each finding as:
 
@@ -41,7 +41,10 @@ Structure each finding as:
   File: <path>:<line>
   Details: What's wrong and why it matters
   Suggestion: Specific fix or improvement
+  Found by: <review-type>
 ```
+
+Include the `Found by` line whenever your task assigns one or more review skills, even a single one.
 
 Group findings by severity (critical first, then high, medium, low).
 
@@ -53,7 +56,7 @@ Total: N findings (X critical, Y high, Z medium, W low)
 
 **Terse output contract**: your final message is the report itself, not a description of it. Begin directly with the findings or verdict - no preamble, no process narration ("I reviewed...", "Let me check..."), no closing summary beyond the totals line above. Every line must be a verdict, a finding with file:line, or a check performed.
 
-## Review Methodology
+### Review Methodology
 
 When reviewing code or content:
 
@@ -64,22 +67,28 @@ When reviewing code or content:
 5. **Be specific** - every finding must reference a file and line number, describe the issue concretely, and suggest a fix
 6. **Avoid false positives** - do not flag intentional patterns as issues; if unsure, lower confidence
 
-## Deduplication
+### Running Multiple Review Types
+
+When your task assigns more than one review skill, build context once. Invoke each assigned skill in sequence, in the order listed, over that shared context - do not re-read files or re-derive context between skills. Label every finding with `Found by: <review-type>`. Report one combined list of findings with a single totals line covering all assigned review types.
+
+## For Orchestrators
+
+### Deduplication
 
 When multiple review types flag the same issue:
 
 - Keep the finding with the highest confidence score
 - If confidence is equal, keep the one with the most specific suggestion
 - Merge context from duplicates into the kept finding's details
-- Note which review types identified the issue
+- Accumulate every originating review type in the kept finding's `Found by` field
 
-## Coalescing Rules
+### Coalescing Rules
 
 The orchestrator combines findings from parallel review tasks:
 
-1. Collect all findings from all review types
+1. Collect all findings from all review tasks (a task may return findings for several review types)
 2. Deduplicate (see above)
-3. Filter by confidence threshold (default >= 80)
+3. Filter by confidence threshold (default >= 80; an orchestrator or its extension may adjust it)
 4. Sort by severity (critical > high > medium > low), then by confidence (descending)
 5. If the orchestrator defines a verification step (as `self-review` does), verify the surviving findings before presenting; otherwise present directly
 6. Present the unified report
