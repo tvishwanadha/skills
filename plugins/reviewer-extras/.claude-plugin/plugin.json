@@ -1,10 +1,15 @@
 {
   "name": "reviewer-extras",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Extra review types for the reviewer framework that depend on other plugins",
   "author": {
     "name": "Teja Vishwanadha",
     "email": "496868+tvishwanadha@users.noreply.github.com"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": [
+    "reviewer",
+    "codex",
+    { "name": "claude-md-management", "marketplace": "claude-plugins-official" }
+  ]
 }
