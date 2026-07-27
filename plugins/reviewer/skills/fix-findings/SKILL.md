@@ -30,12 +30,12 @@ Use the verified findings from the `self-review` handoff already in context. If 
 Ask the user how to proceed (one prompt):
 
 - **Interactively** - cluster and step through fixes (default)
-- **Apply all safe** - apply only the safe subset (see below) without per-issue prompts, then list the rest
+- **Apply all safe** - apply only the safe subset (see below) without per-issue prompts, then list the rest; skip steps 3-5 and go directly to step 6
 - **Skip** - leave the findings unaddressed and stop
 
 ### 3. Cluster (only if more than 5 findings)
 
-Group findings into clusters by shared file, root cause, or fix type. With 5 or fewer findings, treat each finding as its own cluster. Keep clusters file-disjoint where possible; flag any cluster that spans files.
+Group findings into clusters by shared file, root cause, or fix type. With 5 or fewer findings, treat each finding as its own cluster. Make each cluster file-disjoint. If a root cause forces a cluster to span files, flag it.
 
 ### 4. Iterate clusters
 
@@ -43,7 +43,7 @@ For each cluster, in severity order:
 
 1. Present the issue(s), the concrete suggested fix, and offer a deeper explanation if the user asks.
 2. Ask: **apply / modify / skip**.
-   - **apply** - if background execution is available and no in-flight fix touches the same file, launch a background fixer (step 5) and move to the next cluster immediately; otherwise apply inline.
+   - **apply** - if no in-flight fix touches the same file, launch a background fixer (step 5) and move to the next cluster immediately; otherwise apply inline.
    - **modify** - incorporate the user's adjustment, then apply.
    - **skip** - leave it.
 3. Serialize: a cluster touching a file already being fixed in the background must wait for that fix to finish before starting.
@@ -54,7 +54,7 @@ Hand off to a background agent that can edit files. Give it a scoped prompt with
 
 ### 6. Summarize
 
-Report applied / modified / skipped / failed counts, list the changed files, and tell the user to review the diff (`git diff`). Offer a re-review via `reviewer:self-review <original review scope> --no-fix` - use the same scope as the original review, not just the changed files, so regressions and unfixed findings elsewhere in the scope are caught.
+Report applied / modified / skipped / failed counts, list the changed files, and tell the user to review the diff (`git diff`). Offer a re-review via `reviewer:self-review <original review scope> --no-fix` - use the same scope as the original review, not just the changed files.
 
 ## Safe subset
 

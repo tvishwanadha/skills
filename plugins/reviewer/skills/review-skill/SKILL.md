@@ -1,62 +1,47 @@
 ---
 name: review-skill
 description: >-
-  This skill should be used when the user asks to "review a skill", "audit skill
-  quality", "check a SKILL.md", or "validate skill conventions". Review SKILL.md
-  files for quality and conventions, and check that a change keeps related
-  skills correct.
+  This skill should be invoked by a review orchestrator (e.g.
+  `reviewer:self-review`) to review SKILL.md files for quality, frontmatter
+  correctness, and convention compliance, and to check the impact of a change on
+  skills across the project.
 allowed-tools: Read, Glob, Grep, Skill, WebFetch
-argument-hint: "[path-to-skill]"
+argument-hint: "[focus-paths]"
 ---
 
 # Review: Skill Quality
 
-Assess how a change impacts skills across the project, and review changed or targeted SKILL.md files against the authoring checklist and conventions.
+Review the SKILL.md files in focus against the authoring checklist, and verify what the focus files invalidate across the project's skills.
 
-**Input**: `$ARGUMENTS` - paths. Selects which mode(s) run (step 1):
-
-- A change scope (`self-review` diff or other paths): change-impact mode across the whole project, plus quality mode on any `SKILL.md` files that themselves changed.
-- A `SKILL.md` or a directory containing one: quality mode on that skill.
-- No argument: quality mode on every skill in the project.
-
-## Examples
-
-- `reviewer:review-skill plugins/reviewer/skills/review-logic/` - review a skill directory
-- `reviewer:review-skill path/to/SKILL.md` - review a specific SKILL.md file
-
-## Loading Strategy
-
-1. Try to load the skill `local-review-skill`.
-   - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance. Skip step 2.
-   - If it loads and does NOT prohibit defaults, continue to step 2, combining the local guidance with the defaults.
-   - If it does not load (skill not found), continue to step 2.
-
-2. Read the default rules from [references/default-skill.md](references/default-skill.md).
+**Input**: `$ARGUMENTS` - focus paths. These are the changed files handed over by an orchestrator, a skill directory, or empty (whole project). When empty, every skill in the project is in focus, and step 3 is then a no-op since nothing outside the focus is left to check.
 
 ## Review Procedure
 
-1. **Resolve scope and mode** from `$ARGUMENTS` per the Input section. Change-impact mode (step 3) runs by default for any change scope; quality mode (step 4) runs on skills that are the explicit target or themselves changed.
+1. **Load rules and framework**:
+   - Try to load the skill `local-review-skill`.
+     - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance.
+     - If it loads and does NOT prohibit defaults, read the default rules from [references/default-skill.md](references/default-skill.md) and combine them with the local guidance.
+     - If it does not load (skill not found), read the default rules from [references/default-skill.md](references/default-skill.md).
+   - Load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring.
 
-2. **Load skills** - load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
-
-3. **Change-impact mode - for any change scope:** read the changed files and flag, across the whole project, only what the change invalidates, in both directions:
-   - a change (skill or non-skill) that invalidates a skill's content - a documented claim it makes false, a reference it leaves stale, a renamed or removed thing the skill still describes
-   - a skill change that breaks references to it elsewhere - other skills' `[[links]]`, `marketplace.json`, README tables, agent definitions, or orchestration skills that invoke it - via rename, move, removal, or contract change
-
-   Flag only change-driven breakage here; do not run the quality checklist on untouched skills.
-
-4. **Quality mode - for each skill that is the target or itself changed:**
+2. **Audit every skill whose files are in focus** against the full checklist:
    - **Read the file** and parse frontmatter (YAML between `---` fences) and body content
    - **Apply loaded review rules** - run through every checklist item from the loaded guidance (defaults, local, or combined)
    - **Verify file integrity** - check that all referenced files exist on disk; search file contents to verify `$ARGUMENTS` usage and file path references
 
-5. **Report findings** using the reviewer-framework output format
+3. **Verify repo-wide what the focus affects** - read the focus files and flag, across the whole project, only what they invalidate, in both directions:
+   - a focus file (skill or non-skill) that invalidates a skill's content - a documented claim it makes false, a reference it leaves stale, a renamed or removed thing the skill still describes
+   - a focus skill that breaks references to it elsewhere - `namespace:skill-name` mentions and markdown relative links, `marketplace.json`, README tables, agent definitions, or orchestration skills that invoke it - via rename, move, removal, or contract change
+
+   Flag only breakage driven by the focus files; do not run the quality checklist on skills outside the focus.
+
+4. **Report findings** using the reviewer-framework output format
 
 ## Upstream References
 
-For edge cases not covered by the checklist, fetch these upstream sources using WebFetch:
+For edge cases not covered by the checklist, fetch the source that owns the field using WebFetch:
 
-- **Primary** (wins on conflicts): [Claude Code skills spec](https://code.claude.com/docs/en/skills.md)
-- **Secondary**: [Agent Skills standard](https://agentskills.io/specification.md)
+- Portable Agent Skills fields: [Agent Skills standard](https://agentskills.io/specification.md)
+- Harness extension fields: that harness's own documentation - for Claude Code, the [Claude Code skills spec](https://code.claude.com/docs/en/skills.md)
 
-Only fetch when a field's constraints are unclear, you encounter an uncovered pattern, or the skill uses advanced features worth double-checking.
+Only fetch when a field's constraints are unclear or you encounter an uncovered pattern.

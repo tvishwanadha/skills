@@ -2,7 +2,7 @@
 
 ## Control Flow
 
-- **Unreachable code** - code after unconditional returns, breaks, or throws
+- **Unreachable code** - code after unconditional returns, breaks, or throws, and functions no call path reaches
 - **Missing branches** - switch/match without default/exhaustive handling; if without else where both paths have different effects
 - **Infinite loops** - loops without clear termination conditions or break paths
 - **Off-by-one errors** - loop bounds, array indexing, range calculations

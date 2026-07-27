@@ -26,32 +26,11 @@ Review project context files (CLAUDE.md, AGENTS.md, and variants) for quality, c
 - `reviewer-extras:review-claude-md src/` - review context files governing src/
 - `reviewer-extras:review-claude-md path/to/file` - review a specific context file
 
-## Review Rules
-
-### Discovery
-- Context files: `CLAUDE.md`, `.claude.md`, `.claude.local.md`, `AGENTS.md`, and `~/.claude/CLAUDE.md` global defaults.
-- **Relevant, not just in-scope.** For a diff scope, walk each changed path's directory ancestry to the repo root and collect the context files that govern it, plus any context file that references the changed paths, commands, or symbols (Grep for them). For a directory or file scope, collect the context files within it.
-- Deduplicate identical content (compare same-named files across directories); score each unique file once.
-
-### Classification
-- Group by parent directory. A file is secondary only if it has a sibling context file in the same directory; otherwise it is primary.
-- For a sibling pair, the file whose main purpose is referencing the other (Grep for `CLAUDE.md` / `AGENTS.md` mentions) with minimal own content is secondary; the one holding the bulk is primary. When unsure, treat as primary.
-
-### Primary file assessment
-- Score against the rubric in `references/quality-criteria.md`: Commands/Workflows (20), Architecture (20), Non-obvious Patterns (15), Conciseness (15), Currency (15), Actionability (15). Report the score; flag criteria below threshold.
-- In a diff scope, weigh Currency and Actionability against the change: does it break a documented command, a file or path reference, or an architecture description? Frame each such finding as the change staling the context file (e.g. "renaming `x.ts` leaves `AGENTS.md:42` pointing at a missing path"), so it reads as the diff breaking content elsewhere.
-
-### Secondary file assessment
-- References the primary appropriately, does not duplicate it, carries only target-specific additive guidance, stays concise.
-
-### Relationship health
-- No cyclic references between siblings; clear separation of concerns; no contradictory instructions between primaries.
-
 ## Review Procedure
 
 1. **Determine scope** from `$ARGUMENTS` - changed files (a diff, from `self-review`), explicit paths, a directory, or the current working directory.
 
-2. **Load the rubric (read-only).** Load `reviewer:reviewer-framework` for the output format, and `claude-md-management:claude-md-improver`; read its `references/quality-criteria.md`. Use only its assessment criteria - do not run the improver's discovery, report, or update phases. This review writes nothing.
+2. **Load the rubric (read-only).** Load `reviewer:reviewer-framework` for the output format, and `claude-md-management:claude-md-improver`; read its `references/quality-criteria.md`. Use only its assessment criteria - do not run the improver's discovery, report, or update phases.
 
    If either dependency fails to load, stop and report a single finding:
    ```
@@ -59,9 +38,17 @@ Review project context files (CLAUDE.md, AGENTS.md, and variants) for quality, c
      Details: review-claude-md needs both `reviewer@teja-skills` and `claude-md-management@claude-plugins-official` enabled in settings.json.
    ```
 
-3. **Discover context files** relevant to the scope per the Discovery rules (ancestry + references for a diff; within-path otherwise). Deduplicate and classify.
+3. **Discover and classify context files.**
+   - Context files: `CLAUDE.md`, `.claude.md`, `.claude.local.md`, `AGENTS.md`, and `~/.claude/CLAUDE.md` global defaults.
+   - Collect files relevant to the scope, not just in-scope: for a diff scope, walk each changed path's directory ancestry to the repo root and collect the context files that govern it, plus any context file that references the changed paths, commands, or symbols (Grep for them); for a directory or file scope, collect the context files within it.
+   - Deduplicate identical content (compare same-named files across directories); score each unique file once.
+   - Group by parent directory. A file is secondary only if it has a sibling context file in the same directory; otherwise it is primary.
+   - For a sibling pair, the file whose main purpose is referencing the other (Grep for `CLAUDE.md` / `AGENTS.md` mentions) with minimal own content is secondary; the one holding the bulk is primary. When unsure, treat as primary.
 
-4. **Assess** each file - score primaries against the rubric, check secondaries and relationship health. In a diff scope, prioritize currency against the change.
+4. **Assess** each file.
+   - Primary: score against the rubric in `claude-md-management:claude-md-improver`'s `references/quality-criteria.md` - Commands/Workflows, Architecture Clarity, Non-Obvious Patterns, Conciseness, Currency, Actionability, weighted per the rubric. Report the score; flag criteria below threshold. In a diff scope, weigh Currency and Actionability against the change: does it break a documented command, a file or path reference, or an architecture description? Frame each such finding as the change staling the context file (e.g. "renaming `x.ts` leaves `AGENTS.md:42` pointing at a missing path"), so it reads as the diff breaking content elsewhere.
+   - Secondary: references the primary appropriately, does not duplicate it, carries only target-specific additive guidance, stays concise.
+   - Relationship health: no cyclic references between siblings; clear separation of concerns; no contradictory instructions between primaries.
 
 5. **Verify findings** - confirm each referenced file and line exists (Grep/Read) rather than guessing.
 

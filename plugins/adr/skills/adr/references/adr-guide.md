@@ -10,12 +10,7 @@ ADRs document *why* choices were made, not just what was chosen. This preserves 
 
 ## When to Create an ADR
 
-Create an ADR for **architecturally significant** decisions - those that:
-
-- Affect the structure, non-functional characteristics, dependencies, interfaces, or construction techniques of the system
-- Are hard to reverse or change later
-- Have long-term implications for the project
-- Involve significant tradeoffs between competing concerns
+Create an ADR for **architecturally significant** decisions - see [Creating ADRs](../SKILL.md#creating-adrs) in the parent skill for the criteria.
 
 **Don't create ADRs for:**
 - Routine implementation choices

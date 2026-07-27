@@ -9,11 +9,9 @@ user-invocable: false
 
 # Codex MCP Guide
 
-Reference for using the Codex MCP tools (`codex` and `codex-reply`).
-
 ## Constraints
 
-- **Do not set the model parameter** - the user has already configured their preferred default
+- **Do not set the model parameter**
 - **Project-only file access** - can only read files in the current project
 
 If content is outside the project, inline it in your prompt.
@@ -22,27 +20,18 @@ If content is outside the project, inline it in your prompt.
 
 Set at thread start; immutable afterward.
 
-- **approval-policy** - Keep the default; approvals surface inline via MCP elicitation.
+- **approval-policy** - Keep the default.
 - **sandbox** - `read-only` for pure review; `workspace-write` when Codex should run tests or edit files.
 
 ## Thread Management
 
 **Start thread**: Call the Codex MCP server's `codex` tool with your prompt and configuration.
-The response includes:
-- `content`: Codex's response
-- `threadId`: Save for follow-ups
+Save the `threadId` field returned in the response (the field name can vary by Codex version - check the tool schema if absent).
 
 **Continue thread**: Use the `codex-reply` tool with:
-- `threadId`: The thread ID from the previous response
+- `threadId`: the identifier saved from the previous response
 - `prompt`: Your follow-up message
 
-**Surviving context compaction**: Store thread info in your plan file:
-```
-## Active Codex Thread
-- threadId: <id>
-- sandbox: read-only
-- purpose: plan review / code review / completion verification
-```
-This ensures you can resume the thread after compaction.
+**Surviving context compaction**: Record the thread id in the session's working plan or task list; if neither exists, create a task entry for this review and record the id there.
 
-**Lost thread ID**: If not stored in plan file, start a fresh thread with context recovery info.
+**Lost thread ID**: If not recorded, start a fresh thread with context recovery info.

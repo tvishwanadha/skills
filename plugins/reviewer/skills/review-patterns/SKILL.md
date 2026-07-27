@@ -1,11 +1,10 @@
 ---
 name: review-patterns
 description: >-
-  This skill should be used when the user asks to "review patterns", "check
-  conventions", "audit code style", "review naming", "check test quality",
-  "reduce duplication", "simplify code", or "check for reuse". Review code for
-  naming conventions, structural patterns, style consistency, test quality, and
-  reuse/simplification/efficiency cleanups.
+  This skill should be invoked by a review orchestrator (e.g.
+  `reviewer:self-review`) to review code for naming conventions, structural
+  patterns, style consistency, test quality, module organization, reuse and
+  simplification, and efficiency.
 allowed-tools: Read, Glob, Grep, Skill
 argument-hint: "[file or directory]"
 ---
@@ -14,21 +13,7 @@ argument-hint: "[file or directory]"
 
 Review code for adherence to naming conventions, structural patterns, style consistency, test quality, and reuse/simplification/efficiency cleanups (duplication, needless complexity, and clear performance wins).
 
-**Input**: `$ARGUMENTS` - file paths or directory to scope the review. If no argument, review the current working directory. Diff-scoping is handled by the orchestrator (`self-review`), which resolves diffs to file lists before invoking this skill.
-
-## Examples
-
-- `reviewer:review-patterns src/` - review patterns in the src directory
-- `reviewer:review-patterns src/handler.ts src/utils.ts` - review specific files
-
-## Loading Strategy
-
-1. Try to load the skill `local-review-patterns`.
-   - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance. Skip step 2.
-   - If it loads and does NOT prohibit defaults, continue to step 2, combining the local guidance with the defaults.
-   - If it does not load (skill not found), continue to step 2.
-
-2. Read the default rules from [references/default-patterns.md](references/default-patterns.md).
+**Input**: `$ARGUMENTS` - file paths or directory to scope the review. If no argument, review the current working directory. Treat `$ARGUMENTS` as file paths; do not parse diff refs.
 
 ## Review Procedure
 
@@ -37,12 +22,15 @@ Review code for adherence to naming conventions, structural patterns, style cons
    - Directory: review files in the directory
    - No argument: review the current working directory
 
-2. **Read target files** and understand the project's existing conventions by sampling nearby code
+2. **Load rules and framework**:
+   - Try to load the skill `local-review-patterns`.
+     - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance.
+     - If it loads and does NOT prohibit defaults, read the default rules from [references/default-patterns.md](references/default-patterns.md) and combine them with the local guidance.
+     - If it does not load (skill not found), read the default rules from [references/default-patterns.md](references/default-patterns.md).
+   - Load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring.
 
-3. **Load skills** - load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
+3. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
 
-4. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
+4. **Compare against project norms** - sample nearby code and search file contents to judge whether a flagged pattern is inconsistent with the codebase or an established convention
 
-5. **Compare against project norms** - search file contents to check if flagged patterns are consistent or inconsistent with the rest of the codebase
-
-6. **Report findings** using the reviewer-framework output format
+5. **Report findings** using the reviewer-framework output format

@@ -15,4 +15,5 @@ These rules extend the default documentation review rules.
   - `AGENTS.md` directory layout matches actual repo structure
   - `AGENTS.md` guide skills table lists all guide skills in `.claude/skills/` (search for `*-guide` directories)
   - Root `README.md` plugin table matches `.claude-plugin/marketplace.json` entries
+  - README's Codex-availability statement matches `.agents/plugins/marketplace.json` membership
   - `CLAUDE.md` references `AGENTS.md`

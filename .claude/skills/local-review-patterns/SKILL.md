@@ -10,5 +10,5 @@ These rules extend the default patterns review rules.
 
 ## Rules
 
-- Load `claude-plugins-guide` / `codex-plugins-guide` for structural conventions, naming, and manifest patterns (which references `plugin-dev:plugin-structure`)
-- Load `skills-guide` for skill directory and frontmatter naming conventions (which references `plugin-dev:skill-development`)
+- Load `claude-plugins-guide` / `codex-plugins-guide` for structural conventions, naming, and manifest patterns
+- Check that each skill directory name matches its skill name and that skill file layout is consistent across the repository; leave frontmatter field review to `review-skill`

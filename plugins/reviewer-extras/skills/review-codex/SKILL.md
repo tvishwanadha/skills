@@ -1,9 +1,9 @@
 ---
 name: review-codex
 description: >-
-  This skill should be used when the user asks to "review with codex",
-  "codex review", or "deep code review".
-  Run a parallel self-review inside a Codex thread for an independent second opinion.
+  This skill should be invoked by a review orchestrator (e.g.
+  `reviewer:self-review`) to run a parallel self-review inside a Codex thread
+  for an independent second opinion on the same scope.
 allowed-tools: Read, Glob, Grep, Skill, mcp__plugin_codex_codex__codex, mcp__plugin_codex_codex__codex-reply
 argument-hint: "[file, directory, or --diff <ref>]"
 ---
@@ -38,9 +38,11 @@ Dispatch `reviewer:self-review` into a Codex thread so Codex runs its own parall
      Details: review-codex needs both `codex@teja-skills` and `reviewer@teja-skills` enabled in settings.json.
    ```
 
-3. **Preferred path - dispatch the bare command.** Send this as the Codex prompt with no surrounding text, on a read-only thread per the `codex` skill:
+3. **Preferred path - dispatch the command.** Send this as the Codex prompt on a read-only thread per the `codex` skill - the command line, then the suppression line, nothing else:
    ```
    $reviewer:self-review <scope> --no-fix
+
+   Skip any review type that dispatches into Codex (review-codex and any other Codex-based type) - this run is already inside Codex and would recurse.
    ```
    Expect multi-minute responses; do not cancel early.
 

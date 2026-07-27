@@ -1,9 +1,9 @@
 ---
 name: review-logic
 description: >-
-  This skill should be used when the user asks to "review logic", "check for
-  bugs", "audit error handling", "find edge cases", or "review control flow".
-  Review code for logic errors, edge cases, error handling, and state management.
+  This skill should be invoked by a review orchestrator (e.g.
+  `reviewer:self-review`) to review code for logic errors, edge cases, error
+  handling, state management, data integrity, and injection risks.
 allowed-tools: Read, Glob, Grep, Skill
 argument-hint: "[file or directory]"
 ---
@@ -12,21 +12,7 @@ argument-hint: "[file or directory]"
 
 Review code for correctness - control flow, edge cases, error handling, state management, and logical consistency.
 
-**Input**: `$ARGUMENTS` - file paths or directory to scope the review. If no argument, review the current working directory. Diff-scoping is handled by the orchestrator (`self-review`), which resolves diffs to file lists before invoking this skill.
-
-## Examples
-
-- `reviewer:review-logic src/` - review logic in the src directory
-- `reviewer:review-logic src/handler.ts src/utils.ts` - review specific files
-
-## Loading Strategy
-
-1. Try to load the skill `local-review-logic`.
-   - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance. Skip step 2.
-   - If it loads and does NOT prohibit defaults, continue to step 2, combining the local guidance with the defaults.
-   - If it does not load (skill not found), continue to step 2.
-
-2. Read the default rules from [references/default-logic.md](references/default-logic.md).
+**Input**: `$ARGUMENTS` - file paths or directory to scope the review. If no argument, review the current working directory. Treat `$ARGUMENTS` as file paths; do not parse diff refs.
 
 ## Review Procedure
 
@@ -35,12 +21,15 @@ Review code for correctness - control flow, edge cases, error handling, state ma
    - Directory: review files in the directory
    - No argument: review the current working directory
 
-2. **Read target files** and understand the code's purpose and flow
+2. **Load rules and framework**:
+   - Try to load the skill `local-review-logic`.
+     - If it loads and its instructions say to NOT use the defaults, use only the local skill's guidance.
+     - If it loads and does NOT prohibit defaults, read the default rules from [references/default-logic.md](references/default-logic.md) and combine them with the local guidance.
+     - If it does not load (skill not found), read the default rules from [references/default-logic.md](references/default-logic.md).
+   - Load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring.
 
-3. **Load skills** - load `reviewer:reviewer-framework` for output format, severity definitions, and confidence scoring
+3. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
 
-4. **Apply loaded review rules** - check each rule from the loaded guidance (defaults, local, or combined) against the code
+4. **Trace control flow paths** to validate edge case and state management concerns
 
-5. **Verify findings** - search the codebase to confirm issues rather than guessing; trace control flow paths to validate edge case concerns
-
-6. **Report findings** using the reviewer-framework output format
+5. **Report findings** using the reviewer-framework output format

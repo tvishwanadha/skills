@@ -14,7 +14,7 @@
 - **Abstraction level consistency** - functions mix high-level orchestration with low-level details; each function should operate at one level
 - **Dependency direction** - higher-level modules depend on lower-level ones, not the reverse; flag circular imports or upward dependencies
 - **Configuration vs. hardcoding** - magic numbers, hardcoded URLs, or embedded credentials that should be configurable
-- **Dead code** - unused imports, unreachable functions, commented-out blocks left in place
+- **Dead code** - unused imports, commented-out blocks left in place
 
 ## Style Consistency
 

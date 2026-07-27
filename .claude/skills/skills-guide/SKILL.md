@@ -13,20 +13,18 @@ user-invocable: false
 
 ## Frontmatter Essentials
 
-- **`name`** - lowercase with hyphens, must match containing directory name
-- **`description`** - include keywords for auto-invocation; describe **what** and **when**; see `plugin-dev:skill-development` for description format conventions
-- **`allowed-tools`** - comma-space format (`Read, Glob, Grep`); only list tools the skill actually uses; guide skills (`user-invocable: false`) don't need this field
-- **`user-invocable`** - set `false` only for background-knowledge/guide skills
-- **`disable-model-invocation`** - set `true` for side-effect workflows (deploy, commit, send)
-- **`argument-hint`** - bracket notation (e.g., `[path-to-file]`); use `$ARGUMENTS` in the body to consume the argument
-- **`context`** - use `fork` only with actionable task instructions, not guideline-only content
+- **`name`** - lowercase with hyphens, matching the containing directory name; the agentskills.io standard requires the match, Claude Code makes the field optional and defaults it to the directory name
+- **`description`** - third-person; states what the skill does and when to use it; include concrete trigger phrases
+- Set `user-invocable: false` only for background-knowledge/guide skills; guide skills do not need `allowed-tools`
+- Set `disable-model-invocation: true` for side-effect workflows (deploy, commit, send)
+- Consume an `argument-hint` value in the body via the dollar-sign ARGUMENTS placeholder or positional substitutions
 
 ## Content Rules
 
 - Under 500 lines; use supporting files (`references/`, `assets/`) for detailed content
 - Step-by-step instructions, not walls of text
 - If `argument-hint` is set, define behavior when no argument is provided
-- All file references must use relative paths and resolve to existing files
+- Bundled supporting-file references must use relative paths and resolve to existing files
 - Prefer the `.md` form of any doc URL over its rendered HTML page - the consumer is an agent that fetches it
 
 ## Agent-Facing Content
@@ -46,17 +44,27 @@ Before splitting a skill into sub-sections or separate skills, check that the pa
 
 ## Key Anti-patterns
 
-- Vague descriptions ("Helps with X") - poor auto-invocation matching
-- Auto-invocation on side-effect workflows - risk of unintended actions
-- Over-permissive `allowed-tools` - unnecessary security surface
-- `context: fork` on guideline-only content - wastes a fork on passive reference
+- Vague descriptions ("Helps with X")
+- Auto-invocation on side-effect workflows
+- Over-permissive `allowed-tools`
+- `context: fork` on guideline-only content
 
-## Local Skill Conventions
+## Cross-Harness Portability
 
-- Do not add `disable-model-invocation` to orchestration or review skills (e.g., `self-review`) - auto-invocation is intentional even if resource-heavy
+- Codex documents only `name` and `description` in SKILL.md frontmatter - do not rely on any other field to carry behavior under Codex
+- Do not rely on `disable-model-invocation` to block implicit invocation under Codex; it has no effect there. Add an `agents/openai.yaml` file in the skill directory instead, setting `policy.allow_implicit_invocation: false` (default `true`) - invoking the skill explicitly by name still works when it is false. For a plugin-shipped skill, also include a top-level `interface` object with non-empty `display_name` and `short_description`; the Codex preflight validator rejects a policy-only file
+- Do not rely on argument substitution (the dollar-sign ARGUMENTS placeholder or positional substitutions) to deliver a required input under Codex; Codex documents no substitution mechanism, so the token carries through literally. State the required input directly in the body instead
+- Do not rely on `user-invocable: false` to control invocability under Codex; it has no Codex equivalent
 
 ## Full Reference
 
-- Agent Skills open standard (the portable `SKILL.md` spec): https://agentskills.io/specification.md - some frontmatter fields above are harness-specific extensions on top of this core
-- Claude Code's field spec, covering those extensions: https://code.claude.com/docs/en/skills.md
-- For the review checklist and output format, consult the `plugin-dev:skill-development` skill if available
+- Agent Skills open standard (the portable `SKILL.md` spec): https://agentskills.io/specification.md
+- Claude Code's field spec, covering extensions on top of that standard: https://code.claude.com/docs/en/skills.md
+- Codex's field spec, documenting only `name` and `description`: https://learn.chatgpt.com/docs/build-skills.md
+- Full frontmatter field spec and review checklist: `reviewer:review-skill`'s default rules
+
+## This Repository
+
+- When adding a local skill, create `.agents/skills/<name>` pointing to `../../.claude/skills/<name>` - Codex scans `.agents/skills` and follows symlink targets
+- Do not add `disable-model-invocation` to orchestration or review skills (e.g., `self-review`)
+- Open `description` with "This skill should be used/loaded when...", then state what the skill does

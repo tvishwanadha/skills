@@ -30,7 +30,7 @@
 - **Examples** - non-trivial features include usage examples with expected output
 - **Formatting** - code blocks use correct language tags, tables are well-formatted, lists are consistent
 - **Tone consistency** - consistent voice (imperative for instructions, declarative for descriptions)
-- **Link integrity** - all links (internal and external) point to valid targets
+- **Link integrity** - links in prose documentation (internal and external) point to valid targets; SKILL.md file references belong to `review-skill`
 
 ## Staleness Indicators
 

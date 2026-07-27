@@ -6,11 +6,14 @@ description: >-
   telling the user work is done (especially after a context compaction), or after
   writing significant code. Triggers on "codex review", "review with codex",
   "double-check this", or "verify this is finished".
+argument-hint: "[plan, files, or diff to review]"
 ---
 
 # Codex Review
 
 Run Codex `read-only`, using the `codex` skill for tool and thread mechanics. Take one of two paths, then vet what comes back.
+
+**Input**: fill the prompt's `Under review:` line (and `Target type:` accordingly) with `$ARGUMENTS` - a plan, files, or a diff ref. With no argument, review the current diff.
 
 ## New / restart
 
@@ -70,7 +73,7 @@ Re-review in this thread: confirm each finding is actually resolved, not just ed
 
 ## Vet the findings
 
-Whichever path you took, don't take the list at face value - the goal is a set of findings you would stand behind.
+Whichever path you took, do not take the list at face value.
 
 - Challenge weak ones on the same thread: anything with no concrete evidence, labeled "(inference)", or that misread the goal. Make Codex defend each with specifics or drop it.
 - Push on over-confident calls, and have it split or merge findings that are really one issue.

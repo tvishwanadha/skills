@@ -5,13 +5,11 @@ description: >-
   "override review defaults", "add project-specific review rules",
   "extend review-logic", or "create local review overrides". Create or modify
   a local review override for a core review type.
-allowed-tools: Read, Write, Edit, Glob, Grep
+allowed-tools: Read, Write, Edit, Glob, Grep, AskUserQuestion
 argument-hint: "[type: logic | patterns | documentation | skill]"
 ---
 
 # Customize Core Review
-
-Create or modify a local review override for one of the 4 built-in core review types. Add project-specific rules on top of (or instead of) the reviewer plugin's default checks.
 
 **Input**: `$ARGUMENTS` - one of `logic`, `patterns`, `documentation`, or `skill`.
 
@@ -34,7 +32,7 @@ Read the plugin's default rules from the corresponding core review skill's refer
 
 - `${CLAUDE_PLUGIN_ROOT}/skills/review-<type>/references/default-<type>.md`
 
-Present a summary so the user understands what they're extending or replacing.
+Present a summary.
 
 ### 3. Choose mode
 
@@ -62,7 +60,7 @@ Read the template from [assets/local-review.md](assets/local-review.md). Replace
 | Placeholder | Value |
 |-------------|-------|
 | `{TYPE}` | The review type (e.g., `patterns`) |
-| `{MODE_LINE}` | Mode-specific instruction (see template) |
+| `{MODE_LINE}` | If extend: `These rules extend the default {TYPE} review rules.` If override: `These rules replace the default {TYPE} review rules. Do NOT use the default rules.` |
 | `{RULES}` | User-provided bullet list of rules |
 
 Write the result to `<local-skills>/local-review-<type>/SKILL.md`.
