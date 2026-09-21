@@ -4,7 +4,7 @@ description: >-
   This skill should be invoked by a review orchestrator (e.g.
   `reviewer:self-review`) to run a parallel self-review inside a Codex thread
   for an independent second opinion on the same scope.
-allowed-tools: Read, Glob, Grep, Skill, mcp__plugin_codex_codex__codex, mcp__plugin_codex_codex__codex-reply
+allowed-tools: Read, Glob, Grep, Skill, Bash(codex exec:*), Bash(jq:*)
 argument-hint: "[file, directory, or --diff <ref>]"
 ---
 
@@ -18,7 +18,7 @@ Dispatch `reviewer:self-review` into a Codex thread so Codex runs its own parall
 
 | Plugin | Required for | Side |
 |--------|-------------|------|
-| `codex` | `codex:review` skill and Codex MCP tools (`codex`, `codex-reply`) | Claude (host) |
+| `codex` | `codex:review` skill and the `codex` CLI recipes it carries | Claude (host) |
 | `reviewer` | `reviewer-framework` output format (both paths) | Claude (host) |
 | `reviewer` | `$reviewer:self-review` orchestrator (preferred path; its absence triggers the fallback, not a failure) | Codex (target) |
 
@@ -35,7 +35,7 @@ Dispatch `reviewer:self-review` into a Codex thread so Codex runs its own parall
 2. **Preflight host dependencies** - load `codex:review` and `reviewer:reviewer-framework`. If either fails to load, stop and report a single finding:
    ```
    [CRITICAL] Setup: reviewer-extras dependencies are not installed (confidence: 99)
-     Details: review-codex needs both `codex@teja-skills` and `reviewer@teja-skills` enabled in settings.json.
+     Details: review-codex needs both `codex@teja-skills` and `reviewer@teja-skills` enabled in settings.json, and the `codex` CLI and `jq` on PATH.
    ```
 
 3. **Preferred path - dispatch the command.** Send this as the Codex prompt on a read-only thread per the `codex` skill - the command line, then the suppression line, nothing else:
@@ -44,11 +44,11 @@ Dispatch `reviewer:self-review` into a Codex thread so Codex runs its own parall
 
    Skip any review type that dispatches into Codex (review-codex and any other Codex-based type) - this run is already inside Codex and would recurse.
    ```
-   Expect multi-minute responses; do not cancel early.
+   Run this in the background per the `codex` skill's guidance on long calls. If the recipe fails with `command not found` for `codex` or `jq`, stop and report the step 2 Setup finding.
 
-4. **Inspect the response.**
-   - Begins with `# Self-Review Report` → self-review ran inside Codex; its findings are already in reviewer-framework format. Go to step 6.
-   - Anything else (an error, an apology, a refusal, or a description of the slash command rather than its output) → `reviewer` is not available in Codex, or self-review failed there. Go to step 5.
+4. **Inspect the response.** Take the answer text per the `codex` skill - `.item.text` of the last `agent_message` line.
+   - Answer text begins with `# Self-Review Report` → self-review ran inside Codex; its findings are already in reviewer-framework format. Go to step 6.
+   - Anything else (an error, an apology, a refusal, a description of the slash command rather than its output, a `turn.failed` line, or no answer at all) → `reviewer` is not available in Codex, or self-review failed there. Go to step 5.
 
 5. **Fallback - single-pass via `codex:review`.** Invoke `codex:review` over the same scope, then convert each finding it returns into reviewer-framework format: its location → `file:line`, its description and trigger conditions → Details, its fix → Suggestion, with a severity and confidence (treat findings Codex labels `(inference)` as lower confidence).
 

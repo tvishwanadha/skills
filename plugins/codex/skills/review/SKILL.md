@@ -11,13 +11,13 @@ argument-hint: "[plan, files, or diff to review]"
 
 # Codex Review
 
-Run Codex `read-only`, using the `codex` skill for tool and thread mechanics. Take one of two paths, then vet what comes back.
+Run Codex `read-only`, using the `codex` skill for CLI recipes and thread mechanics. Take one of two paths, then vet what comes back.
 
 **Input**: fill the prompt's `Under review:` line (and `Target type:` accordingly) with `$ARGUMENTS` - a plan, files, or a diff ref. With no argument, review the current diff.
 
 ## New / restart
 
-A first review, or starting over. Open a fresh thread, fill the placeholders, and send - Codex only sees the current project, so paste anything external (a plan from chat, a discussion, requirements, prior decisions) inline.
+A first review, or starting over. Open a fresh thread, fill the placeholders, and send - Codex reads from disk only, so paste anything not on disk (a plan from chat, a discussion, requirements, prior decisions) inline.
 
 ```
 You are reviewing my own work before I rely on it. Your job is to find what is
@@ -63,7 +63,7 @@ For each finding give:
 
 ## Continue
 
-Re-reviewing after the findings were addressed. Reply on the same thread (`codex-reply`) so Codex reuses what it already saw instead of starting cold.
+Re-reviewing after the findings were addressed. Resume the same thread per the `codex` skill so Codex reuses what it already saw instead of starting cold.
 
 ```
 I've addressed the findings. What changed, per finding: [what was done, or why it was pushed back on].

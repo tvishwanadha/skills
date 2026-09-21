@@ -10,7 +10,7 @@ This plugin provides composite review types that bridge multiple plugins togethe
 
 | Skill | Description | Required plugins |
 |-------|-------------|------------------|
-| `review-codex` | Deep code review using Codex MCP tools | `teja-skills/reviewer`, `teja-skills/codex` |
+| `review-codex` | Independent second-opinion review run inside a Codex thread | `teja-skills/reviewer`, `teja-skills/codex` |
 | `review-claude-md` | CLAUDE.md and project context file quality and structure | `teja-skills/reviewer`, `claude-plugins-official/claude-md-management` |
 
 ## Installation

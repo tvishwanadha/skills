@@ -4,17 +4,18 @@ Codex-powered code review, plan review, and completion verification.
 
 ## Overview
 
-The Codex plugin integrates OpenAI Codex as an MCP server for automated review workflows. It teaches an agent to use Codex for reviewing plans before implementation, verifying completion after context compactions, and reviewing code after significant changes.
+The Codex plugin drives the OpenAI Codex CLI (`codex exec`) for automated review workflows. It teaches an agent to use Codex for reviewing plans before implementation, verifying completion after context compactions, and reviewing code after significant changes.
 
 ## Prerequisites
 
 - [Codex CLI](https://github.com/openai/codex) installed and on PATH
+- `jq` installed and on PATH
 
 ## Skills
 
 ### codex (guide)
 
-Background reference for Codex MCP tool usage, thread configuration, and thread lifecycle. Auto-loaded when an agent or skill needs Codex MCP tool reference.
+Background reference for Codex CLI recipes, thread lifecycle, sandbox selection, and failure handling. Auto-loaded when an agent or skill needs to run Codex.
 
 ### review
 
@@ -28,15 +29,13 @@ A critical, read-only second opinion from Codex on a plan, an implementation, or
 
 A read-only Codex review agent, shared by the review skill and other Codex review types.
 
-## MCP Server
+## CLI Recipes
 
-The plugin bundles an MCP server configuration that runs `codex mcp-server`. When installed, Claude Code provides two tools:
-- `codex` - start a review thread
-- `codex-reply` - continue an existing thread
+The plugin bundles no server or binary. The `codex` guide skill documents two `codex exec --json | jq` recipes - start a thread and resume it - that the skills and agent in this plugin build on.
 
 ## Installation
 
-Claude Code only - this plugin wraps Codex as an MCP server for Claude, so it is not applicable to Codex itself.
+Claude Code only - this plugin drives the Codex CLI from a Claude session, so running it inside Codex would just recurse.
 
 ```bash
 claude plugin install teja-skills/codex
@@ -44,9 +43,9 @@ claude plugin install teja-skills/codex
 
 ## See also
 
-OpenAI has released an official [Codex plugin for Claude Code](https://github.com/openai/codex-plugin-cc) ([announcement](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186)). It drives the local Codex CLI/app server directly (rather than exposing MCP tools) and ships ready-made task commands such as `/codex:adversarial-review`.
+OpenAI has released an official [Codex plugin for Claude Code](https://github.com/openai/codex-plugin-cc) ([announcement](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186)). It drives the local Codex CLI/app server directly and ships ready-made task commands such as `/codex:adversarial-review`.
 
-This plugin takes a different angle: it exposes prompting Codex (the `codex` MCP tool) as a composable primitive that skills and agents build on - plan review, completion verification, and code review woven into agent workflows. Reach for theirs when you want ready-made review and delegation commands; reach for this one when you want Codex review embedded in skill and agent workflows.
+This plugin takes a different angle: it exposes a Codex prompt as a composable primitive (`codex exec` recipes) that skills and agents build on - plan review, completion verification, and code review woven into agent workflows. Reach for theirs when you want ready-made review and delegation commands; reach for this one when you want Codex review embedded in skill and agent workflows.
 
 ## License
 
