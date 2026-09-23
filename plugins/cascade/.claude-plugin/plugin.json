@@ -1,6 +1,6 @@
 {
   "name": "cascade",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Multi-model orchestration hierarchy - the session orchestrates and signs off, a lead plans and delivers each vertical slice, an implementer writes the code, a mechanic runs commands",
   "author": {
     "name": "Teja Vishwanadha",
